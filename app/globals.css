@@ -19,8 +19,198 @@
   }
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Âncoras: compensar header fixo */
+[id="agendar"] {
+  scroll-margin-top: 5rem;
+}
+[id="inicio"],
+[id="sobre"],
+[id="servicos"],
+[id="como-funciona"],
+[id="prova-social"],
+[id="contato"] {
+  scroll-margin-top: 4rem;
+}
+
+/* CTA button (Header / Hero) - replicated from Elementor custom_css */
+.btn-cta-header,
+.btn-cta-hero {
+  border-radius: 8px;
+  border-top: 2px solid #b9cefd;
+  background: linear-gradient(90deg, #337182 0%, #56a8be 50%, #337182 100%) !important;
+  box-shadow:
+    0 10px 20px 0 rgba(59, 124, 142, 0.4),
+    0 20px 40px 0 rgba(59, 124, 142, 0.3),
+    0 40px 80px 0 rgba(59, 124, 142, 0.2),
+    0 60px 120px 0 rgba(59, 124, 142, 0.1);
+  outline: none;
+  cursor: pointer;
+  border: none;
+  transition: transform 0.5s, box-shadow 0.5s;
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  color: white;
+  text-decoration: none;
+}
+
+.btn-cta-header:active,
+.btn-cta-hero:active {
+  opacity: 0.5;
+}
+
+.btn-cta-header:hover,
+.btn-cta-hero:hover {
+  transform: translateY(-8px);
+  box-shadow: none;
+  transition: transform 0.5s, box-shadow 0.5s;
+}
+
+.btn-cta-header svg,
+.btn-cta-hero svg {
+  margin-right: 8px;
+  transition: transform 0.5s ease;
+}
+
+.btn-cta-header:hover svg,
+.btn-cta-hero:hover svg {
+  transform: translateX(5px) rotate(5deg);
+}
+
+/* Shine animation */
+.btn-cta-header::before,
+.btn-cta-hero::before {
+  content: "";
+  background: linear-gradient(
+    10deg,
+    #d1d2ea 12.81%,
+    rgba(209, 210, 234, 0) 66.66%
+  );
+  width: 70px;
+  height: 130%;
+  position: absolute;
+  transform: translateX(-50%) skew(-25deg);
+  bottom: 0%;
+  left: -10%;
+  user-select: none;
+  pointer-events: none;
+  animation: shinery 3s infinite ease-in-out;
+  filter: blur(3px);
+}
+
+@keyframes shinery {
+  0%,
+  100% {
+    left: -10%;
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  48% {
+    left: 110%;
+    opacity: 1;
+  }
+  51% {
+    opacity: 0;
+  }
+}
+
+/* Top glow */
+.btn-cta-header::after,
+.btn-cta-hero::after {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  height: 20px;
+  background: radial-gradient(
+    ellipse at center,
+    #a4d9ff 20%,
+    rgba(164, 217, 255, 0.31) 70%,
+    rgba(164, 217, 255, 0) 100%
+  );
+  mix-blend-mode: screen;
+  filter: blur(12px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ---- Scroll reveal (respeita prefers-reduced-motion) ---- */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.reveal.is-in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-title { transform: translateY(14px); }
+.reveal-cta { transform: translateY(10px); transition-duration: 0.45s; }
+.reveal-block { transform: translateY(12px); }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ---- Cards premium: hover e transição ---- */
+.card-premium {
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.3s ease,
+    border-color 0.2s ease;
+}
+.card-premium:hover {
+  box-shadow: 0 12px 28px rgba(35, 82, 95, 0.12);
+  transform: translateY(-2px);
+}
+
+/* ---- Links e botões secundários ---- */
+.link-nav {
+  transition: color 0.2s ease;
+}
+.link-nav:hover {
+  color: rgb(35 82 95 / 0.85);
+}
+.btn-secondary {
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease;
+}
+.btn-secondary:hover {
+  background-color: rgb(35 82 95 / 0.08);
+}
+.btn-secondary:focus-visible {
+  outline: 2px solid rgb(35 82 95 / 0.4);
+  outline-offset: 2px;
+}
+
+/* Cards escuros (seção de serviços) */
+.card-premium-dark {
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.card-premium-dark:hover {
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
 }
