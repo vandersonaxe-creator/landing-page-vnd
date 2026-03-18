@@ -20,16 +20,14 @@ export default function ScrollReveal({
   className = "",
 }: Props) {
   const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-  const [motionOk, setMotionOk] = useState(true);
+  const prefersReduced =
+    typeof window !== "undefined" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const [visible, setVisible] = useState(prefersReduced);
+  const [motionOk] = useState(!prefersReduced);
 
   useEffect(() => {
-    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (prefersReduced) {
-      setVisible(true);
-      setMotionOk(false);
-      return;
-    }
+    if (prefersReduced) return;
 
     const el = ref.current;
     if (!el) return;
@@ -47,7 +45,7 @@ export default function ScrollReveal({
 
     observer.observe(el);
     return () => observer.disconnect();
-  }, [variant, staggerIndex]);
+  }, [prefersReduced, variant, staggerIndex]);
 
   const inViewClass = visible ? "is-in-view" : "";
 

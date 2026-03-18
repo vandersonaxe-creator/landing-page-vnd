@@ -8,6 +8,11 @@ const nextConfig: NextConfig = {
         hostname: "rtlxptnormal.easybuilder.com.br",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "i.ytimg.com",
+        pathname: "/**",
+      },
     ],
   },
 };

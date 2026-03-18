@@ -10,7 +10,6 @@ import CTAMap from "@/components/CTAMap";
 import HowItWorks from "@/components/HowItWorks";
 import BookingSection from "@/components/BookingSection";
 import VideoTestimonials from "@/components/VideoTestimonials";
-import Testimonials from "@/components/Testimonials";
 import Pricing from "@/components/Pricing";
 import NossasVantagens from "@/components/NossasVantagens";
 import Newsletter from "@/components/Newsletter";
@@ -33,7 +32,6 @@ export default function Home() {
         <HowItWorks />
         <BookingSection />
         <VideoTestimonials />
-        <Testimonials />
         <Pricing />
         <NossasVantagens />
         <Newsletter />
