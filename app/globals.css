@@ -242,36 +242,47 @@ body {
       rgba(42, 42, 42, 0.18),
       transparent 65%
     );
-  filter: blur(32px);
-  opacity: 0.28;
+  filter: blur(30px);
+  opacity: 0.3;
   transform: translate3d(0, 0, 0);
-  animation: premiumAmbientDrift 80s ease-in-out infinite;
+  animation: premiumAmbientDrift 75s ease-in-out infinite;
 }
 
 .premium-ambient-layer--hero {
-  opacity: 0.22;
-  filter: blur(36px);
+  opacity: 0.26;
+  filter: blur(34px);
 }
 
 .premium-ambient-layer--dark {
-  opacity: 0.26;
+  opacity: 0.28;
 }
 
 @keyframes premiumAmbientDrift {
   0% {
-    transform: translate3d(-2%, -2%, 0);
+    transform: translate3d(-4%, -3%, 0);
   }
   50% {
-    transform: translate3d(2%, 3%, 0);
+    transform: translate3d(4%, 3%, 0);
   }
   100% {
-    transform: translate3d(-2%, -2%, 0);
+    transform: translate3d(-4%, -3%, 0);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .premium-ambient-layer {
-    animation: none;
-    transform: none;
+    animation: premiumAmbientDriftReduced 200s linear infinite;
+  }
+}
+
+@keyframes premiumAmbientDriftReduced {
+  0% {
+    transform: translate3d(-1.2%, -1%, 0);
+  }
+  50% {
+    transform: translate3d(1.2%, 1%, 0);
+  }
+  100% {
+    transform: translate3d(-1.2%, -1%, 0);
   }
 }
