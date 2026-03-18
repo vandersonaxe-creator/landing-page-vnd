@@ -1,13 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { WHATSAPP_URL, BRAND } from "@/lib/constants";
 
 const NAV_LINKS = [
   { label: "Início", href: "#inicio" },
   { label: "Estrutura", href: "#servicos" },
   { label: "Como Funciona", href: "#como-funciona" },
+  { label: "Prova Social", href: "#prova-social" },
   { label: "Agendar", href: "#agendar" },
   { label: "Contato", href: "#contato" },
 ] as const;
@@ -15,6 +16,11 @@ const NAV_LINKS = [
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState("inicio");
+
+  const headerRef = useRef<HTMLElement | null>(null);
+  const progressRef = useRef<HTMLDivElement | null>(null);
+  const activeSectionRef = useRef("inicio");
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
@@ -22,14 +28,80 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    const progressEl = progressRef.current;
+    if (!progressEl) return;
+
+    const sectionIds = NAV_LINKS.map((l) => l.href.replace(/^#/, ""));
+    const prefersReduced =
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    // Ajusta transição para ficar "suave" quando permitido e leve quando não.
+    progressEl.style.transition = prefersReduced
+      ? "none"
+      : "transform 120ms linear";
+
+    let raf = 0;
+    const update = () => {
+      const doc = document.documentElement;
+      const scrollTop = window.scrollY || doc.scrollTop || 0;
+      const scrollDen = Math.max(1, doc.scrollHeight - window.innerHeight);
+      const progress = Math.min(1, Math.max(0, scrollTop / scrollDen));
+
+      progressEl.style.transform = `scaleX(${progress})`;
+
+      // Scroll spy: seção "ativa" baseada na posição acima do header.
+      const headerHeight =
+        headerRef.current?.getBoundingClientRect().height ?? 64;
+      const y = scrollTop + headerHeight + 12;
+
+      let current = sectionIds[0] ?? "inicio";
+      for (const id of sectionIds) {
+        const el = document.getElementById(id);
+        if (!el) continue;
+        if (el.offsetTop <= y) current = id;
+      }
+
+      if (current !== activeSectionRef.current) {
+        activeSectionRef.current = current;
+        setActiveSection(current);
+      }
+    };
+
+    const onScroll = () => {
+      if (raf) return;
+      raf = window.requestAnimationFrame(() => {
+        raf = 0;
+        update();
+      });
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    update();
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (raf) window.cancelAnimationFrame(raf);
+    };
+  }, []);
+
   return (
     <header
-      className={`sticky top-0 z-[99] transition-all duration-300 ${
+      ref={headerRef}
+      className={`sticky top-0 z-[99] relative transition-all duration-300 ${
         scrolled
           ? "border-b border-[#23525F]/10 bg-white/85 shadow-[0_1px_0_0_rgba(35,82,95,0.06)] backdrop-blur-md"
           : "border-b border-[#23525F]/[0.08] bg-white/95 backdrop-blur-sm"
       }`}
     >
+      <div
+        ref={progressRef}
+        aria-hidden
+        className="pointer-events-none absolute left-0 top-0 h-[2px] w-full origin-left scale-x-0 bg-gradient-to-r from-[#56a8be] via-[#23525F] to-[#56a8be]"
+      />
+
       <div className="mx-auto flex max-w-[1280px] items-center justify-between gap-3 px-4 py-3 md:px-6 lg:px-8">
         <Link
           href="#inicio"
@@ -51,7 +123,11 @@ export default function Header() {
             <Link
               key={label}
               href={href}
-              className="link-nav text-sm font-medium text-[#23525F]"
+              className={`link-nav text-sm font-medium ${
+                activeSection === href.replace(/^#/, "")
+                  ? "rounded-full bg-[#23525F]/10 px-3 py-1.5 text-[#23525F]"
+                  : "text-[#23525F]/80 hover:text-[#23525F] rounded-full px-3 py-1.5"
+              }`}
             >
               {label}
             </Link>
@@ -99,7 +175,11 @@ export default function Header() {
                 key={label}
                 href={href}
                 onClick={() => setMobileOpen(false)}
-                className="link-nav rounded-lg px-3 py-3.5 text-sm font-medium text-[#23525F]"
+                className={`link-nav rounded-lg px-3 py-3.5 text-sm font-medium ${
+                  activeSection === href.replace(/^#/, "")
+                    ? "bg-[#23525F]/8 text-[#23525F]"
+                    : "text-[#23525F]"
+                }`}
               >
                 {label}
               </Link>

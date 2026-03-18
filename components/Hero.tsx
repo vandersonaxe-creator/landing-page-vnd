@@ -1,16 +1,75 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useRef } from "react";
 import { WHATSAPP_URL } from "@/lib/constants";
 import ScrollReveal from "@/components/ScrollReveal";
 
-const VSL_SCRIPT =
-  "Se a sua empresa ainda não tem uma estrutura digital organizada, a gente cria isso com você. E se você já está no mercado, mas sente que o WhatsApp, o Instagram, o Google, o atendimento, o tráfego ou a automação não estão funcionando como deveriam, a gente entra para corrigir, organizar e implantar o que for necessário. O objetivo é simples: fazer sua empresa atrair melhor, atender melhor e converter melhor. Clica no botão e vamos entender o que seu negócio precisa.";
-
 export default function Hero() {
+  const heroRef = useRef<HTMLElement | null>(null);
+  const blobRightRef = useRef<HTMLDivElement | null>(null);
+  const blobLeftRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const heroEl = heroRef.current;
+    const rightEl = blobRightRef.current;
+    const leftEl = blobLeftRef.current;
+    if (!heroEl || !rightEl || !leftEl) return;
+
+    const prefersReduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    if (prefersReduced) return;
+
+    let raf = 0;
+    const update = () => {
+      const startY =
+        heroEl.getBoundingClientRect().top + window.scrollY || 0;
+      const heroHeight = Math.max(1, heroEl.offsetHeight || 1);
+      const endY = startY + heroHeight;
+
+      const scrollY = window.scrollY || 0;
+      const t = Math.min(1, Math.max(0, (scrollY - startY) / (endY - startY)));
+
+      const isMobile = window.matchMedia("(max-width: 640px)").matches;
+      const maxRight = isMobile ? 10 : 16;
+      const maxLeft = isMobile ? 7 : 12;
+
+      // Pequena profundidade (sem "puxar" demais).
+      const rightShift = (t - 0.5) * 2 * maxRight;
+      const leftShift = (t - 0.5) * 2 * maxLeft;
+
+      // GPU-friendly e arredondado para reduzir jitter.
+      const r = Math.round(rightShift * 10) / 10;
+      const l = Math.round(leftShift * 10) / 10;
+
+      rightEl.style.transform = `translate3d(0, ${r}px, 0)`;
+      leftEl.style.transform = `translate3d(0, ${l}px, 0)`;
+    };
+
+    const onScroll = () => {
+      if (raf) return;
+      raf = window.requestAnimationFrame(() => {
+        raf = 0;
+        update();
+      });
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    update();
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (raf) window.cancelAnimationFrame(raf);
+    };
+  }, []);
+
   return (
     <section
       id="inicio"
+      ref={heroRef}
       className="relative overflow-hidden bg-[#f8fafb] py-12 md:py-20 lg:py-28"
     >
       <div
@@ -18,11 +77,13 @@ export default function Hero() {
         aria-hidden
       />
       <div
-        className="pointer-events-none absolute right-0 top-1/4 h-[400px] w-[400px] rounded-full bg-[#23525F]/[0.04] blur-3xl"
+        ref={blobRightRef}
+        className="pointer-events-none absolute right-0 top-1/4 h-[400px] w-[400px] rounded-full bg-[#23525F]/[0.04] blur-3xl will-change-transform"
         aria-hidden
       />
       <div
-        className="pointer-events-none absolute bottom-1/4 left-0 h-[300px] w-[300px] rounded-full bg-[#56a8be]/[0.05] blur-3xl"
+        ref={blobLeftRef}
+        className="pointer-events-none absolute bottom-1/4 left-0 h-[300px] w-[300px] rounded-full bg-[#56a8be]/[0.05] blur-3xl will-change-transform"
         aria-hidden
       />
 
@@ -129,21 +190,6 @@ export default function Hero() {
             >
               Quero agendar minha conversa
             </Link>
-          </ScrollReveal>
-
-          {/* 8. Card "Nossa proposta em uma frase" – desktop col2 */}
-          <ScrollReveal
-            variant="block"
-            className="order-8 lg:col-start-2 lg:row-start-5"
-          >
-            <div className="rounded-xl border border-[#23525F12] bg-white p-4 shadow-sm sm:p-5">
-              <p className="text-xs font-semibold uppercase tracking-wider text-[#23525F]/80">
-                Nossa proposta em uma frase
-              </p>
-              <p className="mt-3 text-sm leading-relaxed text-[#23525F]/90">
-                {VSL_SCRIPT}
-              </p>
-            </div>
           </ScrollReveal>
         </div>
       </div>

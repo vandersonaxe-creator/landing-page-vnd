@@ -4,8 +4,6 @@ import { useEffect, useRef, useState } from "react";
 
 type Variant = "section" | "title" | "card" | "cta" | "block";
 
-const STAGGER_MS = 80;
-
 type Props = {
   children: React.ReactNode;
   variant?: Variant;
@@ -20,11 +18,36 @@ export default function ScrollReveal({
   className = "",
 }: Props) {
   const ref = useRef<HTMLDivElement>(null);
-  const prefersReduced =
+  const [prefersReduced, setPrefersReduced] = useState(false);
+  const [visible, setVisible] = useState(false);
+
+  // Stagger mais discreto no mobile.
+  const isMobile =
     typeof window !== "undefined" &&
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const [visible, setVisible] = useState(prefersReduced);
-  const [motionOk] = useState(!prefersReduced);
+    window.matchMedia("(max-width: 640px)").matches;
+  const staggerMs = isMobile ? 55 : 80;
+
+  // Garante integridade com reduced motion (evita "conteúdo invisível" no primeiro paint).
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const mql = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const apply = () => {
+      const reduced = mql.matches;
+      setPrefersReduced(reduced);
+      setVisible(reduced);
+    };
+
+    apply();
+
+    if (typeof mql.addEventListener === "function") {
+      mql.addEventListener("change", apply);
+      return () => mql.removeEventListener("change", apply);
+    }
+
+    mql.addListener(apply);
+    return () => mql.removeListener(apply);
+  }, []);
 
   useEffect(() => {
     if (prefersReduced) return;
@@ -32,20 +55,26 @@ export default function ScrollReveal({
     const el = ref.current;
     if (!el) return;
 
+    let timeout: number | undefined;
+
     const observer = new IntersectionObserver(
       (entries) => {
-        const [entry] = entries;
-        if (!entry.isIntersecting) return;
-        const delay = variant === "card" ? staggerIndex * STAGGER_MS : 0;
-        const t = setTimeout(() => setVisible(true), delay);
-        return () => clearTimeout(t);
+        const entry = entries[0];
+        if (!entry || !entry.isIntersecting) return;
+
+        const delay = variant === "card" ? staggerIndex * staggerMs : 0;
+        timeout = window.setTimeout(() => setVisible(true), delay);
       },
-      { rootMargin: "0px 0px -8% 0px", threshold: 0 }
+      { rootMargin: "0px 0px -10% 0px", threshold: 0 }
     );
 
     observer.observe(el);
-    return () => observer.disconnect();
-  }, [prefersReduced, variant, staggerIndex]);
+
+    return () => {
+      if (timeout) window.clearTimeout(timeout);
+      observer.disconnect();
+    };
+  }, [prefersReduced, variant, staggerIndex, staggerMs]);
 
   const inViewClass = visible ? "is-in-view" : "";
 
@@ -53,13 +82,9 @@ export default function ScrollReveal({
     <div
       ref={ref}
       className={`reveal reveal-${variant} ${inViewClass} ${className}`.trim()}
-      style={
-        motionOk && variant === "card" && staggerIndex > 0 && !visible
-          ? { transitionDelay: `${staggerIndex * STAGGER_MS}ms` }
-          : undefined
-      }
     >
       {children}
     </div>
   );
 }
+

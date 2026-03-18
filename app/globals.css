@@ -152,18 +152,23 @@ body {
 /* ---- Scroll reveal (respeita prefers-reduced-motion) ---- */
 .reveal {
   opacity: 0;
-  transform: translateY(18px);
+  transform: translate3d(0, 16px, 0);
   transition:
-    opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-    transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    opacity 650ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 650ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
 }
 .reveal.is-in-view {
   opacity: 1;
-  transform: translateY(0);
+  transform: translate3d(0, 0, 0);
 }
-.reveal-title { transform: translateY(14px); }
-.reveal-cta { transform: translateY(10px); transition-duration: 0.45s; }
-.reveal-block { transform: translateY(12px); }
+.reveal-title { transform: translate3d(0, 10px, 0); }
+.reveal-card { transform: translate3d(0, 13px, 0); }
+.reveal-cta {
+  transform: translate3d(0, 9px, 0);
+  transition-duration: 520ms;
+}
+.reveal-block { transform: translate3d(0, 11px, 0); }
 
 @media (prefers-reduced-motion: reduce) {
   .reveal {

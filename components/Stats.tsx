@@ -15,7 +15,7 @@ export default function Stats() {
           {STATS.map((stat) => (
             <div
               key={stat.label}
-              className="flex min-h-[100px] items-center justify-center rounded-xl border border-[#23525F18] bg-[#f8fafb] p-6 text-center"
+              className="card-premium flex min-h-[100px] items-center justify-center rounded-xl border border-[#23525F18] bg-[#f8fafb] p-6 text-center"
             >
               <p className="text-sm font-medium text-[#23525F] leading-relaxed md:text-base">
                 {stat.label}

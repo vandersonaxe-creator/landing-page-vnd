@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import ScrollReveal from "@/components/ScrollReveal";
 
@@ -36,6 +36,8 @@ function getYouTubeId(inputUrl: string) {
 }
 
 function getEmbedUrl(youtubeId: string) {
+  // `origin` precisa ser dinâmico (domínio final ainda não definido).
+  // Se futuramente quiser remover esse parâmetro, basta ajustar aqui.
   const origin = typeof window !== "undefined" ? window.location.origin : "";
   const params = new URLSearchParams({
     autoplay: "1",
@@ -94,14 +96,101 @@ export default function VideoTestimonials() {
     return { ...video, youtubeId };
   }, [activeVideoId, videos]);
 
+  const modalRef = useRef<HTMLDivElement | null>(null);
+  const closeButtonRef = useRef<HTMLButtonElement | null>(null);
+  const lastActiveElementRef = useRef<HTMLElement | null>(null);
+  const didPreconnectRef = useRef(false);
+  const closeTimeoutRef = useRef<number | null>(null);
+
+  const [modalPhase, setModalPhase] = useState<"entering" | "entered" | "exiting">(
+    "entering"
+  );
+  const [playerLoaded, setPlayerLoaded] = useState(false);
+
+  const isReducedMotion = useCallback(
+    () =>
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+    []
+  );
+
+  const ensureYouTubePreconnect = useCallback(() => {
+    if (typeof document === "undefined") return;
+    if (didPreconnectRef.current) return;
+    didPreconnectRef.current = true;
+
+    const head = document.head;
+    const addPreconnect = (href: string) => {
+      if (head.querySelector(`link[rel="preconnect"][href="${href}"]`)) {
+        return;
+      }
+      const link = document.createElement("link");
+      link.rel = "preconnect";
+      link.href = href;
+      link.crossOrigin = "anonymous";
+      head.appendChild(link);
+    };
+
+    addPreconnect("https://www.youtube-nocookie.com");
+    addPreconnect("https://i.ytimg.com");
+  }, []);
+
+  const openVideo = useCallback(
+    (videoId: string) => {
+    lastActiveElementRef.current =
+      (document.activeElement as HTMLElement | null) ?? null;
+
+      // Se estiver fechando com animação e o usuário reabrir rapidamente,
+      // cancelamos o timeout para não "fechar" de volta.
+      if (closeTimeoutRef.current) {
+        window.clearTimeout(closeTimeoutRef.current);
+        closeTimeoutRef.current = null;
+      }
+
+    setPlayerLoaded(false);
+    ensureYouTubePreconnect();
+
+    if (isReducedMotion()) {
+      setModalPhase("entered");
+    } else {
+      setModalPhase("entering");
+    }
+
+    setActiveVideoId(videoId);
+    },
+    [ensureYouTubePreconnect, isReducedMotion]
+  );
+
+  const requestClose = useCallback(() => {
+    if (!activeVideoId) return;
+
+    if (isReducedMotion()) {
+      if (closeTimeoutRef.current) {
+        window.clearTimeout(closeTimeoutRef.current);
+        closeTimeoutRef.current = null;
+      }
+      setActiveVideoId(null);
+      return;
+    }
+
+    setModalPhase("exiting");
+    if (closeTimeoutRef.current) {
+      window.clearTimeout(closeTimeoutRef.current);
+    }
+    closeTimeoutRef.current = window.setTimeout(() => {
+      closeTimeoutRef.current = null;
+      setActiveVideoId(null);
+    }, 180);
+  }, [activeVideoId, isReducedMotion]);
+
   useEffect(() => {
     if (!active) return;
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setActiveVideoId(null);
+      if (e.key === "Escape") requestClose();
     };
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [active]);
+  }, [active, requestClose]);
 
   useEffect(() => {
     if (!active) return;
@@ -111,6 +200,72 @@ export default function VideoTestimonials() {
       document.body.style.overflow = prevOverflow;
     };
   }, [active]);
+
+  // Quando abre, aplica animação e foco no botão de fechar.
+  useEffect(() => {
+    if (!active) return;
+
+    // Pequena garantia de animação após o primeiro paint.
+    const raf = window.requestAnimationFrame(() => setModalPhase("entered"));
+    const raf2 = window.requestAnimationFrame(() => closeButtonRef.current?.focus());
+
+    return () => {
+      window.cancelAnimationFrame(raf);
+      window.cancelAnimationFrame(raf2);
+    };
+  }, [activeVideoId, active]);
+
+  // Focus trap: mantém tab dentro do modal (sem bibliotecas).
+  useEffect(() => {
+    if (!active) return;
+    const modalEl = modalRef.current;
+    if (!modalEl) return;
+
+    const getFocusable = (): HTMLElement[] => {
+      const selectors = [
+        'a[href]',
+        'button:not([disabled])',
+        'textarea:not([disabled])',
+        'input:not([disabled])',
+        'select:not([disabled])',
+        '[tabindex]:not([tabindex="-1"])',
+      ];
+      const nodes = Array.from(modalEl.querySelectorAll<HTMLElement>(selectors.join(",")));
+      return nodes.filter((n) => n.offsetParent !== null);
+    };
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key !== "Tab") return;
+      const focusables = getFocusable();
+      if (focusables.length === 0) return;
+
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      const activeEl = document.activeElement as HTMLElement | null;
+
+      if (e.shiftKey) {
+        if (!activeEl || activeEl === first) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else {
+        if (!activeEl || activeEl === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    };
+
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [activeVideoId, active]);
+
+  // Restaura foco ao fechar.
+  useEffect(() => {
+    if (activeVideoId) return;
+    const last = lastActiveElementRef.current;
+    if (last && typeof last.focus === "function") last.focus();
+  }, [activeVideoId]);
 
   return (
     <section id="prova-social" className="bg-[#f8fafb] py-14 md:py-20 lg:py-24">
@@ -139,7 +294,7 @@ export default function VideoTestimonials() {
               <ScrollReveal key={video.id} variant="card" staggerIndex={i}>
                 <button
                   type="button"
-                  onClick={() => setActiveVideoId(video.id)}
+                  onClick={() => openVideo(video.id)}
                   className="card-premium group flex w-full flex-col overflow-hidden rounded-xl border border-[#23525F15] bg-white text-left shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#23525F]/35 focus-visible:ring-offset-2 focus-visible:ring-offset-[#f8fafb]"
                   aria-label={`Assistir: ${video.title}`}
                 >
@@ -183,23 +338,39 @@ export default function VideoTestimonials() {
 
       {active ? (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4 py-8"
+          className={`fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4 py-8 transition-opacity duration-180 ${
+            modalPhase === "entered" ? "opacity-100" : "opacity-0"
+          }`}
           role="dialog"
           aria-modal="true"
-          aria-label={`Vídeo: ${active.title}`}
+          aria-labelledby={`video-dialog-title-${active.id}`}
           onMouseDown={(e) => {
-            if (e.target === e.currentTarget) setActiveVideoId(null);
+            if (e.target === e.currentTarget) requestClose();
           }}
         >
-          <div className="w-full max-w-3xl overflow-hidden rounded-2xl bg-white shadow-2xl">
+          <div
+            ref={modalRef}
+            className={`w-full max-w-3xl overflow-hidden rounded-2xl bg-white shadow-2xl transition-transform duration-180 ${
+              modalPhase === "entered"
+                ? "translate-y-0 scale-100"
+                : "translate-y-2 scale-[0.98]"
+            }`}
+            tabIndex={-1}
+          >
             <div className="flex items-center justify-between gap-3 border-b border-[#23525F12] px-4 py-3">
               <div className="min-w-0">
-                <p className="truncate font-semibold text-[#23525F]">{active.title}</p>
+                <p
+                  id={`video-dialog-title-${active.id}`}
+                  className="truncate font-semibold text-[#23525F]"
+                >
+                  {active.title}
+                </p>
                 <p className="truncate text-sm text-[#23525F]/70">{active.description}</p>
               </div>
               <button
                 type="button"
-                onClick={() => setActiveVideoId(null)}
+                onClick={requestClose}
+                ref={closeButtonRef}
                 className="rounded-full p-2 text-[#23525F]/70 transition hover:bg-[#23525F]/10 hover:text-[#23525F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#23525F]/35"
                 aria-label="Fechar vídeo"
               >
@@ -209,13 +380,21 @@ export default function VideoTestimonials() {
               </button>
             </div>
             <div className="relative aspect-video bg-black">
+              <div
+                aria-hidden
+                className={`absolute inset-0 bg-gradient-to-br from-white/10 via-white/5 to-transparent transition-opacity duration-200 ${
+                  playerLoaded ? "opacity-0" : "opacity-100"
+                }`}
+              />
               <iframe
                 className="absolute inset-0 h-full w-full"
                 src={getEmbedUrl(active.youtubeId)}
                 title={active.title}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
+                loading="eager"
                 referrerPolicy="strict-origin-when-cross-origin"
+                onLoad={() => setPlayerLoaded(true)}
               />
             </div>
           </div>
