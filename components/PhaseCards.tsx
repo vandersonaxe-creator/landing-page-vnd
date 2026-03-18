@@ -3,15 +3,15 @@
 const CARDS = [
   {
     title: "Sem estrutura ainda",
-    text: "Para empresas que ainda não têm presença digital bem organizada e precisam começar com base certa.",
+    text: "Comece com uma base digital clara para atrair e responder com confiança.",
   },
   {
     title: "Estrutura desorganizada",
-    text: "Para negócios que já estão online, mas com WhatsApp, redes, páginas e processos desalinhados.",
+    text: "Organizamos WhatsApp, páginas e processos para parar de perder oportunidades.",
   },
   {
     title: "Estrutura em evolução",
-    text: "Para empresas que já operam e precisam melhorar automação, IA, tráfego, atendimento e escala.",
+    text: "Aprimoramos automação, IA e tráfego para acelerar resultado sem bagunça.",
   },
 ] as const;
 
@@ -23,11 +23,8 @@ export default function PhaseCards() {
           Sua empresa pode estar em qualquer fase. Nós estruturamos a próxima.
         </h2>
         <p className="mt-3 max-w-2xl text-[#23525F]/90 md:text-lg">
-          Tem negócio que ainda não começou direito no digital. Tem negócio que
-          já começou, mas está desorganizado. E tem negócio que já roda
-          campanhas, atendimento e operação, mas precisa melhorar eficiência,
-          integração e escala. Em todos os casos, o trabalho começa entendendo o
-          cenário e desenhando a estrutura certa.
+          Três cenários. Uma direção única: começar com clareza, organizar o que
+          está travado e evoluir o que já funciona.
         </p>
         <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {CARDS.map((card) => (

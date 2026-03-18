@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import ScrollReveal from "@/components/ScrollReveal";
 
 const SERVICES = [
@@ -25,31 +26,31 @@ const SERVICES = [
   {
     title: "Meta e Posicionamento nas Redes",
     description:
-      "Revisão de perfil, bio, links, estrutura de comunicação e preparação para captação.",
+      "Ajuste de perfil e comunicação para atrair as pessoas certas e conduzir para o atendimento.",
     icon: "social",
   },
   {
     title: "Tráfego Pago e Escala",
     description:
-      "Campanhas para empresas que já precisam crescer com mais previsibilidade e intenção comercial.",
+      "Campanhas com intenção comercial e previsibilidade para gerar oportunidades qualificadas.",
     icon: "traffic",
   },
   {
     title: "IA, Integrações e Fluxos",
     description:
-      "Soluções com inteligência artificial, automações e integrações sob medida conforme o processo do cliente.",
+      "Integrações e automações com IA para reduzir atrito e acelerar o caminho até o cliente.",
     icon: "ai",
   },
   {
-    title: "Diagnóstico e Estratégia de Implantação",
+    title: "Prioridade de entregas",
     description:
-      "Análise do cenário atual e construção de uma tabela clara do que precisa ser implantado, corrigido ou evoluído.",
+      "O que entra primeiro e o que vem depois, para manter continuidade e evitar retrabalho.",
     icon: "diagnostic",
   },
   {
-    title: "Jornada do Cliente e Conversão",
+    title: "Jornada do Cliente",
     description:
-      "Organização dos pontos de contato da empresa para melhorar resposta, condução e fechamento.",
+      "Organização dos pontos de contato para respostas mais rápidas e uma condução mais clara até o agendamento.",
     icon: "journey",
   },
 ] as const;
@@ -101,34 +102,61 @@ function Icon({ name }: { name: string }) {
 }
 
 export default function Services() {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
     <section id="servicos" className="bg-[#23525F] py-14 md:py-20 lg:py-24">
       <div className="container mx-auto max-w-[1280px] px-4 md:px-6 lg:px-8">
         <ScrollReveal variant="title">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/90">
-            Implementação e melhoria
+            O que estruturamos
           </p>
           <h2 className="mt-2 text-xl font-bold text-white md:text-2xl lg:text-3xl">
-            Construímos a estrutura conforme a necessidade real da sua empresa
+            Soluções que viram operação
           </h2>
           <p className="mt-3 max-w-2xl text-white/90">
-            O que podemos estruturar na sua operação digital:
+            Ajustamos canais e fluxos para gerar clareza, resposta rápida e avanço consistente no funil.
           </p>
         </ScrollReveal>
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {SERVICES.map(({ title, description, icon }, i) => (
-            <ScrollReveal key={icon} variant="card" staggerIndex={i}>
-              <div className="card-premium-dark rounded-xl bg-[#2d6470] p-6 text-white">
-                <span className="block text-white/90">
+        <div className="mt-9 grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+          {SERVICES.map(({ title, description, icon }, i) => {
+            const initial = prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 };
+            const whileInView = { opacity: 1, y: 0 };
+
+            return (
+              <motion.div
+                key={icon}
+                className="flex h-full flex-col rounded-xl p-6 text-white backdrop-blur-sm bg-[#2d6470]/50 border border-white/10 transition-colors hover:border-[#56a8be]/60"
+                initial={initial}
+                whileInView={whileInView}
+                viewport={{ once: true }}
+                transition={
+                  prefersReducedMotion
+                    ? { duration: 0 }
+                    : {
+                        delay: i * 0.1,
+                        duration: 0.6,
+                        ease: [0.22, 1, 0.36, 1],
+                      }
+                }
+                whileHover={
+                  prefersReducedMotion
+                    ? undefined
+                    : {
+                        scale: 1.05,
+                      }
+                }
+              >
+                <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/10 ring-1 ring-white/10 text-white/90">
                   <Icon name={icon} />
                 </span>
                 <h3 className="mt-3 text-base font-semibold">{title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-white/90 md:text-base">
+                <p className="mt-2 flex-1 text-sm leading-relaxed text-white/90 md:text-base">
                   {description}
                 </p>
-              </div>
-            </ScrollReveal>
-          ))}
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>

@@ -268,19 +268,25 @@ export default function VideoTestimonials() {
   }, [activeVideoId]);
 
   return (
-    <section id="prova-social" className="bg-[#f8fafb] py-14 md:py-20 lg:py-24">
-      <div className="container mx-auto max-w-[1280px] px-4 md:px-6 lg:px-8">
+    <section
+      id="prova-social"
+      className="relative overflow-hidden bg-[#f8fafb] py-14 md:py-20 lg:py-24"
+    >
+      <div
+        className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#56a8be]/[0.06] via-transparent to-transparent"
+        aria-hidden
+      />
+      <div className="container relative mx-auto max-w-[1280px] px-4 md:px-6 lg:px-8">
         <ScrollReveal variant="title">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#23525F]">
             PROVA SOCIAL
           </p>
           <h2 className="mt-2 text-xl font-bold text-[#23525F] md:text-2xl lg:text-3xl">
-            Clientes que já passaram pela estrutura reconhecem a diferença
+            Depoimentos reais em vídeo
           </h2>
           <p className="mt-4 max-w-2xl text-[#23525F]/90 leading-relaxed">
-            Mais do que promessas, aqui estão relatos reais de clientes que perceberam
-            melhora na apresentação, no atendimento, na organização da estrutura
-            digital e na forma como o negócio passou a se posicionar online.
+            Você vê na prática como a operação fica mais clara, o atendimento
+            melhora e a jornada passa a conduzir para o agendamento.
           </p>
         </ScrollReveal>
         <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
@@ -295,7 +301,7 @@ export default function VideoTestimonials() {
                 <button
                   type="button"
                   onClick={() => openVideo(video.id)}
-                  className="card-premium group flex w-full flex-col overflow-hidden rounded-xl border border-[#23525F15] bg-white text-left shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#23525F]/35 focus-visible:ring-offset-2 focus-visible:ring-offset-[#f8fafb]"
+                  className="card-premium group flex w-full flex-col overflow-hidden rounded-xl border border-[#23525F15] bg-white text-left shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#23525F]/35 focus-visible:ring-offset-2 focus-visible:ring-offset-[#f8fafb] hover:border-[#23525F]/30"
                   aria-label={`Assistir: ${video.title}`}
                 >
                   <div className="relative aspect-video overflow-hidden bg-[#23525F]/10">

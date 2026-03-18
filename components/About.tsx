@@ -7,12 +7,25 @@ const BASE = "https://rtlxptnormal.easybuilder.com.br/wp-content/uploads/2025/11
 const ABOUT_IMAGE = `${BASE}/sobre.jpg`;
 
 const FEATURES = [
-  "Diagnóstico estratégico do cenário atual",
-  "Implantação do que realmente faz sentido",
-  "WhatsApp mais organizado e eficiente",
-  "Presença digital mais profissional",
-  "Integrações, automações e IA aplicadas ao processo",
-  "Estrutura pensada para gerar oportunidades e clientes",
+  "Clareza do que fazer primeiro na operação digital",
+  "Automação e integrações que conectam atendimento e captação",
+  "Presença e comunicação orientadas a conversão",
+  "Jornada comercial organizada do clique ao agendamento",
+] as const;
+
+const DIFFERENTIALS = [
+  {
+    title: "Visão de sistema",
+    text: "Página, tráfego e atendimento atuam como uma operação única.",
+  },
+  {
+    title: "Prioridade de decisão",
+    text: "A recomendação começa pelo que destrava resultado primeiro.",
+  },
+  {
+    title: "Entrega em etapas",
+    text: "Escopo organizado para manter continuidade do funil e reduzir retrabalho.",
+  },
 ] as const;
 
 const CheckIcon = () => (
@@ -47,17 +60,13 @@ export default function About() {
                 Sobre a proposta
               </p>
               <h2 className="mt-2 text-xl font-bold text-[#23525F] md:text-2xl lg:text-3xl">
-                Não entregamos peças soltas. Estruturamos o digital da sua empresa
-                de acordo com a necessidade real do negócio.
+                Não entregamos peças soltas. Montamos uma operação digital que
+                faz sentido no seu momento.
               </h2>
               <p className="mt-4 max-w-xl text-[#23525F]/90 leading-relaxed">
-                Cada empresa chega em um estágio diferente. Algumas precisam
-                começar do zero. Outras precisam corrigir o que foi mal feito.
-                Outras precisam integrar ferramentas, automatizar atendimento,
-                melhorar tráfego, criar páginas, ajustar o Google, fortalecer redes
-                sociais e organizar a jornada comercial. O trabalho aqui não é
-                vender uma peça isolada, mas montar a estrutura digital certa para
-                o momento da empresa.
+                Você não precisa contratar tudo de uma vez. A gente organiza o
+                caminho: ajusta o que travou, integra o que desconecta e evolui o
+                que já funciona para gerar oportunidades com consistência.
               </p>
               <ul className="mt-6 space-y-4">
                 {FEATURES.map((item) => (
@@ -70,6 +79,25 @@ export default function About() {
                   </li>
                 ))}
               </ul>
+
+              <div className="mt-8">
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#23525F]">
+                  Diferenciais
+                </p>
+                <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                  {DIFFERENTIALS.map((d) => (
+                    <div
+                      key={d.title}
+                      className="rounded-xl border border-[#23525F15] bg-white/60 p-4"
+                    >
+                      <p className="text-sm font-semibold text-[#23525F]">{d.title}</p>
+                      <p className="mt-2 text-sm leading-relaxed text-[#23525F]/80">
+                        {d.text}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </ScrollReveal>
           </div>
         </div>

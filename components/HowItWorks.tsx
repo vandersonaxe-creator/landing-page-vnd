@@ -4,24 +4,24 @@ import ScrollReveal from "@/components/ScrollReveal";
 
 const STEPS = [
   {
-    title: "Diagnóstico",
+    title: "Cenário em foco",
     description:
-      "Entendemos como a empresa está hoje, o que já existe e onde estão os gargalos mais importantes.",
+      "Entendemos como a empresa está hoje: canais, atendimento e presença digital.",
   },
   {
-    title: "Análise estratégica",
+    title: "Prioridades claras",
     description:
-      "Avaliamos canais, atendimento, presença digital, páginas, Google, Meta, WhatsApp, automações e oportunidades reais de melhoria.",
+      "Definimos o que destrava resultado primeiro, com visão comercial e operacional.",
   },
   {
-    title: "Plano de implantação",
+    title: "Plano por etapas",
     description:
-      "Organizamos uma recomendação clara do que vale fazer primeiro, o que pode vir depois e como estruturar a evolução.",
+      "Organizamos o escopo para executar com clareza, sem complicar sua operação.",
   },
   {
-    title: "Execução e melhoria contínua",
+    title: "Implantamos e ajustamos",
     description:
-      "Implantamos a estrutura definida e ajustamos os pontos mais importantes para melhorar eficiência, resposta e conversão.",
+      "Aplicamos o que foi definido e refinamos o que mais impacta atendimento, captação e conversão.",
   },
 ] as const;
 
@@ -34,7 +34,7 @@ export default function HowItWorks() {
             Como funciona
           </p>
           <h2 className="mt-2 text-xl font-bold text-[#23525F] md:text-2xl lg:text-3xl">
-            Um processo consultivo para entender, organizar e implantar
+            Como a recomendação vira implantação
           </h2>
         </ScrollReveal>
         <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
