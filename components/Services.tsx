@@ -105,8 +105,15 @@ export default function Services() {
   const prefersReducedMotion = useReducedMotion();
 
   return (
-    <section id="servicos" className="bg-[#23525F] py-14 md:py-20 lg:py-24">
-      <div className="container mx-auto max-w-[1280px] px-4 md:px-6 lg:px-8">
+    <section
+      id="servicos"
+      className="relative overflow-hidden bg-[#23525F] py-14 md:py-20 lg:py-24"
+    >
+      <div
+        aria-hidden
+        className="premium-ambient-layer premium-ambient-layer--dark"
+      />
+      <div className="container relative z-[2] mx-auto max-w-[1280px] px-4 md:px-6 lg:px-8">
         <ScrollReveal variant="title">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/90">
             O que estruturamos

@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useEffect, useRef } from "react";
-import { WHATSAPP_URL } from "@/lib/constants";
 import ScrollReveal from "@/components/ScrollReveal";
 
 export default function Hero() {
@@ -77,6 +76,10 @@ export default function Hero() {
         aria-hidden
       />
       <div
+        aria-hidden
+        className="premium-ambient-layer premium-ambient-layer--hero"
+      />
+      <div
         ref={blobRightRef}
         className="pointer-events-none absolute right-0 top-1/4 h-[400px] w-[400px] rounded-full bg-[#23525F]/[0.04] blur-3xl will-change-transform"
         aria-hidden
@@ -87,7 +90,7 @@ export default function Hero() {
         aria-hidden
       />
 
-      <div className="container relative mx-auto max-w-[1280px] px-4 md:px-6 lg:px-8">
+      <div className="container relative z-[2] mx-auto max-w-[1280px] px-4 md:px-6 lg:px-8">
         {/* Mobile: ordem 1 subtítulo → 2 título → 3 vídeo → 4 botões → 5 parágrafo → 6 apoio → 7 link → 8 card. Desktop: col1 = 1,2,5,6 | col2 = 3,4,7,8 */}
         <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 lg:items-center lg:gap-10">
           {/* 1. Subtítulo - mobile primeiro, desktop col1 */}
@@ -136,7 +139,7 @@ export default function Hero() {
           {/* 4. Botões – logo abaixo do vídeo no mobile */}
           <ScrollReveal
             variant="cta"
-            className="order-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap lg:col-start-1 lg:row-start-4"
+            className="order-4 flex flex-col lg:col-start-1 lg:row-start-4"
           >
             <Link
               href="#agendar"
@@ -144,14 +147,6 @@ export default function Hero() {
             >
               Agendar análise estratégica
             </Link>
-            <a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-secondary inline-flex min-h-[48px] items-center justify-center gap-2 rounded-lg border-2 border-[#23525F] bg-transparent px-6 py-3.5 text-sm font-medium text-[#23525F] [font-family:var(--font-inter-tight),sans-serif]"
-            >
-              Falar no WhatsApp
-            </a>
           </ScrollReveal>
 
           {/* 5. Parágrafo descritivo – depois dos botões no mobile */}

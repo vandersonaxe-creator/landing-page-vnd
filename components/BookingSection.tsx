@@ -14,11 +14,15 @@ export default function BookingSection() {
         aria-hidden
       />
       <div
+        aria-hidden
+        className="premium-ambient-layer premium-ambient-layer--dark"
+      />
+      <div
         className="pointer-events-none absolute -right-20 top-1/2 h-[350px] w-[350px] rounded-full bg-white/[0.06] blur-3xl"
         aria-hidden
       />
 
-      <div className="container relative mx-auto max-w-[1280px] px-4 md:px-6 lg:px-8">
+      <div className="container relative z-[2] mx-auto max-w-[1280px] px-4 md:px-6 lg:px-8">
         <ScrollReveal variant="section" className="max-w-2xl">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/90">
             Agendamento

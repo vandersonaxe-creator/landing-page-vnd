@@ -219,3 +219,59 @@ body {
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
   transform: translateY(-2px);
 }
+
+/* ---- Fundo gradiente animado (premium e sutil) ---- */
+.premium-ambient-layer {
+  position: absolute;
+  inset: -25%;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      600px 400px at 20% 20%,
+      rgba(45, 100, 112, 0.28),
+      transparent 60%
+    ),
+    radial-gradient(
+      520px 360px at 75% 55%,
+      rgba(26, 26, 26, 0.22),
+      transparent 60%
+    ),
+    radial-gradient(
+      520px 360px at 35% 85%,
+      rgba(42, 42, 42, 0.18),
+      transparent 65%
+    );
+  filter: blur(32px);
+  opacity: 0.28;
+  transform: translate3d(0, 0, 0);
+  animation: premiumAmbientDrift 80s ease-in-out infinite;
+}
+
+.premium-ambient-layer--hero {
+  opacity: 0.22;
+  filter: blur(36px);
+}
+
+.premium-ambient-layer--dark {
+  opacity: 0.26;
+}
+
+@keyframes premiumAmbientDrift {
+  0% {
+    transform: translate3d(-2%, -2%, 0);
+  }
+  50% {
+    transform: translate3d(2%, 3%, 0);
+  }
+  100% {
+    transform: translate3d(-2%, -2%, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .premium-ambient-layer {
+    animation: none;
+    transform: none;
+  }
+}
