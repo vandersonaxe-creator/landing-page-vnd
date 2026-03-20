@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
-import { Syne, DM_Sans } from "next/font/google";
+import { Plus_Jakarta_Sans, DM_Sans } from "next/font/google";
 import "./globals.css";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
 import { CustomCursor } from "@/components/ui/CustomCursor";
 import { PageCurtain } from "@/components/ui/PageCurtain";
 
-const syne = Syne({
-  variable: "--font-syne",
+// Plus Jakarta Sans: clean geometric grotesque — strong, legible at all sizes,
+// instantly professional. No experimental character quirks like Syne.
+const plusJakartaSans = Plus_Jakarta_Sans({
+  variable: "--font-jakarta",
   subsets: ["latin"],
   display: "swap",
-  weight: ["400", "600", "700", "800"],
+  weight: ["400", "500", "600", "700", "800"],
 });
 
 const dmSans = DM_Sans({
@@ -38,7 +40,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" className={`${syne.variable} ${dmSans.variable}`} suppressHydrationWarning>
+    <html lang="pt-BR" className={`${plusJakartaSans.variable} ${dmSans.variable}`} suppressHydrationWarning>
       <body className="antialiased" suppressHydrationWarning>
         <PageCurtain />
         <CustomCursor />

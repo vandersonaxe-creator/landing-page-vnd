@@ -89,10 +89,10 @@ export function Phone3DMockup({
               {/* App content */}
               <div className="flex-1 flex flex-col items-center justify-center px-5 gap-4">
                 <div className="flex items-center justify-center rounded-2xl" style={{ width: "56px", height: "56px", background: "linear-gradient(135deg, #337182, #56a8be)", boxShadow: "0 8px 20px rgba(86,168,190,0.4)" }}>
-                  <span className="text-white font-bold" style={{ fontSize: "22px", fontFamily: "var(--font-syne)" }}>V</span>
+                  <span className="text-white font-bold" style={{ fontSize: "22px", fontFamily: "var(--font-display)" }}>V</span>
                 </div>
                 <div className="text-center">
-                  <p className="font-bold text-[var(--color-text)] text-sm" style={{ fontFamily: "var(--font-syne)" }}>{brandName}</p>
+                  <p className="font-bold text-[var(--color-text)] text-sm" style={{ fontFamily: "var(--font-display)" }}>{brandName}</p>
                   <p className="text-[10px] mt-0.5" style={{ color: "var(--color-muted)", fontFamily: "var(--font-dm-sans)" }}>Estrutura Digital</p>
                 </div>
                 <div className="flex items-center justify-center rounded-full" style={{ width: "52px", height: "52px", background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)" }}>
