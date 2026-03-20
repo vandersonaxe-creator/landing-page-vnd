@@ -7,12 +7,15 @@ interface VSLContainerProps {
   videoUrl?: string;
   thumbnailUrl?: string;
   isYouTube?: boolean;
+  /** Set true when the video is a YouTube Shorts (9:16 vertical) */
+  isShorts?: boolean;
 }
 
 export function VSLContainer({
   videoUrl,
   thumbnailUrl,
   isYouTube = false,
+  isShorts = false,
 }: VSLContainerProps) {
   const [playing, setPlaying] = useState(false);
 
@@ -65,7 +68,9 @@ export function VSLContainer({
       <div
         style={{
           width: "100%",
-          aspectRatio: "16/9",
+          aspectRatio: isShorts ? "9/16" : "16/9",
+          maxWidth: isShorts ? "360px" : "100%",
+          margin: isShorts ? "0 auto" : undefined,
           borderRadius: "16px",
           overflow: "hidden",
           position: "relative",

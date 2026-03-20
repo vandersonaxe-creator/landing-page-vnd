@@ -243,7 +243,7 @@ export default function Hero() {
         }}
         className="w-full max-w-[560px] mx-auto md:mx-0 md:max-w-none"
       >
-        <VSLContainer />
+        <VSLContainer videoUrl="mMmLXTaz_jc" isYouTube isShorts />
       </div>
     </section>
   );

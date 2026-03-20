@@ -9,7 +9,6 @@ import Footer from "@/components/Footer";
 import ScrollRevealInit from "@/components/ScrollRevealInit";
 import { Marquee } from "@/components/ui/Marquee";
 import PortfolioSection from "@/components/sections/PortfolioSection";
-import VSLSection from "@/components/VSLSection";
 import { DualImageMarquee } from "@/components/ui/DualImageMarquee";
 import { WordReveal } from "@/components/ui/WordReveal";
 import { StickyServices } from "@/components/sections/StickyServices";
@@ -34,10 +33,7 @@ export default function Home() {
         {/* 1 — Título */}
         <Hero />
 
-        {/* 2 — VSL + botão de agendamento (jornada do cliente começa aqui) */}
-        <VSLSection />
-
-        {/* 3 — Ticker de serviços */}
+        {/* 2 — Ticker de serviços */}
         <Marquee items={MARQUEE_ITEMS} />
 
         {/* 4 — Galeria de imagens (seção escura de contraste) */}
