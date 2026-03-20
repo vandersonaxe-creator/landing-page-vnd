@@ -2,59 +2,40 @@
 
 import { usePageReveal } from "@/hooks/usePageReveal";
 
-// Phone frame extracted as JSX so we can render it
-// in two positions: inline (mobile) and right column (desktop)
-function PhoneFrame() {
+function PhoneFrame({ width = 260 }: { width?: number }) {
   return (
     <div
       style={{
         background: "#1c1c1e",
-        borderRadius: "44px",
-        padding: "14px 14px 22px",
+        borderRadius: "40px",
+        padding: "12px 12px 20px",
         boxShadow:
-          "0 48px 96px rgba(0,0,0,0.18), 0 0 0 1.5px rgba(0,0,0,0.12), inset 0 0 0 1px rgba(255,255,255,0.08)",
-        width: "260px",
-        position: "relative",
+          "0 32px 72px rgba(0,0,0,0.18), 0 0 0 1.5px rgba(0,0,0,0.14), inset 0 0 0 1px rgba(255,255,255,0.07)",
+        width: `${width}px`,
+        flexShrink: 0,
       }}
     >
-      {/* Notch */}
       <div
         style={{
-          width: "80px",
-          height: "22px",
+          width: "72px",
+          height: "20px",
           background: "#111",
-          borderRadius: "0 0 14px 14px",
-          margin: "0 auto 10px",
+          borderRadius: "0 0 12px 12px",
+          margin: "0 auto 8px",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          gap: "6px",
+          gap: "5px",
         }}
       >
-        <div
-          style={{
-            width: "8px",
-            height: "8px",
-            borderRadius: "50%",
-            background: "#2a2a2a",
-          }}
-        />
-        <div
-          style={{
-            width: "24px",
-            height: "4px",
-            borderRadius: "2px",
-            background: "#2a2a2a",
-          }}
-        />
+        <div style={{ width: "7px", height: "7px", borderRadius: "50%", background: "#2a2a2a" }} />
+        <div style={{ width: "22px", height: "3px", borderRadius: "2px", background: "#2a2a2a" }} />
       </div>
-
-      {/* Video screen — 9:16 */}
       <div
         style={{
           width: "100%",
           aspectRatio: "9/16",
-          borderRadius: "28px",
+          borderRadius: "24px",
           overflow: "hidden",
           background: "#000",
         }}
@@ -65,21 +46,73 @@ function PhoneFrame() {
           allow="autoplay; fullscreen; picture-in-picture"
           allowFullScreen
           loading="lazy"
-          title="Depoimento Vander Pro"
+          title="Vander Pro"
         />
       </div>
-
-      {/* Home bar */}
       <div
         style={{
-          width: "72px",
+          width: "64px",
           height: "4px",
-          background: "rgba(255,255,255,0.25)",
+          background: "rgba(255,255,255,0.18)",
           borderRadius: "2px",
-          margin: "12px auto 0",
+          margin: "10px auto 0",
         }}
       />
     </div>
+  );
+}
+
+const TRUST = [
+  "47+ empresas atendidas",
+  "Sem contrato fixo",
+  "Entrega por etapas",
+];
+
+function CheckIcon() {
+  return (
+    <svg width="11" height="11" viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="12" r="10" stroke="var(--color-accent)" strokeWidth="1.5" />
+      <path
+        d="M8 12l3 3 5-5"
+        stroke="var(--color-accent)"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function Badge() {
+  return (
+    <span
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        gap: "8px",
+        border: "0.5px solid var(--color-border-hover)",
+        background: "var(--color-surface)",
+        borderRadius: "40px",
+        padding: "6px 16px",
+      }}
+    >
+      <span
+        className="animate-pulse"
+        style={{
+          width: "6px",
+          height: "6px",
+          borderRadius: "50%",
+          background: "#4ade80",
+          flexShrink: 0,
+        }}
+      />
+      <span
+        className="text-label"
+        style={{ color: "var(--color-muted)" }}
+      >
+        Disponível para novos projetos
+      </span>
+    </span>
   );
 }
 
@@ -87,391 +120,414 @@ export default function Hero() {
   usePageReveal();
 
   return (
-    <section
-      id="inicio"
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        padding:
-          "clamp(32px, 5vw, 64px) clamp(20px, 5vw, 80px) clamp(40px, 5vw, 72px)",
-        position: "relative",
-        overflow: "hidden",
-        gap: "clamp(40px, 5vw, 64px)",
-        background: "var(--color-bg)",
-        borderBottom: "0.5px solid var(--color-border)",
-      }}
-      className="flex-col md:flex-row"
-    >
-      {/* Subtle accent gradient */}
-      <div
-        aria-hidden
+    <>
+      {/* ────────────────────────────────────────────────
+          MOBILE  (hidden on md+)
+          Layout: badge → H1 → vídeo → CTA → trust
+          Padding controlado para começar logo abaixo da navbar
+      ──────────────────────────────────────────────── */}
+      <section
+        id="inicio"
+        className="flex flex-col md:hidden"
         style={{
-          position: "absolute",
-          inset: 0,
-          zIndex: 0,
-          pointerEvents: "none",
-          background:
-            "radial-gradient(ellipse 50% 55% at 15% 50%, rgba(232,76,30,0.06) 0%, transparent 65%)",
-        }}
-      />
-
-      {/* ── LEFT COLUMN — text + mobile video ── */}
-      <div
-        style={{
-          flex: "0 0 50%",
+          background: "var(--color-bg)",
+          borderBottom: "0.5px solid var(--color-border)",
+          padding: "20px 20px 36px",
           position: "relative",
-          zIndex: 1,
-          maxWidth: "560px",
-          width: "100%",
+          overflow: "hidden",
         }}
-        className="mx-auto md:mx-0"
       >
-        {/* Availability badge */}
+        {/* bg gradient */}
         <div
-          data-reveal
-          className="flex justify-center md:justify-start"
-          style={{ marginBottom: "clamp(18px, 3vw, 24px)" }}
-        >
-          <span
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "8px",
-              border: "0.5px solid var(--color-border-hover)",
-              background: "var(--color-surface)",
-              borderRadius: "40px",
-              padding: "6px 16px",
-            }}
-          >
-            <span
-              className="animate-pulse"
-              style={{
-                width: "6px",
-                height: "6px",
-                borderRadius: "50%",
-                background: "#4ade80",
-                flexShrink: 0,
-              }}
-            />
-            <span
-              className="text-label"
-              style={{ color: "var(--color-muted)" }}
-            >
-              Disponível para novos projetos
-            </span>
-          </span>
-        </div>
-
-        {/* H1 — outcome-focused */}
-        <h1
-          data-text-reveal
-          className="text-hero text-center md:text-left"
+          aria-hidden
           style={{
-            color: "var(--color-text)",
-            marginBottom: "clamp(20px, 3vw, 28px)",
-          }}
-        >
-          Pare de perder
-          <br />
-          cliente por falta
-          <br />
-          de estrutura.
-        </h1>
-
-        {/* ── MOBILE ONLY: phone frame immediately after title ── */}
-        <div
-          className="md:hidden"
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: "24px",
-            marginBottom: "clamp(24px, 5vw, 32px)",
-          }}
-        >
-          {/* Video in phone frame */}
-          <PhoneFrame />
-
-          {/* Primary CTA — mobile, right after video */}
-          <a
-            href="#agendar"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "8px",
-              width: "100%",
-              maxWidth: "280px",
-              padding: "15px 28px",
-              background: "var(--color-accent)",
-              color: "white",
-              borderRadius: "4px",
-              textDecoration: "none",
-              fontSize: "15px",
-              fontWeight: 700,
-              letterSpacing: "0.01em",
-              fontFamily: "var(--font-body), sans-serif",
-              boxShadow: "0 8px 24px rgba(232,76,30,0.30)",
-              textAlign: "center",
-            }}
-          >
-            Agendar análise gratuita ↗
-          </a>
-        </div>
-
-        {/* Accent rule */}
-        <div
-          data-reveal
-          style={{
-            width: "40px",
-            height: "3px",
-            background: "var(--color-accent)",
-            borderRadius: "2px",
-            marginBottom: "clamp(16px, 2.5vw, 24px)",
+            position: "absolute",
+            inset: 0,
+            zIndex: 0,
+            pointerEvents: "none",
+            background:
+              "radial-gradient(ellipse 70% 50% at 50% 0%, rgba(232,76,30,0.05) 0%, transparent 70%)",
           }}
         />
 
-        {/* Description */}
-        <p
-          data-reveal
-          className="text-body"
-          style={{
-            color: "var(--color-muted)",
-            maxWidth: "400px",
-            marginBottom: "clamp(24px, 4vw, 36px)",
-          }}
-        >
-          Organizamos sua presença digital, automatizamos seu atendimento e
-          conectamos cada canal para você parar de improvisar e começar a
-          crescer de verdade.
-        </p>
+        <div style={{ position: "relative", zIndex: 1 }}>
+          {/* Badge */}
+          <div
+            data-reveal
+            style={{ marginBottom: "18px", display: "flex", justifyContent: "center" }}
+          >
+            <Badge />
+          </div>
 
-        {/* Desktop CTAs */}
-        <div
-          data-reveal
-          className="hidden md:flex"
-          style={{
-            gap: "12px",
-            flexWrap: "wrap",
-          }}
-        >
-          <a
-            href="#agendar"
+          {/* H1 */}
+          <h1
+            data-text-reveal
+            className="text-hero"
             style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "8px",
-              padding: "13px 28px",
-              background: "var(--color-accent)",
-              color: "white",
-              borderRadius: "4px",
-              textDecoration: "none",
-              fontSize: "13px",
-              fontWeight: 500,
-              letterSpacing: "0.02em",
-              fontFamily: "var(--font-body), sans-serif",
-              boxShadow: "0 8px 24px rgba(232,76,30,0.25)",
-              transition: "transform 0.25s, background 0.25s, box-shadow 0.25s",
-            }}
-            onMouseEnter={(e) => {
-              const el = e.currentTarget;
-              el.style.transform = "translateY(-2px)";
-              el.style.background = "#ff5c2a";
-              el.style.boxShadow = "0 12px 32px rgba(232,76,30,0.35)";
-            }}
-            onMouseLeave={(e) => {
-              const el = e.currentTarget;
-              el.style.transform = "";
-              el.style.background = "var(--color-accent)";
-              el.style.boxShadow = "0 8px 24px rgba(232,76,30,0.25)";
+              color: "var(--color-text)",
+              textAlign: "center",
+              marginBottom: "20px",
             }}
           >
-            Agendar análise gratuita ↗
-          </a>
-          <a
-            href="#como-funciona"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "6px",
-              fontSize: "13px",
-              color: "var(--color-muted)",
-              textDecoration: "none",
-              fontFamily: "var(--font-body), sans-serif",
-              transition: "color 0.2s",
-              padding: "13px 0",
-            }}
-            onMouseEnter={(e) =>
-              (e.currentTarget.style.color = "var(--color-text)")
-            }
-            onMouseLeave={(e) =>
-              (e.currentTarget.style.color = "var(--color-muted)")
-            }
-          >
-            Ver o método →
-          </a>
-        </div>
+            Pare de perder
+            <br />
+            cliente por falta
+            <br />
+            de estrutura.
+          </h1>
 
-        {/* Trust indicators */}
-        <div
-          data-reveal
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "clamp(12px, 2vw, 24px)",
-            flexWrap: "wrap",
-            marginTop: "clamp(20px, 3vw, 32px)",
-            paddingTop: "clamp(16px, 2vw, 24px)",
-            borderTop: "0.5px solid var(--color-border)",
-          }}
-        >
-          {[
-            "47+ empresas atendidas",
-            "Sem contrato fixo",
-            "Entrega por etapas",
-          ].map((t) => (
-            <span
-              key={t}
+          {/* Phone frame — imediatamente após o título */}
+          <div
+            data-reveal
+            style={{ display: "flex", justifyContent: "center", marginBottom: "20px" }}
+          >
+            <PhoneFrame width={210} />
+          </div>
+
+          {/* CTA — imediatamente após o vídeo */}
+          <div style={{ display: "flex", justifyContent: "center", marginBottom: "20px" }}>
+            <a
+              href="#agendar"
               style={{
-                display: "flex",
+                display: "inline-flex",
                 alignItems: "center",
-                gap: "6px",
-                fontSize: "12px",
-                color: "var(--color-muted)",
+                justifyContent: "center",
+                padding: "14px 32px",
+                background: "var(--color-accent)",
+                color: "white",
+                borderRadius: "4px",
+                textDecoration: "none",
+                fontSize: "15px",
+                fontWeight: 700,
+                letterSpacing: "0.01em",
                 fontFamily: "var(--font-body), sans-serif",
+                boxShadow: "0 8px 24px rgba(232,76,30,0.28)",
+                width: "100%",
+                maxWidth: "310px",
+                textAlign: "center",
               }}
             >
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none">
-                <circle
-                  cx="12"
-                  cy="12"
-                  r="10"
-                  stroke="var(--color-accent)"
-                  strokeWidth="1.5"
-                />
-                <path
-                  d="M8 12l3 3 5-5"
-                  stroke="var(--color-accent)"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-              {t}
-            </span>
-          ))}
-        </div>
-      </div>
+              Agendar análise gratuita ↗
+            </a>
+          </div>
 
-      {/* ── RIGHT COLUMN — desktop only phone frame with floating cards ── */}
-      <div
-        data-reveal
+          {/* Trust */}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              flexWrap: "wrap",
+              gap: "10px 16px",
+              paddingTop: "16px",
+              borderTop: "0.5px solid var(--color-border)",
+            }}
+          >
+            {TRUST.map((t) => (
+              <span
+                key={t}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "6px",
+                  fontSize: "12px",
+                  color: "var(--color-muted)",
+                  fontFamily: "var(--font-body), sans-serif",
+                }}
+              >
+                <CheckIcon />
+                {t}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ────────────────────────────────────────────────
+          DESKTOP  (hidden below md)
+          Grid 2 colunas: texto 55% | mockup 45%
+          Altura mínima 100vh, alinhado ao centro
+      ──────────────────────────────────────────────── */}
+      <section
+        id="inicio"
         className="hidden md:flex"
         style={{
-          flex: "0 0 46%",
-          position: "relative",
-          zIndex: 1,
-          justifyContent: "center",
+          minHeight: "100svh",
           alignItems: "center",
+          background: "var(--color-bg)",
+          borderBottom: "0.5px solid var(--color-border)",
+          padding: "80px clamp(48px, 6vw, 96px)",
+          gap: "clamp(48px, 5vw, 72px)",
+          position: "relative",
+          overflow: "hidden",
         }}
       >
-        <div style={{ position: "relative" }}>
-          <PhoneFrame />
+        {/* bg gradient */}
+        <div
+          aria-hidden
+          style={{
+            position: "absolute",
+            inset: 0,
+            zIndex: 0,
+            pointerEvents: "none",
+            background:
+              "radial-gradient(ellipse 50% 60% at 10% 50%, rgba(232,76,30,0.06) 0%, transparent 65%)",
+          }}
+        />
 
-          {/* Floating cards */}
-          {/* Card: clients */}
-          <div
-            style={{
-              position: "absolute",
-              top: "24px",
-              right: "-72px",
-              background: "rgba(255,255,255,0.96)",
-              backdropFilter: "blur(12px)",
-              border: "0.5px solid var(--color-border)",
-              borderRadius: "12px",
-              padding: "12px 16px",
-              boxShadow: "0 8px 24px rgba(0,0,0,0.08)",
-              animation: "heroCardFloat1 4s ease-in-out infinite",
-            }}
-          >
-            <div
-              style={{
-                fontSize: "9px",
-                color: "var(--color-muted)",
-                marginBottom: "3px",
-                letterSpacing: "0.08em",
-                textTransform: "uppercase",
-                fontFamily: "var(--font-body), sans-serif",
-              }}
-            >
-              Empresas atendidas
-            </div>
-            <div
-              style={{
-                fontFamily: "var(--font-display)",
-                fontSize: "20px",
-                fontWeight: 800,
-                color: "var(--color-text)",
-                lineHeight: 1,
-              }}
-            >
-              47<span style={{ color: "var(--color-accent)" }}>+</span>
-            </div>
+        {/* Left column — text */}
+        <div
+          style={{
+            flex: "1 1 55%",
+            maxWidth: "560px",
+            position: "relative",
+            zIndex: 1,
+          }}
+        >
+          <div data-reveal style={{ marginBottom: "24px" }}>
+            <Badge />
           </div>
 
-          {/* Card: time */}
+          <h1
+            data-text-reveal
+            className="text-hero"
+            style={{ color: "var(--color-text)", marginBottom: "18px" }}
+          >
+            Pare de perder
+            <br />
+            cliente por falta
+            <br />
+            de estrutura.
+          </h1>
+
           <div
+            data-reveal
             style={{
-              position: "absolute",
-              bottom: "48px",
-              left: "-80px",
-              background: "rgba(255,255,255,0.96)",
-              backdropFilter: "blur(12px)",
-              border: "0.5px solid var(--color-border)",
-              borderRadius: "12px",
-              padding: "12px 16px",
-              boxShadow: "0 8px 24px rgba(0,0,0,0.08)",
-              animation: "heroCardFloat2 4s ease-in-out infinite",
+              width: "36px",
+              height: "3px",
+              background: "var(--color-accent)",
+              borderRadius: "2px",
+              marginBottom: "20px",
+            }}
+          />
+
+          <p
+            data-reveal
+            className="text-body"
+            style={{
+              color: "var(--color-muted)",
+              maxWidth: "420px",
+              marginBottom: "32px",
+              lineHeight: 1.7,
             }}
           >
-            <div
+            Organizamos sua presença digital, automatizamos seu atendimento e
+            conectamos cada canal para você parar de improvisar e começar a
+            crescer de verdade.
+          </p>
+
+          {/* CTAs */}
+          <div
+            data-reveal
+            style={{ display: "flex", gap: "14px", flexWrap: "wrap", marginBottom: "32px" }}
+          >
+            <a
+              href="#agendar"
               style={{
-                fontSize: "9px",
-                color: "var(--color-muted)",
-                marginBottom: "3px",
-                letterSpacing: "0.08em",
-                textTransform: "uppercase",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "8px",
+                padding: "13px 28px",
+                background: "var(--color-accent)",
+                color: "white",
+                borderRadius: "4px",
+                textDecoration: "none",
+                fontSize: "13px",
+                fontWeight: 500,
+                letterSpacing: "0.02em",
                 fontFamily: "var(--font-body), sans-serif",
+                boxShadow: "0 8px 24px rgba(232,76,30,0.22)",
+                transition: "transform 0.25s, background 0.25s, box-shadow 0.25s",
+              }}
+              onMouseEnter={(e) => {
+                const el = e.currentTarget;
+                el.style.transform = "translateY(-2px)";
+                el.style.background = "#ff5c2a";
+                el.style.boxShadow = "0 12px 32px rgba(232,76,30,0.35)";
+              }}
+              onMouseLeave={(e) => {
+                const el = e.currentTarget;
+                el.style.transform = "";
+                el.style.background = "var(--color-accent)";
+                el.style.boxShadow = "0 8px 24px rgba(232,76,30,0.22)";
               }}
             >
-              Resultado visível em
-            </div>
-            <div
+              Agendar análise gratuita ↗
+            </a>
+            <a
+              href="#como-funciona"
               style={{
-                fontFamily: "var(--font-display)",
-                fontSize: "20px",
-                fontWeight: 800,
-                color: "var(--color-accent)",
-                lineHeight: 1,
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "6px",
+                fontSize: "13px",
+                color: "var(--color-muted)",
+                textDecoration: "none",
+                fontFamily: "var(--font-body), sans-serif",
+                transition: "color 0.2s",
+                padding: "13px 0",
               }}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.color = "var(--color-text)")
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.color = "var(--color-muted)")
+              }
             >
-              2–3 semanas
-            </div>
+              Ver o método →
+            </a>
+          </div>
+
+          {/* Trust */}
+          <div
+            data-reveal
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "20px",
+              flexWrap: "wrap",
+              paddingTop: "20px",
+              borderTop: "0.5px solid var(--color-border)",
+            }}
+          >
+            {TRUST.map((t) => (
+              <span
+                key={t}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "6px",
+                  fontSize: "12px",
+                  color: "var(--color-muted)",
+                  fontFamily: "var(--font-body), sans-serif",
+                }}
+              >
+                <CheckIcon />
+                {t}
+              </span>
+            ))}
           </div>
         </div>
 
-        <style>{`
-          @keyframes heroCardFloat1 {
-            0%,100% { transform: translateY(0px); }
-            50%      { transform: translateY(-6px); }
-          }
-          @keyframes heroCardFloat2 {
-            0%,100% { transform: translateY(0px); }
-            50%      { transform: translateY(-4px); }
-          }
-        `}</style>
-      </div>
-    </section>
+        {/* Right column — phone mockup, anchored, with 2 floating cards */}
+        <div
+          data-reveal
+          style={{
+            flex: "0 0 auto",
+            position: "relative",
+            zIndex: 1,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <div style={{ position: "relative" }}>
+            <PhoneFrame width={296} />
+
+            {/* Card 1 — top right */}
+            <div
+              style={{
+                position: "absolute",
+                top: "28px",
+                right: "-108px",
+                background: "rgba(255,255,255,0.97)",
+                backdropFilter: "blur(12px)",
+                border: "0.5px solid rgba(0,0,0,0.07)",
+                borderRadius: "12px",
+                padding: "12px 18px",
+                boxShadow: "0 8px 28px rgba(0,0,0,0.09)",
+                animation: "heroFloat1 4.5s ease-in-out infinite",
+                minWidth: "136px",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: "9px",
+                  color: "#999",
+                  marginBottom: "4px",
+                  letterSpacing: "0.1em",
+                  textTransform: "uppercase",
+                  fontFamily: "var(--font-body), sans-serif",
+                }}
+              >
+                Empresas atendidas
+              </div>
+              <div
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontSize: "26px",
+                  fontWeight: 800,
+                  color: "#111",
+                  lineHeight: 1,
+                }}
+              >
+                47<span style={{ color: "var(--color-accent)" }}>+</span>
+              </div>
+            </div>
+
+            {/* Card 2 — bottom left */}
+            <div
+              style={{
+                position: "absolute",
+                bottom: "64px",
+                left: "-112px",
+                background: "rgba(255,255,255,0.97)",
+                backdropFilter: "blur(12px)",
+                border: "0.5px solid rgba(0,0,0,0.07)",
+                borderRadius: "12px",
+                padding: "12px 18px",
+                boxShadow: "0 8px 28px rgba(0,0,0,0.09)",
+                animation: "heroFloat2 5.2s ease-in-out infinite",
+                minWidth: "136px",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: "9px",
+                  color: "#999",
+                  marginBottom: "4px",
+                  letterSpacing: "0.1em",
+                  textTransform: "uppercase",
+                  fontFamily: "var(--font-body), sans-serif",
+                }}
+              >
+                Resultado visível em
+              </div>
+              <div
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontSize: "20px",
+                  fontWeight: 800,
+                  color: "var(--color-accent)",
+                  lineHeight: 1,
+                }}
+              >
+                2–3 semanas
+              </div>
+            </div>
+          </div>
+
+          <style>{`
+            @keyframes heroFloat1 {
+              0%,100% { transform: translateY(0px) rotate(0.5deg); }
+              50%      { transform: translateY(-8px) rotate(-0.5deg); }
+            }
+            @keyframes heroFloat2 {
+              0%,100% { transform: translateY(0px) rotate(-0.5deg); }
+              50%      { transform: translateY(-6px) rotate(0.5deg); }
+            }
+          `}</style>
+        </div>
+      </section>
+    </>
   );
 }
