@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import Image from "next/image";
 
 const SERVICES = [
@@ -96,22 +96,25 @@ const SERVICES = [
 
 export function StickyServices() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
 
   // One ref per service row
   const rowRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  // Detect mobile (no sticky image column)
-  useEffect(() => {
-    const mq = window.matchMedia("(max-width: 767px)");
-    setIsMobile(mq.matches);
-    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
+  // Debounce ref: clears a pending activation if user scrolls past too fast
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Stable activation callback with a 380ms delay — gives the user time to
+  // read the title before the content expands and the image changes.
+  const activate = useCallback((idx: number) => {
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    debounceRef.current = setTimeout(() => {
+      setActiveIndex(idx);
+    }, 380);
   }, []);
 
   // IntersectionObserver-driven activation (Lenis-compatible)
-  // Fires when a row enters the center 30% of the viewport
+  // Fires when a row enters the central 30% of the viewport, then waits
+  // the delay before actually switching — giving a calm, deliberate feel.
   useEffect(() => {
     const rows = rowRefs.current.filter((r): r is HTMLDivElement => r !== null);
     if (!rows.length) return;
@@ -121,19 +124,23 @@ export function StickyServices() {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
           const idx = rows.indexOf(entry.target as HTMLDivElement);
-          if (idx !== -1) setActiveIndex(idx);
+          if (idx !== -1) activate(idx);
         });
       },
       {
-        // Only activate when the row is in the middle 30% of the viewport
+        // Central 30% of the viewport — tight zone so the activation feels
+        // intentional, not accidental while fast-scrolling.
         rootMargin: "-35% 0px -35% 0px",
         threshold: 0,
       }
     );
 
     rows.forEach((row) => observer.observe(row));
-    return () => observer.disconnect();
-  }, []);
+    return () => {
+      observer.disconnect();
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+    };
+  }, [activate]);
 
   return (
     <section
@@ -226,10 +233,11 @@ export function StickyServices() {
                   rowRefs.current[i] = el;
                 }}
                 style={{
-                  padding: "clamp(20px, 3vw, 32px) 0",
-                  borderBottom: "0.5px solid var(--color-border)",
-                  cursor: "default",
-                }}
+                    padding: "clamp(28px, 3.5vw, 40px) 0",
+                    borderBottom: "0.5px solid var(--color-border)",
+                    cursor: "default",
+                    minHeight: "72px",   // ensures the observer fires reliably on mobile
+                  }}
               >
                 <div
                   style={{
@@ -277,13 +285,17 @@ export function StickyServices() {
                       {service.title}
                     </h3>
 
-                    {/* Expandable content — opens when active (on mobile: always open) */}
+                    {/* Expandable content — opens when active (same on desktop and mobile) */}
                     <div
                       style={{
-                        maxHeight: activeIndex === i || isMobile ? "240px" : "0",
+                        maxHeight: activeIndex === i ? "240px" : "0",
                         overflow: "hidden",
                         transition:
-                          "max-height 0.55s cubic-bezier(0.25,0.46,0.45,0.94)",
+                          "max-height 0.6s cubic-bezier(0.25,0.46,0.45,0.94)",
+                        opacity: activeIndex === i ? 1 : 0,
+                        transitionProperty: "max-height, opacity",
+                        transitionDuration: "0.6s, 0.4s",
+                        transitionDelay: activeIndex === i ? "0s, 0.1s" : "0s, 0s",
                       }}
                     >
                       <p
