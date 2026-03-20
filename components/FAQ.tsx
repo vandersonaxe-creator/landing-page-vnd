@@ -33,7 +33,7 @@ export default function FAQ() {
       id="contato"
       className="py-14 md:py-20 lg:py-24"
       style={{
-        background: "#0a0a0a",
+        background: "#080808",
         borderBottom: "1px solid rgba(255,255,255,0.06)",
       }}
     >
@@ -42,7 +42,7 @@ export default function FAQ() {
           <p className="text-center text-xs font-semibold uppercase tracking-[0.2em] text-[var(--color-brand)]">
             Perguntas frequentes
           </p>
-          <h2 className="mx-auto mt-2 max-w-2xl text-center font-bold text-[var(--color-text)]">
+          <h2 data-text-reveal className="mx-auto mt-2 max-w-2xl text-center font-bold text-[var(--color-text)]">
             Dúvidas comuns antes de organizar melhor a estrutura digital da empresa
           </h2>
         </div>

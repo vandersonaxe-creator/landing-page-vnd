@@ -9,6 +9,19 @@ import VideoTestimonials from "@/components/VideoTestimonials";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
 import ScrollRevealInit from "@/components/ScrollRevealInit";
+import { Marquee } from "@/components/ui/Marquee";
+import PortfolioSection from "@/components/sections/PortfolioSection";
+
+const MARQUEE_ITEMS = [
+  "Landing Pages",
+  "WhatsApp",
+  "Tráfego Pago",
+  "IA e Automação",
+  "Google Meu Negócio",
+  "Meta e Redes",
+  "Presença Digital",
+  "Integrações",
+];
 
 export default function Home() {
   return (
@@ -17,11 +30,13 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
+        <Marquee items={MARQUEE_ITEMS} />
         <About />
         <PhaseCards />
         <Services />
         <HowItWorks />
         <VideoTestimonials />
+        <PortfolioSection />
         <BookingSection />
         <FAQ />
       </main>

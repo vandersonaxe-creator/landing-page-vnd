@@ -51,7 +51,7 @@ export default function About() {
       id="sobre"
       className="py-14 md:py-20 lg:py-24"
       style={{
-        background: "#0a0a0a",
+        background: "#080808",
         borderBottom: "1px solid rgba(255,255,255,0.06)",
       }}
     >
@@ -84,7 +84,7 @@ export default function About() {
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--color-brand)]">
                 Sobre a proposta
               </p>
-              <h2 className="mt-2 font-bold text-[var(--color-text)]">
+              <h2 data-text-reveal className="mt-2 font-bold text-[var(--color-text)]">
                 Não entregamos peças soltas. Montamos uma operação digital que
                 faz sentido no seu momento.
               </h2>

@@ -282,7 +282,7 @@ export default function VideoTestimonials() {
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--color-brand)]">
             PROVA SOCIAL
           </p>
-          <h2 className="mt-2 font-bold text-[var(--color-text)]">
+          <h2 data-text-reveal className="mt-2 font-bold text-[var(--color-text)]">
             Depoimentos reais em vídeo
           </h2>
           <p className="mt-4 max-w-2xl text-[var(--color-muted)] leading-relaxed">

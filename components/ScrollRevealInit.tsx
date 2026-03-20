@@ -6,26 +6,27 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-/**
- * Global scroll-reveal initializer — must be rendered ONCE on the page.
- * Animates all [data-scroll-reveal] elements on first scroll into view.
- */
 export default function ScrollRevealInit() {
   useEffect(() => {
     const prefersReduced = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
 
+    // Always ensure elements are visible (fallback)
+    document
+      .querySelectorAll("[data-scroll-reveal], [data-text-reveal]")
+      .forEach((el) => {
+        (el as HTMLElement).style.opacity = "1";
+      });
+
     if (prefersReduced) return;
 
-    // Small delay to ensure all components are mounted
     const timer = window.setTimeout(() => {
-      const elements = document.querySelectorAll("[data-scroll-reveal]");
-
-      elements.forEach((el, i) => {
+      // ── Scroll reveal ──
+      document.querySelectorAll("[data-scroll-reveal]").forEach((el) => {
         gsap.fromTo(
           el,
-          { y: 32, opacity: 0 },
+          { y: 28, opacity: 0 },
           {
             y: 0,
             opacity: 1,
@@ -37,12 +38,50 @@ export default function ScrollRevealInit() {
               toggleActions: "play none none none",
               once: true,
             },
-            // Stagger for sibling cards (elements with same parent)
-            delay: 0,
           }
         );
       });
-    }, 120);
+
+      // ── Text reveal (line by line) ──
+      import("split-type")
+        .then(({ default: SplitType }) => {
+          document.querySelectorAll("[data-text-reveal]").forEach((el) => {
+            const split = new SplitType(el as HTMLElement, { types: "lines" });
+            const lines = split.lines ?? [];
+
+            if (lines.length === 0) return;
+
+            lines.forEach((line) => {
+              const wrapper = document.createElement("div");
+              wrapper.style.overflow = "hidden";
+              wrapper.style.display = "block";
+              line.parentNode?.insertBefore(wrapper, line);
+              wrapper.appendChild(line);
+            });
+
+            gsap.fromTo(
+              lines,
+              { y: "100%", opacity: 0 },
+              {
+                y: "0%",
+                opacity: 1,
+                duration: 0.85,
+                stagger: 0.08,
+                ease: "power3.out",
+                scrollTrigger: {
+                  trigger: el,
+                  start: "top 90%",
+                  toggleActions: "play none none none",
+                  once: true,
+                },
+              }
+            );
+          });
+        })
+        .catch(() => {
+          // SplitType failed — text remains visible (fallback already applied)
+        });
+    }, 150);
 
     return () => {
       window.clearTimeout(timer);
