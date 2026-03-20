@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 
 const SERVICES = [
@@ -97,24 +97,10 @@ const SERVICES = [
 export function StickyServices() {
   const [activeIndex, setActiveIndex] = useState(0);
 
-  // One ref per service row
   const rowRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  // Debounce ref: clears a pending activation if user scrolls past too fast
-  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  // Stable activation callback with a 380ms delay — gives the user time to
-  // read the title before the content expands and the image changes.
-  const activate = useCallback((idx: number) => {
-    if (debounceRef.current) clearTimeout(debounceRef.current);
-    debounceRef.current = setTimeout(() => {
-      setActiveIndex(idx);
-    }, 380);
-  }, []);
-
-  // IntersectionObserver-driven activation (Lenis-compatible)
-  // Fires when a row enters the central 30% of the viewport, then waits
-  // the delay before actually switching — giving a calm, deliberate feel.
+  // IntersectionObserver-driven (Lenis-compatible — no window.scroll needed).
+  // Activates immediately when a row enters the central 30% of the viewport.
   useEffect(() => {
     const rows = rowRefs.current.filter((r): r is HTMLDivElement => r !== null);
     if (!rows.length) return;
@@ -124,23 +110,15 @@ export function StickyServices() {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
           const idx = rows.indexOf(entry.target as HTMLDivElement);
-          if (idx !== -1) activate(idx);
+          if (idx !== -1) setActiveIndex(idx);
         });
       },
-      {
-        // Central 30% of the viewport — tight zone so the activation feels
-        // intentional, not accidental while fast-scrolling.
-        rootMargin: "-35% 0px -35% 0px",
-        threshold: 0,
-      }
+      { rootMargin: "-35% 0px -35% 0px", threshold: 0 }
     );
 
     rows.forEach((row) => observer.observe(row));
-    return () => {
-      observer.disconnect();
-      if (debounceRef.current) clearTimeout(debounceRef.current);
-    };
-  }, [activate]);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section
@@ -189,8 +167,8 @@ export function StickyServices() {
                 fontSize: "clamp(32px, 5vw, 64px)",
                 fontWeight: 800,
                 color: "var(--color-text)",
-                lineHeight: 1,
-                letterSpacing: "-0.03em",
+                lineHeight: 1.05,
+                letterSpacing: "-0.02em",
                 margin: 0,
               }}
             >
