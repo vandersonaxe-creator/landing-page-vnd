@@ -94,7 +94,7 @@ export default function Hero() {
         display: "flex",
         alignItems: "center",
         padding:
-          "clamp(96px, 12vw, 130px) clamp(20px, 5vw, 80px) clamp(60px, 8vw, 90px)",
+          "clamp(32px, 5vw, 64px) clamp(20px, 5vw, 80px) clamp(40px, 5vw, 72px)",
         position: "relative",
         overflow: "hidden",
         gap: "clamp(40px, 5vw, 64px)",
