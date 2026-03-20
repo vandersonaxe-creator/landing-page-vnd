@@ -58,10 +58,11 @@ export function WordReveal({
       style={{
         fontFamily: "var(--font-display)",
         fontSize,
-        fontWeight: 800,
-        lineHeight: 1.2,
-        letterSpacing: "-0.025em",
+        fontWeight: 700,
+        lineHeight: 1.45,
+        letterSpacing: "-0.01em",
         color: "var(--color-text)",
+        wordSpacing: "0.05em",
       }}
     >
       {words.map((word, i) => (
@@ -69,14 +70,13 @@ export function WordReveal({
           key={i}
           data-word
           style={{
-            display: "inline-block",
-            marginRight: "0.28em",
+            display: "inline",
             color: "#b0b0b0",
             opacity: 0.55,
             willChange: "color, opacity",
           }}
         >
-          {word}
+          {word}{i < words.length - 1 ? " " : ""}
         </span>
       ))}
     </div>

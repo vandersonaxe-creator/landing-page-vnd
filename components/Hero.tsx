@@ -128,7 +128,11 @@ export default function Hero() {
         className="mx-auto md:mx-0"
       >
         {/* Availability badge */}
-        <div data-reveal style={{ marginBottom: "clamp(18px, 3vw, 24px)" }}>
+        <div
+          data-reveal
+          className="flex justify-center md:justify-start"
+          style={{ marginBottom: "clamp(18px, 3vw, 24px)" }}
+        >
           <span
             style={{
               display: "inline-flex",
@@ -162,11 +166,10 @@ export default function Hero() {
         {/* H1 — outcome-focused */}
         <h1
           data-text-reveal
-          className="text-hero"
+          className="text-hero text-center md:text-left"
           style={{
             color: "var(--color-text)",
             marginBottom: "clamp(20px, 3vw, 28px)",
-            textAlign: "left",
           }}
         >
           Pare de perder
