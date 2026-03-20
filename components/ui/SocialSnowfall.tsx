@@ -81,15 +81,15 @@ export function SocialSnowfall() {
   const [flakes, setFlakes] = useState<Flake[]>([]);
 
   useEffect(() => {
-    const generated: Flake[] = Array.from({ length: 26 }, (_, i) => ({
+    const generated: Flake[] = Array.from({ length: 15 }, (_, i) => ({
       id: i,
       type: ICON_TYPES[i % 3],
       x: Math.random() * 98,
-      size: 18 + Math.random() * 14,      // 18–32px
-      delay: Math.random() * 24,           // 0–24s stagger
-      duration: 20 + Math.random() * 18,  // 20–38s to fall
-      opacity: 0.06 + Math.random() * 0.07, // 0.06–0.13
-      drift: (Math.random() - 0.5) * 80,  // ±40px horizontal
+      size: 12 + Math.random() * 8,        // 12–20px (smaller)
+      delay: Math.random() * 36,           // 0–36s stagger (more spread)
+      duration: 32 + Math.random() * 22,  // 32–54s (much slower, more elegant)
+      opacity: 0.04 + Math.random() * 0.05, // 0.04–0.09 (barely visible)
+      drift: (Math.random() - 0.5) * 50,  // ±25px (subtler drift)
     }));
     setFlakes(generated);
   }, []);
@@ -110,9 +110,9 @@ export function SocialSnowfall() {
       <style>{`
         @keyframes social-fall {
           0%   { transform: translateY(-60px) translateX(0px) rotate(0deg); opacity: 0; }
-          6%   { opacity: 1; }
-          94%  { opacity: 1; }
-          100% { transform: translateY(110vh) translateX(var(--sf-drift)) rotate(270deg); opacity: 0; }
+          8%   { opacity: 1; }
+          92%  { opacity: 1; }
+          100% { transform: translateY(110vh) translateX(var(--sf-drift)) rotate(180deg); opacity: 0; }
         }
       `}</style>
 
@@ -125,6 +125,7 @@ export function SocialSnowfall() {
               left: `${f.x}%`,
               top: "-60px",
               opacity: f.opacity,
+              filter: "grayscale(100%)",
               "--sf-drift": `${f.drift}px`,
               animation: `social-fall ${f.duration}s ${f.delay}s linear infinite`,
               willChange: "transform",
