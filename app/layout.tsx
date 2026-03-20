@@ -4,7 +4,7 @@ import "./globals.css";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
 import { CustomCursor } from "@/components/ui/CustomCursor";
 import { PageCurtain } from "@/components/ui/PageCurtain";
-import { SocialSnowfall } from "@/components/ui/SocialSnowfall";
+import { AmbientBackground } from "@/components/ui/AmbientBackground";
 
 // Plus Jakarta Sans: clean geometric grotesque — strong, legible at all sizes,
 // instantly professional. No experimental character quirks like Syne.
@@ -45,7 +45,7 @@ export default function RootLayout({
       <body className="antialiased" suppressHydrationWarning>
         <PageCurtain />
         <CustomCursor />
-        <SocialSnowfall />
+        <AmbientBackground />
         <SmoothScroll>
           <div style={{ paddingTop: "64px" }}>
             {children}
