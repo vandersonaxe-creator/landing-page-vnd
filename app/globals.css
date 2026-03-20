@@ -423,13 +423,6 @@ h3 {
 
 /* ─── MOBILE REFINEMENTS ────────────────────────────────── */
 @media (max-width: 767px) {
-  /* Hero */
-  #inicio {
-    padding-top: 96px !important;
-    padding-bottom: 56px !important;
-    flex-direction: column !important;
-  }
-
   /* Seções internas */
   .sticky-services-grid {
     grid-template-columns: 1fr !important;
@@ -440,6 +433,34 @@ h3 {
     grid-template-columns: 1fr !important;
     gap: 32px !important;
   }
+}
+
+/* ─── BUTTON SHIMMER ─────────────────────────────────────── */
+@keyframes btn-shimmer {
+  0%   { transform: translateX(-150%) skewX(-15deg); }
+  100% { transform: translateX(400%)  skewX(-15deg); }
+}
+
+.btn-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-shimmer::after {
+  content: '';
+  position: absolute;
+  top: -20%;
+  left: 0;
+  width: 28%;
+  height: 140%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.32) 50%,
+    transparent 100%
+  );
+  animation: btn-shimmer 2.6s ease-in-out infinite;
+  pointer-events: none;
 }
 
 /* ─── Prefers reduced motion ─── */

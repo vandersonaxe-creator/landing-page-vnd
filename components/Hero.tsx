@@ -132,7 +132,7 @@ export default function Hero() {
         style={{
           background: "var(--color-bg)",
           borderBottom: "0.5px solid var(--color-border)",
-          padding: "20px 20px 36px",
+          padding: "8px 20px 36px",
           position: "relative",
           overflow: "hidden",
         }}
@@ -188,6 +188,7 @@ export default function Hero() {
           <div style={{ display: "flex", justifyContent: "center", marginBottom: "20px" }}>
             <a
               href="#agendar"
+              className="btn-shimmer"
               style={{
                 display: "inline-flex",
                 alignItems: "center",
@@ -332,6 +333,7 @@ export default function Hero() {
           >
             <a
               href="#agendar"
+              className="btn-shimmer"
               style={{
                 display: "inline-flex",
                 alignItems: "center",
