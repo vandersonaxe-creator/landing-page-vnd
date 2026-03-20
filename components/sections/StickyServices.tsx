@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 
 const SERVICES = [
@@ -101,7 +101,7 @@ export function StickyServices() {
   // One ref per service row
   const rowRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  // Detect mobile on mount
+  // Detect mobile (no sticky image column)
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 767px)");
     setIsMobile(mq.matches);
@@ -110,51 +110,30 @@ export function StickyServices() {
     return () => mq.removeEventListener("change", handler);
   }, []);
 
-  // Scroll-driven activation: row whose center is closest to the viewport center
-  const findActiveIndex = useCallback(() => {
-    const rows = rowRefs.current;
+  // IntersectionObserver-driven activation (Lenis-compatible)
+  // Fires when a row enters the center 30% of the viewport
+  useEffect(() => {
+    const rows = rowRefs.current.filter((r): r is HTMLDivElement => r !== null);
     if (!rows.length) return;
 
-    // Viewport center in page coordinates (accounting for fixed navbar)
-    const navH = 64;
-    const vpCenter = window.scrollY + navH + (window.innerHeight - navH) / 2;
-
-    let closestIdx = 0;
-    let closestDist = Infinity;
-
-    rows.forEach((row, i) => {
-      if (!row) return;
-      const rect = row.getBoundingClientRect();
-      const rowCenter = window.scrollY + rect.top + rect.height / 2;
-      const dist = Math.abs(rowCenter - vpCenter);
-      if (dist < closestDist) {
-        closestDist = dist;
-        closestIdx = i;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const idx = rows.indexOf(entry.target as HTMLDivElement);
+          if (idx !== -1) setActiveIndex(idx);
+        });
+      },
+      {
+        // Only activate when the row is in the middle 30% of the viewport
+        rootMargin: "-35% 0px -35% 0px",
+        threshold: 0,
       }
-    });
+    );
 
-    setActiveIndex(closestIdx);
+    rows.forEach((row) => observer.observe(row));
+    return () => observer.disconnect();
   }, []);
-
-  useEffect(() => {
-    // Mobile: no scroll-driven logic needed
-    if (isMobile) return;
-
-    let rafId: number;
-    const onScroll = () => {
-      cancelAnimationFrame(rafId);
-      rafId = requestAnimationFrame(findActiveIndex);
-    };
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-    // Run once to set initial state when section is in view
-    findActiveIndex();
-
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      cancelAnimationFrame(rafId);
-    };
-  }, [isMobile, findActiveIndex]);
 
   return (
     <section
@@ -298,11 +277,10 @@ export function StickyServices() {
                       {service.title}
                     </h3>
 
-                    {/* Expandable content — opens when this row is active */}
+                    {/* Expandable content — opens when active (on mobile: always open) */}
                     <div
                       style={{
-                        maxHeight:
-                          activeIndex === i || isMobile ? "240px" : "0",
+                        maxHeight: activeIndex === i || isMobile ? "240px" : "0",
                         overflow: "hidden",
                         transition:
                           "max-height 0.55s cubic-bezier(0.25,0.46,0.45,0.94)",

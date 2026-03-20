@@ -32,12 +32,16 @@ export default function Home() {
       <ScrollRevealInit />
       <Header />
       <main>
+        {/* 1 — Título */}
         <Hero />
 
-        {/* Text ticker */}
+        {/* 2 — VSL + botão de agendamento (jornada do cliente começa aqui) */}
+        <VSLSection />
+
+        {/* 3 — Ticker de serviços */}
         <Marquee items={MARQUEE_ITEMS} />
 
-        {/* BLOCO A — Dual image marquee (dark contrast section) */}
+        {/* 4 — Galeria de imagens (seção escura de contraste) */}
         <section
           style={{
             background: "#111111",
@@ -49,13 +53,13 @@ export default function Home() {
           <DualImageMarquee />
         </section>
 
-        {/* VSL — Video Sales Letter */}
-        <VSLSection />
-
+        {/* 5 — Sobre */}
         <About />
+
+        {/* 6 — Métricas */}
         <MetricsStrip />
 
-        {/* BLOCO B — Word-by-word manifesto reveal */}
+        {/* 7 — Manifesto em scroll */}
         <section
           style={{
             padding: "clamp(80px, 10vw, 140px) clamp(24px, 5vw, 80px)",
@@ -72,13 +76,22 @@ export default function Home() {
           />
         </section>
 
-        {/* BLOCO C — StickyServices replaces Services */}
+        {/* 8 — Serviços com imagem sticky */}
         <StickyServices />
 
+        {/* 9 — Como funciona */}
         <HowItWorks />
+
+        {/* 10 — Depoimentos */}
         <VideoTestimonials />
+
+        {/* 11 — Portfólio */}
         <PortfolioSection />
+
+        {/* 12 — Agendamento */}
         <BookingSection />
+
+        {/* 13 — FAQ */}
         <FAQ />
       </main>
       <Footer />
