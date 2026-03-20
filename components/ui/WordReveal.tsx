@@ -14,7 +14,7 @@ interface WordRevealProps {
 
 export function WordReveal({
   text,
-  fontSize = "clamp(24px, 3.5vw, 48px)",
+  fontSize = "clamp(26px, 4vw, 54px)",
   className,
 }: WordRevealProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -34,13 +34,16 @@ export function WordReveal({
         {
           color: "#111111",
           opacity: 1,
-          stagger: 0.07,
+          stagger: 0.04,
           ease: "none",
           scrollTrigger: {
             trigger: container,
-            start: "top 75%",
-            end: "bottom 30%",
-            scrub: 2,
+            // Start as soon as the block enters the lower portion of the screen.
+            // End when the TOP of the block is still 15% from the top — the
+            // section is still fully visible, reveal completes at the right time.
+            start: "top 82%",
+            end: "top 18%",
+            scrub: 1,
           },
         }
       );
@@ -59,10 +62,10 @@ export function WordReveal({
         fontFamily: "var(--font-display)",
         fontSize,
         fontWeight: 700,
-        lineHeight: 1.45,
-        letterSpacing: "-0.01em",
+        lineHeight: 1.5,
+        letterSpacing: "-0.008em",
         color: "var(--color-text)",
-        wordSpacing: "0.05em",
+        wordSpacing: "0.04em",
       }}
     >
       {words.map((word, i) => (

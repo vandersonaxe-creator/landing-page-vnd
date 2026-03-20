@@ -141,7 +141,7 @@ export default function Home() {
           <div style={{ maxWidth: "960px", margin: "0 auto" }}>
             <WordReveal
               text="Organizamos sua presença digital com clareza, corrigimos o que trava o seu crescimento e implantamos a estrutura que transforma atendimento em oportunidade real."
-              fontSize="clamp(22px, 3.2vw, 46px)"
+              fontSize="clamp(26px, 4vw, 54px)"
             />
           </div>
         </section>
