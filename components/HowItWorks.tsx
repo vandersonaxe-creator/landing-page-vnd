@@ -45,13 +45,26 @@ export default function HowItWorks() {
       <div className="container mx-auto max-w-[1280px] px-6 md:px-8 lg:px-12">
         {/* Header */}
         <div data-scroll-reveal className="mb-14">
-          <p className="num-tag mb-3" style={{ fontSize: "10px", letterSpacing: "0.12em" }}>03 / Como funciona</p>
+          <p className="num-tag mb-3" style={{ fontSize: "10px", letterSpacing: "0.12em" }}>03 / O Método</p>
           <h2
             data-text-reveal
             className="font-bold text-[var(--color-text)] max-w-2xl"
           >
-            Como a recomendação vira implantação
+            Do diagnóstico à operação — sem pular etapas
           </h2>
+          <p
+            style={{
+              marginTop: "12px",
+              fontSize: "14px",
+              color: "var(--color-muted)",
+              fontFamily: "var(--font-body), sans-serif",
+              lineHeight: 1.7,
+              maxWidth: "480px",
+            }}
+          >
+            Não entregamos peças soltas. Cada etapa é parte de um processo que
+            organiza, corrige e implanta a estrutura certa para o seu momento.
+          </p>
           <div className="mt-6 h-px" style={{ background: "var(--color-border)" }} />
         </div>
 

@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { AnimatedCounter } from "@/components/ui/AnimatedCounter";
 
 const ABOUT_IMAGE =
   "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=900&q=80";
@@ -29,12 +28,6 @@ const DIFFERENTIALS = [
     title: "Entrega em etapas",
     text: "Escopo organizado para manter continuidade do funil e reduzir retrabalho.",
   },
-] as const;
-
-const METRICS = [
-  { end: 50, suffix: "+", label: "Projetos implantados" },
-  { end: 8, suffix: "+", label: "Canais integrados" },
-  { end: 100, suffix: "%", label: "Foco em resultado" },
 ] as const;
 
 export default function About() {
@@ -210,45 +203,6 @@ export default function About() {
                 </li>
               ))}
             </ul>
-
-            {/* Métricas */}
-            <div
-              data-scroll-reveal
-              className="grid grid-cols-3 gap-4"
-              style={{
-                borderTop: "0.5px solid var(--color-border)",
-                borderBottom: "0.5px solid var(--color-border)",
-                padding: "24px 0",
-                marginTop: "24px",
-              }}
-            >
-              {METRICS.map((m) => (
-                <div key={m.label} className="text-center">
-                  <p
-                    className="font-bold"
-                    style={{
-                      fontSize: "clamp(24px, 3vw, 40px)",
-                      lineHeight: 1,
-                      letterSpacing: "-0.02em",
-                      color: "var(--color-accent)",
-                      fontFamily: "var(--font-display), sans-serif",
-                    }}
-                  >
-                    <AnimatedCounter end={m.end} suffix={m.suffix} />
-                  </p>
-                  <p
-                    style={{
-                      marginTop: "4px",
-                      fontSize: "11px",
-                      color: "var(--color-muted)",
-                      fontFamily: "var(--font-body), sans-serif",
-                    }}
-                  >
-                    {m.label}
-                  </p>
-                </div>
-              ))}
-            </div>
 
             {/* Diferenciais — 3 cards em grid */}
             <div

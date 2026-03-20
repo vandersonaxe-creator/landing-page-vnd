@@ -9,9 +9,9 @@ import Footer from "@/components/Footer";
 import ScrollRevealInit from "@/components/ScrollRevealInit";
 import { Marquee } from "@/components/ui/Marquee";
 import PortfolioSection from "@/components/sections/PortfolioSection";
-import { DualImageMarquee } from "@/components/ui/DualImageMarquee";
 import { WordReveal } from "@/components/ui/WordReveal";
 import { StickyServices } from "@/components/sections/StickyServices";
+import { CTABanner } from "@/components/ui/CTABanner";
 
 const MARQUEE_ITEMS = [
   "Landing Pages",
@@ -30,60 +30,144 @@ export default function Home() {
       <ScrollRevealInit />
       <Header />
       <main>
-        {/* 1 — Título */}
+        {/* 1 — Hero: problema + VSL */}
         <Hero />
 
-        {/* 2 — Ticker de serviços */}
+        {/* 2 — Ticker: respiro rápido + lista de soluções */}
         <Marquee items={MARQUEE_ITEMS} />
 
-        {/* 4 — Galeria de imagens (seção escura de contraste) */}
+        {/* 3 — Declaração escura: o problema real (contraste visual + impacto emocional) */}
         <section
           style={{
             background: "#111111",
             borderTop: "0.5px solid rgba(255,255,255,0.06)",
             borderBottom: "0.5px solid rgba(255,255,255,0.06)",
-            padding: "52px 0",
+            padding: "clamp(60px, 8vw, 100px) clamp(24px, 5vw, 80px)",
           }}
         >
-          <DualImageMarquee />
+          <div style={{ maxWidth: "960px", margin: "0 auto" }}>
+            <p
+              data-scroll-reveal
+              style={{
+                fontFamily: "var(--font-body), sans-serif",
+                fontSize: "11px",
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                color: "rgba(255,255,255,0.3)",
+                marginBottom: "28px",
+              }}
+            >
+              O problema real
+            </p>
+
+            <p
+              data-scroll-reveal
+              style={{
+                fontFamily: "var(--font-display), sans-serif",
+                fontSize: "clamp(22px, 3.2vw, 42px)",
+                fontWeight: 700,
+                lineHeight: 1.25,
+                letterSpacing: "-0.02em",
+                color: "#f0ede6",
+                marginBottom: "48px",
+              }}
+            >
+              A maioria das empresas perde cliente todo dia — não por falta de
+              produto, mas por falta de estrutura digital que organize, atraia e
+              converta.
+            </p>
+
+            <div
+              data-scroll-reveal
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+                gap: "clamp(24px, 4vw, 48px)",
+                paddingTop: "40px",
+                borderTop: "0.5px solid rgba(255,255,255,0.08)",
+              }}
+            >
+              {[
+                {
+                  num: "73%",
+                  text: "das pequenas empresas não aparecem quando o cliente pesquisa no Google",
+                },
+                {
+                  num: "60%",
+                  text: "dos contatos via WhatsApp ficam sem resposta em menos de 24h",
+                },
+                {
+                  num: "3×",
+                  text: "mais oportunidades com presença digital estruturada vs. improviso",
+                },
+              ].map((stat) => (
+                <div key={stat.num}>
+                  <p
+                    style={{
+                      fontFamily: "var(--font-display), sans-serif",
+                      fontSize: "clamp(32px, 4.5vw, 52px)",
+                      fontWeight: 800,
+                      color: "var(--color-accent)",
+                      lineHeight: 1,
+                      letterSpacing: "-0.03em",
+                    }}
+                  >
+                    {stat.num}
+                  </p>
+                  <p
+                    style={{
+                      marginTop: "10px",
+                      fontSize: "13px",
+                      color: "rgba(240,237,230,0.5)",
+                      fontFamily: "var(--font-body), sans-serif",
+                      lineHeight: 1.65,
+                    }}
+                  >
+                    {stat.text}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
         </section>
 
-        {/* 5 — Sobre */}
-        <About />
-
-        {/* 7 — Manifesto em scroll */}
+        {/* 4 — Manifesto: WordReveal (flui da declaração acima) */}
         <section
           style={{
-            padding: "clamp(80px, 10vw, 140px) clamp(24px, 5vw, 80px)",
-            borderBottom: "0.5px solid var(--color-border)",
+            padding: "clamp(80px, 10vw, 130px) clamp(24px, 5vw, 80px)",
             background: "var(--color-bg)",
-            maxWidth: "960px",
-            margin: "0 auto",
-            width: "100%",
           }}
         >
-          <WordReveal
-            text="Organizamos sua presença digital com clareza, corrigimos o que trava o seu crescimento e implantamos a estrutura que transforma atendimento em oportunidade real."
-            fontSize="clamp(22px, 3.2vw, 46px)"
-          />
+          <div style={{ maxWidth: "960px", margin: "0 auto" }}>
+            <WordReveal
+              text="Organizamos sua presença digital com clareza, corrigimos o que trava o seu crescimento e implantamos a estrutura que transforma atendimento em oportunidade real."
+              fontSize="clamp(22px, 3.2vw, 46px)"
+            />
+          </div>
         </section>
 
-        {/* 8 — Serviços com imagem sticky */}
-        <StickyServices />
+        {/* 5 — Sobre: credibilidade de quem está por trás */}
+        <About />
 
-        {/* 9 — Como funciona */}
+        {/* 6 — O Método: como funciona (primeiro o método, depois os serviços) */}
         <HowItWorks />
 
-        {/* 10 — Depoimentos */}
+        {/* 7 — Soluções: os serviços dentro do método */}
+        <StickyServices />
+
+        {/* 8 — CTA intermediário: primeira oportunidade de conversão pós-serviços */}
+        <CTABanner />
+
+        {/* 9 — Depoimentos: prova social imediata após os serviços */}
         <VideoTestimonials />
 
-        {/* 11 — Portfólio */}
+        {/* 10 — Portfólio: mais prova, com contexto e resultado */}
         <PortfolioSection />
 
-        {/* 12 — Agendamento */}
+        {/* 11 — Agendamento: CTA final escalado */}
         <BookingSection />
 
-        {/* 13 — FAQ */}
+        {/* 12 — FAQ: objeções antes de sair */}
         <FAQ />
       </main>
       <Footer />

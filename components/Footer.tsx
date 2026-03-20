@@ -52,64 +52,143 @@ export default function Footer() {
         borderTop: "0.5px solid var(--color-border)",
       }}
     >
-      {/* ── Linea-style stacked footer CTA ── */}
+      {/* ── Footer brand statement — diferente do Hero, fala de crença/filosofia ── */}
       <div
         style={{
-          maxWidth: "1280px",
-          margin: "0 auto",
+          background: "#111111",
+          borderBottom: "0.5px solid rgba(255,255,255,0.06)",
           padding:
-            "clamp(56px, 8vw, 100px) clamp(24px, 5vw, 80px) clamp(32px, 5vw, 56px)",
-          borderBottom: "0.5px solid var(--color-border)",
+            "clamp(56px, 8vw, 96px) clamp(24px, 5vw, 80px)",
         }}
       >
-        {["Estrutura", "digital", "feita", "para", "crescer."].map((word) => (
-          <p
-            key={word}
-            style={{
-              fontFamily: "var(--font-display), sans-serif",
-              fontWeight: 800,
-              fontSize: "clamp(40px, 7vw, 96px)",
-              lineHeight: 0.88,
-              letterSpacing: "-0.04em",
-              color: "var(--color-text)",
-              margin: "0 0 0.05em",
-            }}
-          >
-            {word}
-          </p>
-        ))}
         <div
           style={{
-            marginTop: "clamp(24px, 4vw, 40px)",
+            maxWidth: "1280px",
+            margin: "0 auto",
             display: "flex",
-            alignItems: "center",
-            gap: "16px",
+            alignItems: "flex-end",
+            justifyContent: "space-between",
+            gap: "48px",
             flexWrap: "wrap",
           }}
         >
-          <a
-            href={WHATSAPP_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-cta-hero"
-            style={{ padding: "14px 28px" }}
-          >
-            Agendar análise estratégica ↗
-          </a>
-          <a
-            href={WHATSAPP_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="link-nav"
-            style={{
-              fontSize: "13px",
-              color: "var(--color-muted)",
-              textDecoration: "none",
-              fontFamily: "var(--font-body), sans-serif",
-            }}
-          >
-            Ou fale pelo WhatsApp →
-          </a>
+          {/* Left — brand + philosophy */}
+          <div style={{ flex: "1 1 400px" }}>
+            {/* Logo */}
+            <p
+              style={{
+                fontFamily: "var(--font-display), sans-serif",
+                fontSize: "clamp(28px, 4vw, 48px)",
+                fontWeight: 800,
+                color: "#f0ede6",
+                letterSpacing: "-0.03em",
+                lineHeight: 1,
+                marginBottom: "20px",
+              }}
+            >
+              {BRAND.name}
+            </p>
+
+            {/* Accent rule */}
+            <div
+              style={{
+                width: "36px",
+                height: "3px",
+                background: "var(--color-accent)",
+                borderRadius: "2px",
+                marginBottom: "20px",
+              }}
+            />
+
+            {/* Philosophy line — diferente do H1, fala de crença */}
+            <p
+              style={{
+                fontFamily: "var(--font-body), sans-serif",
+                fontSize: "clamp(14px, 1.8vw, 17px)",
+                color: "rgba(240,237,230,0.55)",
+                lineHeight: 1.7,
+                maxWidth: "420px",
+              }}
+            >
+              Empresa que tem estrutura digital organizada não improvisa —
+              ela executa com clareza e cresce com consistência.
+            </p>
+          </div>
+
+          {/* Right — CTA */}
+          <div style={{ textAlign: "right" }}>
+            <p
+              style={{
+                fontFamily: "var(--font-body), sans-serif",
+                fontSize: "11px",
+                letterSpacing: "0.12em",
+                textTransform: "uppercase",
+                color: "rgba(255,255,255,0.3)",
+                marginBottom: "16px",
+              }}
+            >
+              Próximo passo
+            </p>
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "8px",
+                padding: "13px 28px",
+                background: "var(--color-accent)",
+                color: "white",
+                borderRadius: "4px",
+                textDecoration: "none",
+                fontFamily: "var(--font-body), sans-serif",
+                fontSize: "13px",
+                fontWeight: 500,
+                letterSpacing: "0.02em",
+                boxShadow: "0 8px 24px rgba(232,76,30,0.3)",
+                transition: "transform 0.2s, background 0.2s",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = "translateY(-2px)";
+                e.currentTarget.style.background = "#ff5c2a";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = "";
+                e.currentTarget.style.background = "var(--color-accent)";
+              }}
+            >
+              Agendar análise ↗
+            </a>
+            <p
+              style={{
+                marginTop: "12px",
+                fontFamily: "var(--font-body), sans-serif",
+                fontSize: "12px",
+                color: "rgba(255,255,255,0.25)",
+              }}
+            >
+              Ou fale direto:{" "}
+              <a
+                href={WHATSAPP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  color: "rgba(255,255,255,0.45)",
+                  textDecoration: "none",
+                  transition: "color 0.2s",
+                }}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.color = "#f0ede6")
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.color = "rgba(255,255,255,0.45)")
+                }
+              >
+                {COMPANY.whatsApp}
+              </a>
+            </p>
+          </div>
         </div>
       </div>
 

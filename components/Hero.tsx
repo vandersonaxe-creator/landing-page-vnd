@@ -1,7 +1,6 @@
 "use client";
 
 import { usePageReveal } from "@/hooks/usePageReveal";
-import { VSLContainer } from "@/components/ui/VSLContainer";
 
 export default function Hero() {
   usePageReveal();
@@ -13,10 +12,11 @@ export default function Hero() {
         minHeight: "100vh",
         display: "flex",
         alignItems: "center",
-        padding: "clamp(96px, 12vw, 130px) clamp(24px, 5vw, 80px) clamp(60px, 8vw, 90px)",
+        padding:
+          "clamp(96px, 12vw, 130px) clamp(24px, 5vw, 80px) clamp(60px, 8vw, 90px)",
         position: "relative",
         overflow: "hidden",
-        gap: "clamp(40px, 6vw, 72px)",
+        gap: "clamp(40px, 5vw, 64px)",
         background: "var(--color-bg)",
         borderBottom: "0.5px solid var(--color-border)",
       }}
@@ -31,18 +31,17 @@ export default function Hero() {
           zIndex: 0,
           pointerEvents: "none",
           background:
-            "radial-gradient(ellipse 55% 60% at 15% 50%, rgba(232,76,30,0.07) 0%, transparent 65%)," +
-            "radial-gradient(ellipse 35% 50% at 85% 20%, rgba(0,0,0,0.02) 0%, transparent 60%)",
+            "radial-gradient(ellipse 50% 55% at 15% 50%, rgba(232,76,30,0.06) 0%, transparent 65%)",
         }}
       />
 
       {/* ── LEFT COLUMN — text ── */}
       <div
         style={{
-          flex: "0 0 42%",
+          flex: "0 0 50%",
           position: "relative",
           zIndex: 1,
-          maxWidth: "520px",
+          maxWidth: "560px",
         }}
         className="w-full text-center md:text-left mx-auto md:mx-0"
       >
@@ -78,7 +77,7 @@ export default function Hero() {
           </span>
         </div>
 
-        {/* H1 — 3 compact lines */}
+        {/* H1 — outcome-focused, 3 lines */}
         <h1
           data-text-reveal
           className="text-hero"
@@ -87,32 +86,39 @@ export default function Hero() {
             marginBottom: "clamp(16px, 2.5vw, 24px)",
           }}
         >
-          Organizamos.
+          Pare de perder
           <br />
-          Corrigimos.
+          cliente por falta
           <br />
-          <span
-            style={{
-              color: "transparent",
-              WebkitTextStroke: "1.5px rgba(17,17,17,0.25)",
-            }}
-          >
-            Implantamos.
-          </span>
+          de estrutura.
         </h1>
+
+        {/* Accent rule — marca visual recorrente */}
+        <div
+          data-reveal
+          style={{
+            width: "40px",
+            height: "3px",
+            background: "var(--color-accent)",
+            borderRadius: "2px",
+            marginBottom: "clamp(16px, 2.5vw, 24px)",
+          }}
+          className="mx-auto md:mx-0"
+        />
 
         {/* Description */}
         <p
           data-reveal
-          className="text-body"
+          className="text-body mx-auto md:mx-0"
           style={{
             color: "var(--color-muted)",
-            maxWidth: "380px",
+            maxWidth: "400px",
             marginBottom: "clamp(24px, 4vw, 36px)",
           }}
         >
-          Estrutura digital completa para empresas que querem crescer com
-          clareza, consistência e resultado real.
+          Organizamos sua presença digital, automatizamos seu atendimento e
+          conectamos cada canal para você parar de improvisar e começar a
+          crescer de verdade.
         </p>
 
         {/* CTAs */}
@@ -156,7 +162,7 @@ export default function Hero() {
               el.style.boxShadow = "0 8px 24px rgba(232,76,30,0.25)";
             }}
           >
-            Agendar análise estratégica ↗
+            Agendar análise gratuita ↗
           </a>
           <a
             href="#como-funciona"
@@ -178,7 +184,7 @@ export default function Hero() {
               (e.currentTarget.style.color = "var(--color-muted)")
             }
           >
-            Ver como funciona →
+            Ver o método →
           </a>
         </div>
 
@@ -196,54 +202,228 @@ export default function Hero() {
           }}
           className="justify-center md:justify-start"
         >
-          {["Sem contrato fixo", "Atendimento direto", "Entrega por etapas"].map(
-            (t) => (
-              <span
-                key={t}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "6px",
-                  fontSize: "12px",
-                  color: "var(--color-muted)",
-                  fontFamily: "var(--font-body), sans-serif",
-                }}
-              >
-                <svg width="11" height="11" viewBox="0 0 24 24" fill="none">
-                  <circle
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="var(--color-accent)"
-                    strokeWidth="1.5"
-                  />
-                  <path
-                    d="M8 12l3 3 5-5"
-                    stroke="var(--color-accent)"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-                {t}
-              </span>
-            )
-          )}
+          {[
+            "47+ empresas atendidas",
+            "Sem contrato fixo",
+            "Entrega por etapas",
+          ].map((t) => (
+            <span
+              key={t}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "6px",
+                fontSize: "12px",
+                color: "var(--color-muted)",
+                fontFamily: "var(--font-body), sans-serif",
+              }}
+            >
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none">
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="var(--color-accent)"
+                  strokeWidth="1.5"
+                />
+                <path
+                  d="M8 12l3 3 5-5"
+                  stroke="var(--color-accent)"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              {t}
+            </span>
+          ))}
         </div>
       </div>
 
-      {/* ── RIGHT COLUMN — VSL container ── */}
+      {/* ── RIGHT COLUMN — Phone frame with Shorts video ── */}
       <div
         data-reveal
         style={{
-          flex: "0 0 54%",
+          flex: "0 0 46%",
           position: "relative",
           zIndex: 1,
-          paddingRight: "20px", // give space for floating cards
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
         }}
-        className="w-full max-w-[560px] mx-auto md:mx-0 md:max-w-none"
+        className="w-full"
       >
-        <VSLContainer videoUrl="mMmLXTaz_jc" isYouTube isShorts />
+        <div style={{ position: "relative" }}>
+          {/* Phone frame */}
+          <div
+            style={{
+              background: "#1c1c1e",
+              borderRadius: "44px",
+              padding: "14px 14px 22px",
+              boxShadow:
+                "0 48px 96px rgba(0,0,0,0.18), 0 0 0 1.5px rgba(0,0,0,0.12), inset 0 0 0 1px rgba(255,255,255,0.08)",
+              width: "260px",
+              position: "relative",
+            }}
+          >
+            {/* Notch */}
+            <div
+              style={{
+                width: "80px",
+                height: "22px",
+                background: "#111",
+                borderRadius: "0 0 14px 14px",
+                margin: "0 auto 10px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "6px",
+              }}
+            >
+              <div
+                style={{
+                  width: "8px",
+                  height: "8px",
+                  borderRadius: "50%",
+                  background: "#2a2a2a",
+                }}
+              />
+              <div
+                style={{
+                  width: "24px",
+                  height: "4px",
+                  borderRadius: "2px",
+                  background: "#2a2a2a",
+                }}
+              />
+            </div>
+
+            {/* Video screen — 9:16 */}
+            <div
+              style={{
+                width: "100%",
+                aspectRatio: "9/16",
+                borderRadius: "28px",
+                overflow: "hidden",
+                background: "#000",
+              }}
+            >
+              <iframe
+                src="https://www.youtube.com/embed/mMmLXTaz_jc?rel=0&modestbranding=1&playsinline=1"
+                style={{ width: "100%", height: "100%", border: "none" }}
+                allow="autoplay; fullscreen; picture-in-picture"
+                allowFullScreen
+                loading="lazy"
+                title="Depoimento Vander Pro"
+              />
+            </div>
+
+            {/* Home bar */}
+            <div
+              style={{
+                width: "72px",
+                height: "4px",
+                background: "rgba(255,255,255,0.25)",
+                borderRadius: "2px",
+                margin: "12px auto 0",
+              }}
+            />
+          </div>
+
+          {/* Floating info cards — desktop only */}
+          <div className="hidden md:block">
+            {/* Card: clients */}
+            <div
+              style={{
+                position: "absolute",
+                top: "24px",
+                right: "-72px",
+                background: "rgba(255,255,255,0.96)",
+                backdropFilter: "blur(12px)",
+                border: "0.5px solid var(--color-border)",
+                borderRadius: "12px",
+                padding: "12px 16px",
+                boxShadow: "0 8px 24px rgba(0,0,0,0.08)",
+                animation: "heroCardFloat1 4s ease-in-out infinite",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: "9px",
+                  color: "var(--color-muted)",
+                  marginBottom: "3px",
+                  letterSpacing: "0.08em",
+                  textTransform: "uppercase",
+                  fontFamily: "var(--font-body), sans-serif",
+                }}
+              >
+                Empresas atendidas
+              </div>
+              <div
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontSize: "20px",
+                  fontWeight: 800,
+                  color: "var(--color-text)",
+                  lineHeight: 1,
+                }}
+              >
+                47<span style={{ color: "var(--color-accent)" }}>+</span>
+              </div>
+            </div>
+
+            {/* Card: time */}
+            <div
+              style={{
+                position: "absolute",
+                bottom: "48px",
+                left: "-80px",
+                background: "rgba(255,255,255,0.96)",
+                backdropFilter: "blur(12px)",
+                border: "0.5px solid var(--color-border)",
+                borderRadius: "12px",
+                padding: "12px 16px",
+                boxShadow: "0 8px 24px rgba(0,0,0,0.08)",
+                animation: "heroCardFloat2 4s ease-in-out infinite",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: "9px",
+                  color: "var(--color-muted)",
+                  marginBottom: "3px",
+                  letterSpacing: "0.08em",
+                  textTransform: "uppercase",
+                  fontFamily: "var(--font-body), sans-serif",
+                }}
+              >
+                Resultado visível em
+              </div>
+              <div
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontSize: "20px",
+                  fontWeight: 800,
+                  color: "var(--color-accent)",
+                  lineHeight: 1,
+                }}
+              >
+                2–3 semanas
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <style>{`
+          @keyframes heroCardFloat1 {
+            0%,100% { transform: translateY(0px); }
+            50%      { transform: translateY(-6px); }
+          }
+          @keyframes heroCardFloat2 {
+            0%,100% { transform: translateY(0px); }
+            50%      { transform: translateY(-4px); }
+          }
+        `}</style>
       </div>
     </section>
   );

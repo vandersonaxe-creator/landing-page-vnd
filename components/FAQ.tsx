@@ -78,7 +78,7 @@ export default function FAQ() {
                   fontFamily: "var(--font-display), sans-serif",
                   background: "transparent",
                   border: "none",
-                  cursor: "none",
+                  cursor: "pointer",
                 }}
               >
                 <span style={{ paddingRight: "32px" }}>{item.question}</span>

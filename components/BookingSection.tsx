@@ -156,37 +156,22 @@ export default function BookingSection() {
           </Link>
         </div>
 
-        {/* ── Large editorial CTA title (Agencia "Let's Get Started") ── */}
+        {/* ── CTA title ── */}
         <div data-scroll-reveal>
           <h2
             style={{
               fontFamily: "var(--font-display), sans-serif",
               fontWeight: 800,
-              fontSize: "clamp(48px, 8vw, 120px)",
-              lineHeight: 0.88,
-              letterSpacing: "-0.04em",
+              fontSize: "clamp(40px, 6vw, 72px)",
+              lineHeight: 0.95,
+              letterSpacing: "-0.03em",
+              color: "var(--color-text)",
               margin: 0,
             }}
           >
-            {/* Line 1 — solid */}
-            <span
-              style={{
-                display: "block",
-                color: "var(--color-text)",
-              }}
-            >
-              Vamos
-            </span>
-            {/* Line 2 — outline, light theme */}
-            <span
-              style={{
-                display: "block",
-                WebkitTextStroke: "1.5px rgba(17,17,17,0.22)",
-                color: "transparent",
-              }}
-            >
-              Agendar.
-            </span>
+            Vamos agendar
+            <br />
+            <span style={{ color: "var(--color-accent)" }}>sua análise.</span>
           </h2>
         </div>
 
@@ -213,25 +198,33 @@ export default function BookingSection() {
               maxWidth: "480px",
             }}
           >
-            Em poucos minutos, avaliamos seu cenário, entendemos o momento do
-            seu negócio e mostramos qual estrutura faz mais sentido para
-            melhorar sua presença digital, atendimento e geração de
-            oportunidades.
+            15 minutos. Sem apresentação. Direto ao que trava sua operação
+            digital — atendimento, captação ou conversão. Escolha o horário
+            que funciona para você.
           </p>
-          <p
-            style={{
-              fontSize: "11px",
-              color: "var(--color-muted-2)",
-              fontFamily: "var(--font-body), sans-serif",
-              letterSpacing: "0.05em",
-              textAlign: "right",
-              lineHeight: 1.7,
-            }}
-          >
-            Escolha um horário abaixo.
-            <br />
-            Sem compromisso.
-          </p>
+          <div style={{ textAlign: "right" }}>
+            <p
+              style={{
+                fontSize: "13px",
+                color: "var(--color-muted)",
+                fontFamily: "var(--font-body), sans-serif",
+                lineHeight: 1.6,
+              }}
+            >
+              Sem compromisso · Atendimento direto
+            </p>
+            <p
+              style={{
+                marginTop: "4px",
+                fontSize: "12px",
+                color: "var(--color-accent)",
+                fontFamily: "var(--font-body), sans-serif",
+                fontWeight: 500,
+              }}
+            >
+              Vagas limitadas por mês
+            </p>
+          </div>
         </div>
       </div>
 
