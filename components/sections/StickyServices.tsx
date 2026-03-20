@@ -320,148 +320,119 @@ export function StickyServices() {
             alignItems: "start",
           }}
         >
-          {/* Left: service rows */}
+          {/* Left: service rows — all titles always visible */}
           <div>
-            {SERVICES.map((service, i) => (
-              <div
-                key={service.number}
-                ref={(el) => {
-                  rowRefs.current[i] = el;
-                }}
-                style={{
-                    padding: "clamp(28px, 3.5vw, 40px) 0",
-                    borderBottom: "0.5px solid var(--color-border)",
-                    cursor: "default",
-                    minHeight: "72px",   // ensures the observer fires reliably on mobile
-                  }}
-              >
+            {SERVICES.map((service, i) => {
+              const isActive = activeIndex === i;
+              return (
                 <div
+                  key={service.number}
+                  ref={(el) => { rowRefs.current[i] = el; }}
                   style={{
-                    display: "flex",
-                    alignItems: "flex-start",
-                    gap: "16px",
+                    padding: "clamp(18px, 2.5vw, 28px) 0 clamp(18px, 2.5vw, 28px) 20px",
+                    borderBottom: "0.5px solid var(--color-border)",
+                    borderLeft: `3px solid ${isActive ? "var(--color-accent)" : "transparent"}`,
+                    opacity: isActive ? 1 : 0.44,
+                    transition: "opacity 0.3s ease, border-left-color 0.3s ease",
+                    cursor: "default",
                   }}
                 >
-                  {/* Icon + number stacked */}
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      gap: "4px",
-                      flexShrink: 0,
-                    }}
-                  >
+                  <div style={{ display: "flex", alignItems: "flex-start", gap: "16px" }}>
+
+                    {/* Icon box */}
                     <div
                       style={{
                         width: "40px",
                         height: "40px",
                         borderRadius: "10px",
-                        background: activeIndex === i
-                          ? "var(--color-surface-2)"
-                          : "var(--color-surface)",
-                        border: `0.5px solid ${activeIndex === i ? "var(--color-border-hover)" : "var(--color-border)"}`,
+                        background: isActive ? "var(--color-surface-2)" : "var(--color-surface)",
+                        border: `0.5px solid ${isActive ? "var(--color-border-hover)" : "var(--color-border)"}`,
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
-                        transition: "background 0.4s ease, border-color 0.4s ease",
-                        opacity: activeIndex === i ? 1 : 0.55,
+                        flexShrink: 0,
+                        transition: "background 0.3s ease, border-color 0.3s ease",
                       }}
                     >
                       {SERVICE_ICONS[i]}
                     </div>
-                    <span
-                      style={{
-                        fontFamily: "var(--font-display), sans-serif",
-                        fontSize: "10px",
-                        fontWeight: 700,
-                        color: activeIndex === i
-                          ? "var(--color-accent)"
-                          : "var(--color-muted-2)",
-                        letterSpacing: "0.08em",
-                        transition: "color 0.4s ease",
-                      }}
-                    >
-                      {service.number}
-                    </span>
-                  </div>
 
-                  <div style={{ flex: 1, paddingTop: "4px" }}>
-                    {/* Title */}
-                    <h3
-                      style={{
-                        fontFamily: "var(--font-display), sans-serif",
-                        fontSize: "clamp(15px, 1.8vw, 20px)",
-                        fontWeight: 600,
-                        color:
-                          activeIndex === i
-                            ? "var(--color-text)"
-                            : "var(--color-muted)",
-                        lineHeight: 1.3,
-                        transition: "color 0.4s ease",
-                        margin: 0,
-                      }}
-                    >
-                      {service.title}
-                    </h3>
-
-                    {/* Expandable content — opens when active (same on desktop and mobile) */}
-                    <div
-                      style={{
-                        maxHeight: activeIndex === i ? "240px" : "0",
-                        overflow: "hidden",
-                        transition:
-                          "max-height 0.6s cubic-bezier(0.25,0.46,0.45,0.94)",
-                        opacity: activeIndex === i ? 1 : 0,
-                        transitionProperty: "max-height, opacity",
-                        transitionDuration: "0.6s, 0.4s",
-                        transitionDelay: activeIndex === i ? "0s, 0.1s" : "0s, 0s",
-                      }}
-                    >
-                      <p
+                    <div style={{ flex: 1 }}>
+                      {/* Number */}
+                      <span
                         style={{
-                          fontSize: "13px",
-                          color: "var(--color-muted)",
-                          fontFamily: "var(--font-body), sans-serif",
-                          lineHeight: 1.75,
-                          marginTop: "10px",
-                          marginBottom: "12px",
+                          fontFamily: "var(--font-display), sans-serif",
+                          fontSize: "10px",
+                          fontWeight: 700,
+                          color: isActive ? "var(--color-accent)" : "var(--color-muted-2)",
+                          letterSpacing: "0.1em",
+                          display: "block",
+                          marginBottom: "4px",
+                          transition: "color 0.3s ease",
                         }}
                       >
-                        {service.description}
-                      </p>
+                        {service.number}
+                      </span>
 
+                      {/* Title — always fully visible */}
+                      <h3
+                        style={{
+                          fontFamily: "var(--font-display), sans-serif",
+                          fontSize: "clamp(15px, 1.8vw, 20px)",
+                          fontWeight: isActive ? 700 : 600,
+                          color: "var(--color-text)",
+                          lineHeight: 1.3,
+                          margin: 0,
+                          transition: "font-weight 0.3s ease",
+                        }}
+                      >
+                        {service.title}
+                      </h3>
+
+                      {/* Description — fades in for active item only, fast */}
                       <div
                         style={{
-                          display: "flex",
-                          flexWrap: "wrap",
-                          gap: "6px",
-                          paddingBottom: "4px",
+                          maxHeight: isActive ? "120px" : "0",
+                          overflow: "hidden",
+                          opacity: isActive ? 1 : 0,
+                          transition: "max-height 0.35s ease, opacity 0.25s ease",
                         }}
                       >
-                        {service.tags.map((tag) => (
-                          <span
-                            key={tag}
-                            style={{
-                              fontSize: "10px",
-                              padding: "4px 10px",
-                              border:
-                                "0.5px solid var(--color-border-hover)",
-                              borderRadius: "20px",
-                              color: "var(--color-muted)",
-                              background: "var(--color-surface)",
-                              fontFamily: "var(--font-body), sans-serif",
-                            }}
-                          >
-                            {tag}
-                          </span>
-                        ))}
+                        <p
+                          style={{
+                            fontSize: "13px",
+                            color: "var(--color-muted)",
+                            fontFamily: "var(--font-body), sans-serif",
+                            lineHeight: 1.7,
+                            margin: "8px 0 10px",
+                          }}
+                        >
+                          {service.description}
+                        </p>
+                        <div style={{ display: "flex", flexWrap: "wrap", gap: "5px" }}>
+                          {service.tags.map((tag) => (
+                            <span
+                              key={tag}
+                              style={{
+                                fontSize: "10px",
+                                padding: "3px 10px",
+                                border: "0.5px solid var(--color-border-hover)",
+                                borderRadius: "20px",
+                                color: "var(--color-muted)",
+                                background: "var(--color-surface)",
+                                fontFamily: "var(--font-body), sans-serif",
+                              }}
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           {/* Right: sticky image (hidden on mobile via CSS) */}
