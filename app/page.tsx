@@ -9,7 +9,6 @@ import Footer from "@/components/Footer";
 import ScrollRevealInit from "@/components/ScrollRevealInit";
 import { Marquee } from "@/components/ui/Marquee";
 import PortfolioSection from "@/components/sections/PortfolioSection";
-import MetricsStrip from "@/components/MetricsStrip";
 import VSLSection from "@/components/VSLSection";
 import { DualImageMarquee } from "@/components/ui/DualImageMarquee";
 import { WordReveal } from "@/components/ui/WordReveal";
@@ -55,9 +54,6 @@ export default function Home() {
 
         {/* 5 — Sobre */}
         <About />
-
-        {/* 6 — Métricas */}
-        <MetricsStrip />
 
         {/* 7 — Manifesto em scroll */}
         <section
