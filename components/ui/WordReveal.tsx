@@ -26,18 +26,21 @@ export function WordReveal({
     const words = container.querySelectorAll<HTMLElement>("[data-word]");
 
     const ctx = gsap.context(() => {
+      // Animate color from readable gray → full dark text
+      // Opacity stays high so every word is always readable
       gsap.fromTo(
         words,
-        { opacity: 0.12 },
+        { color: "#b0b0b0", opacity: 0.55 },
         {
+          color: "#111111",
           opacity: 1,
-          stagger: 0.06,
+          stagger: 0.07,
           ease: "none",
           scrollTrigger: {
             trigger: container,
-            start: "top 80%",
-            end: "bottom 25%",
-            scrub: 1.8,
+            start: "top 75%",
+            end: "bottom 30%",
+            scrub: 2,
           },
         }
       );
@@ -68,8 +71,9 @@ export function WordReveal({
           style={{
             display: "inline-block",
             marginRight: "0.28em",
-            opacity: 0.12,
-            willChange: "opacity",
+            color: "#b0b0b0",
+            opacity: 0.55,
+            willChange: "color, opacity",
           }}
         >
           {word}
