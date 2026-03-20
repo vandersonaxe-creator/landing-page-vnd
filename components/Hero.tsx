@@ -1,164 +1,208 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef } from "react";
 import { usePageReveal } from "@/hooks/usePageReveal";
-import { useTextReveal } from "@/hooks/useTextReveal";
 import { Phone3DMockup } from "@/components/ui/Phone3DMockup";
+import { AnimatedBackground } from "@/components/ui/AnimatedBackground";
 
 export default function Hero() {
-  const heroRef = useRef<HTMLElement | null>(null);
-
   usePageReveal();
-  useTextReveal("[data-text-reveal]", false);
-
-  useEffect(() => {
-    const heroEl = heroRef.current;
-    if (!heroEl) return;
-
-    const prefersReduced = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-    if (prefersReduced) return;
-
-    let raf = 0;
-    const update = () => {
-      const startY = heroEl.getBoundingClientRect().top + window.scrollY || 0;
-      const heroHeight = Math.max(1, heroEl.offsetHeight || 1);
-      const endY = startY + heroHeight;
-      const scrollY = window.scrollY || 0;
-      const t = Math.min(1, Math.max(0, (scrollY - startY) / (endY - startY)));
-      const shift = (t - 0.5) * 2 * 12;
-      heroEl.style.setProperty("--parallax-y", `${Math.round(shift * 10) / 10}px`);
-    };
-
-    const onScroll = () => {
-      if (raf) return;
-      raf = window.requestAnimationFrame(() => { raf = 0; update(); });
-    };
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    update();
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-      if (raf) window.cancelAnimationFrame(raf);
-    };
-  }, []);
 
   return (
     <section
       id="inicio"
-      ref={heroRef}
-      className="relative overflow-hidden py-16 md:py-24 lg:py-32"
-      style={{ background: "#080808", borderBottom: "1px solid rgba(255,255,255,0.06)" }}
+      className="relative overflow-hidden"
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        background:
+          "radial-gradient(ellipse 60% 50% at 20% 60%, rgba(232,76,30,0.07) 0%, transparent 70%), " +
+          "radial-gradient(ellipse 40% 60% at 80% 30%, rgba(255,255,255,0.02) 0%, transparent 60%), " +
+          "var(--color-bg)",
+        borderBottom: "0.5px solid var(--color-border)",
+      }}
     >
-      {/* Ambient blobs */}
-      <div
-        className="pointer-events-none absolute -top-20 left-1/4 h-[600px] w-[600px] rounded-full blur-[120px]"
-        style={{ background: "rgba(86,168,190,0.06)", transform: "translate3d(0,var(--parallax-y,0),0)" }}
-        aria-hidden
-      />
-      <div
-        className="pointer-events-none absolute bottom-0 right-1/4 h-[400px] w-[400px] rounded-full blur-[100px]"
-        style={{ background: "rgba(232,76,30,0.05)" }}
-        aria-hidden
-      />
+      <AnimatedBackground />
 
-      <div className="container relative z-[2] mx-auto max-w-[1280px] px-6 md:px-8 lg:px-12">
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:items-center lg:gap-16">
-
-          {/* ─── LEFT COLUMN ─── */}
-          <div className="flex flex-col gap-6">
-            {/* Eyebrow */}
-            <div data-reveal>
+      <div
+        className="relative z-[1] mx-auto w-full max-w-[1280px]"
+        style={{
+          padding: "100px 48px 80px",
+          display: "flex",
+          alignItems: "center",
+          gap: "64px",
+        }}
+      >
+        {/* ─── LEFT COLUMN ─── */}
+        <div
+          style={{ flex: "1 1 0", display: "flex", flexDirection: "column", gap: "0" }}
+        >
+          {/* Eyebrow */}
+          <div data-reveal style={{ marginBottom: "28px" }}>
+            <span
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "8px",
+                padding: "6px 14px",
+                borderRadius: "40px",
+                border: "0.5px solid var(--color-border-hover)",
+                background: "rgba(255,255,255,0.03)",
+                fontSize: "11px",
+                letterSpacing: "0.08em",
+                textTransform: "uppercase",
+                color: "var(--color-muted)",
+                fontFamily: "var(--font-body), sans-serif",
+              }}
+            >
               <span
-                className="inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.15em]"
+                className="animate-pulse"
                 style={{
-                  background: "rgba(255,255,255,0.05)",
-                  border: "1px solid rgba(255,255,255,0.1)",
-                  color: "var(--color-brand)",
-                  fontFamily: "var(--font-dm-sans), sans-serif",
+                  width: "6px",
+                  height: "6px",
+                  borderRadius: "50%",
+                  background: "#4ade80",
+                  flexShrink: 0,
+                }}
+              />
+              Estrutura Digital · 2025
+            </span>
+          </div>
+
+          {/* H1 — 3 linhas impactantes */}
+          <h1
+            data-text-reveal
+            className="font-bold"
+            style={{
+              fontSize: "clamp(40px, 5.5vw, 72px)",
+              lineHeight: 0.93,
+              letterSpacing: "-0.03em",
+              color: "var(--color-text)",
+              marginBottom: "24px",
+            }}
+          >
+            <span style={{ display: "block" }}>Organizamos.</span>
+            <span style={{ display: "block" }}>Corrigimos.</span>
+            <span
+              style={{
+                display: "block",
+                WebkitTextStroke: "1px rgba(240,237,230,0.25)",
+                color: "transparent",
+              }}
+            >
+              Implantamos.
+            </span>
+          </h1>
+
+          {/* Parágrafo */}
+          <p
+            data-reveal
+            style={{
+              fontSize: "15px",
+              color: "var(--color-muted)",
+              lineHeight: 1.75,
+              maxWidth: "380px",
+              marginBottom: "36px",
+              fontFamily: "var(--font-body), sans-serif",
+            }}
+          >
+            Estrutura digital completa para empresas que querem crescer com
+            clareza, consistência e resultado.
+          </p>
+
+          {/* Botões */}
+          <div
+            data-reveal
+            style={{ display: "flex", alignItems: "center", gap: "24px", flexWrap: "wrap" }}
+          >
+            <Link
+              href="#agendar"
+              className="btn-cta-hero"
+              style={{ padding: "14px 28px" }}
+            >
+              Agendar análise estratégica ↗
+            </Link>
+
+            <Link
+              href="#como-funciona"
+              style={{
+                fontSize: "13px",
+                color: "var(--color-muted)",
+                textDecoration: "none",
+                transition: "color 0.2s",
+                fontFamily: "var(--font-body), sans-serif",
+              }}
+              className="link-nav"
+            >
+              Ver como funciona →
+            </Link>
+          </div>
+
+          {/* Trust badges */}
+          <div
+            data-reveal
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "20px",
+              flexWrap: "wrap",
+              marginTop: "32px",
+              paddingTop: "24px",
+              borderTop: "0.5px solid var(--color-border)",
+            }}
+          >
+            {["Sem contrato fixo", "Atendimento direto", "Entrega por etapas"].map((t) => (
+              <span
+                key={t}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "6px",
+                  fontSize: "12px",
+                  color: "var(--color-muted)",
+                  fontFamily: "var(--font-body), sans-serif",
                 }}
               >
-                <span
-                  className="h-1.5 w-1.5 rounded-full animate-pulse"
-                  style={{ background: "var(--color-accent)" }}
-                />
-                Estrutura Digital · 2025
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M20 6L9 17l-5-5"
+                    stroke="var(--color-brand)"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+                {t}
               </span>
-            </div>
-
-            {/* H1 — text reveal por linha */}
-            <h1
-              data-text-reveal
-              className="font-bold text-[var(--color-text)]"
-              style={{
-                fontSize: "clamp(32px, 4.5vw, 62px)",
-                lineHeight: "1.05",
-                letterSpacing: "-0.03em",
-              }}
-            >
-              Organizamos, corrigimos e implantamos a estrutura digital que sua
-              empresa precisa para atrair, atender e converter melhor
-            </h1>
-
-            {/* Subtítulo */}
-            <p
-              data-reveal
-              className="max-w-xl leading-relaxed"
-              style={{
-                fontSize: "clamp(15px, 1.2vw, 17px)",
-                color: "var(--color-muted)",
-                fontFamily: "var(--font-dm-sans), sans-serif",
-              }}
-            >
-              Se sua empresa ainda não tem presença digital bem organizada, nós
-              estruturamos do zero. Se já existe operação, corrigimos gargalos,
-              melhoramos processos, implantamos automações, páginas, integrações,
-              atendimento, tráfego e inteligência artificial conforme a
-              necessidade real do negócio.
-            </p>
-
-            {/* CTA */}
-            <div data-reveal>
-              <Link
-                href="#agendar"
-                className="btn-cta-hero inline-flex min-h-[52px] items-center justify-center gap-2 rounded-lg px-7 py-4 text-sm font-semibold uppercase tracking-wide text-white"
-                style={{ fontFamily: "var(--font-dm-sans), sans-serif" }}
-              >
-                Agendar análise estratégica
-              </Link>
-            </div>
-
-            {/* Trust badges */}
-            <div
-              data-reveal
-              className="flex items-center gap-4 flex-wrap"
-              style={{ paddingTop: "8px" }}
-            >
-              {["Sem contrato fixo", "Atendimento direto", "Entrega por etapas"].map((t) => (
-                <span
-                  key={t}
-                  className="flex items-center gap-1.5 text-xs"
-                  style={{ color: "var(--color-muted)", fontFamily: "var(--font-dm-sans)" }}
-                >
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
-                    <path d="M20 6L9 17l-5-5" stroke="var(--color-brand)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                  {t}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {/* ─── RIGHT COLUMN — Phone 3D Mockup ─── */}
-          <div data-reveal className="flex items-center justify-center lg:justify-end">
-            <Phone3DMockup duration="0:28" brandName="Vander Pro" />
+            ))}
           </div>
         </div>
+
+        {/* ─── RIGHT COLUMN — Phone3DMockup ─── */}
+        <div
+          data-reveal
+          className="hidden lg:flex"
+          style={{ flexShrink: 0, alignItems: "center", justifyContent: "flex-end" }}
+        >
+          <Phone3DMockup duration="0:28" brandName="Vander Pro" />
+        </div>
       </div>
+
+      {/* Mobile layout override */}
+      <style>{`
+        @media (max-width: 1023px) {
+          #inicio > div {
+            flex-direction: column !important;
+            padding: 100px 24px 60px !important;
+            gap: 40px !important;
+            align-items: flex-start !important;
+          }
+          #inicio h1 {
+            font-size: clamp(32px, 8vw, 44px) !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

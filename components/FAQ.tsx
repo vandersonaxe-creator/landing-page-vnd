@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+
 const FAQ_ITEMS = [
   {
     question: "Vocês atendem empresas que ainda não têm nada estruturado?",
@@ -31,58 +32,94 @@ export default function FAQ() {
   return (
     <section
       id="contato"
-      className="py-14 md:py-20 lg:py-24"
+      className="py-14 md:py-20"
       style={{
         background: "#080808",
-        borderBottom: "1px solid rgba(255,255,255,0.06)",
+        borderBottom: "0.5px solid var(--color-border)",
       }}
     >
       <div className="container mx-auto max-w-[1280px] px-6 md:px-8 lg:px-12">
-        <div data-scroll-reveal>
-          <p className="text-center text-xs font-semibold uppercase tracking-[0.2em] text-[var(--color-brand)]">
-            Perguntas frequentes
-          </p>
-          <h2 data-text-reveal className="mx-auto mt-2 max-w-2xl text-center font-bold text-[var(--color-text)]">
+        {/* Header */}
+        <div data-scroll-reveal className="mb-10">
+          <p className="num-tag mb-3 text-center">Perguntas frequentes</p>
+          <h2
+            data-text-reveal
+            className="mx-auto max-w-2xl text-center font-bold text-[var(--color-text)]"
+          >
             Dúvidas comuns antes de organizar melhor a estrutura digital da empresa
           </h2>
+          <div
+            className="mx-auto mt-6 h-px max-w-2xl"
+            style={{ background: "var(--color-border)" }}
+          />
         </div>
-        <div data-scroll-reveal className="mx-auto mt-8 max-w-2xl space-y-3">
+
+        {/* Accordion */}
+        <div
+          data-scroll-reveal
+          className="mx-auto max-w-2xl"
+        >
           {FAQ_ITEMS.map((item, i) => (
             <div
               key={i}
-              className="overflow-hidden rounded-xl transition-shadow"
-              style={{ border: "1px solid rgba(255,255,255,0.08)" }}
+              style={{
+                borderBottom: "0.5px solid var(--color-border)",
+              }}
             >
               <button
                 type="button"
                 onClick={() => setOpenIndex(openIndex === i ? null : i)}
-                className="flex min-h-[56px] w-full items-center justify-between px-5 py-4 text-left font-medium text-[var(--color-text)] transition-colors focus:outline-none focus:ring-2 focus:ring-[rgba(86,168,190,0.35)] focus:ring-offset-2 focus:ring-offset-[#0a0a0a]"
+                className="flex w-full items-center justify-between text-left transition-colors focus:outline-none"
                 style={{
-                  background: openIndex === i ? "#1a1a1a" : "#111111",
+                  padding: "22px 0",
+                  fontSize: "16px",
+                  fontWeight: 600,
+                  color: "var(--color-text)",
+                  fontFamily: "var(--font-display), sans-serif",
+                  background: "transparent",
+                  border: "none",
+                  cursor: "none",
                 }}
               >
-                {item.question}
+                <span style={{ paddingRight: "32px" }}>{item.question}</span>
                 <span
-                  className={`ml-3 shrink-0 text-xl font-light text-[var(--color-brand)] transition-transform duration-300 ease-out ${
-                    openIndex === i ? "rotate-45" : "rotate-0"
-                  }`}
                   aria-hidden
+                  style={{
+                    fontSize: "20px",
+                    lineHeight: 1,
+                    color: "var(--color-accent)",
+                    fontFamily: "var(--font-display), sans-serif",
+                    fontWeight: 300,
+                    flexShrink: 0,
+                    transition: "transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+                    transform: openIndex === i ? "rotate(45deg)" : "rotate(0deg)",
+                    display: "inline-block",
+                  }}
                 >
                   +
                 </span>
               </button>
+
+              {/* Answer — CSS grid expand trick */}
               <div
-                className={`grid transition-[grid-template-rows] duration-300 ease-out ${
-                  openIndex === i ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
-                }`}
+                style={{
+                  display: "grid",
+                  gridTemplateRows: openIndex === i ? "1fr" : "0fr",
+                  transition: "grid-template-rows 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+                }}
               >
-                <div className="overflow-hidden">
-                  <div
-                    className="px-5 py-4 text-sm leading-relaxed text-[var(--color-muted)]"
-                    style={{ borderTop: "1px solid rgba(255,255,255,0.06)", background: "#0d0d0d" }}
+                <div style={{ overflow: "hidden" }}>
+                  <p
+                    style={{
+                      paddingBottom: "22px",
+                      fontSize: "14px",
+                      color: "var(--color-muted)",
+                      fontFamily: "var(--font-body), sans-serif",
+                      lineHeight: 1.8,
+                    }}
                   >
                     {item.answer}
-                  </div>
+                  </p>
                 </div>
               </div>
             </div>

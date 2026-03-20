@@ -15,13 +15,20 @@ const dmSans = DM_Sans({
   variable: "--font-dm-sans",
   subsets: ["latin"],
   display: "swap",
-  weight: ["400", "500", "600"],
+  weight: ["300", "400", "500", "600"],
 });
 
 export const metadata: Metadata = {
-  title: "Vander Pro | Estrutura Digital",
+  title: "Vander Pro | Estrutura Digital para Empresas",
   description:
-    "Estrutura digital para empresas que querem crescer: organizamos, corrigimos e implantamos presença digital, atendimento, automação, IA e tráfego conforme a necessidade do negócio.",
+    "Organizamos, corrigimos e implantamos a estrutura digital que sua empresa precisa para atrair, atender e converter melhor.",
+  openGraph: {
+    title: "Vander Pro | Estrutura Digital para Empresas",
+    description:
+      "Organizamos, corrigimos e implantamos a estrutura digital que sua empresa precisa para atrair, atender e converter melhor.",
+    type: "website",
+    locale: "pt_BR",
+  },
 };
 
 export default function RootLayout({
@@ -33,7 +40,11 @@ export default function RootLayout({
     <html lang="pt-BR" className={`${syne.variable} ${dmSans.variable}`}>
       <body className="antialiased">
         <CustomCursor />
-        <SmoothScroll>{children}</SmoothScroll>
+        <SmoothScroll>
+          <div style={{ paddingTop: "64px" }}>
+            {children}
+          </div>
+        </SmoothScroll>
       </body>
     </html>
   );

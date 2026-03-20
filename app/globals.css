@@ -2,11 +2,15 @@
 
 :root {
   --color-bg: #080808;
-  --color-surface: #111111;
-  --color-border: rgba(255, 255, 255, 0.08);
+  --color-surface: #0f0f0f;
+  --color-surface-2: #141414;
+  --color-border: rgba(255, 255, 255, 0.07);
+  --color-border-hover: rgba(255, 255, 255, 0.14);
   --color-text: #f0ede6;
-  --color-muted: #777777;
+  --color-muted: #666666;
+  --color-muted-2: #444444;
   --color-accent: #e84c1e;
+  --color-accent-dim: rgba(232, 76, 30, 0.12);
   --color-brand: #56a8be;
   --color-brand-dark: #23525f;
 
@@ -29,10 +33,15 @@ html {
 body {
   background: var(--color-bg);
   color: var(--color-text);
-  font-family: var(--font-body), sans-serif;
+  font-family: var(--font-body, "DM Sans", sans-serif);
   font-size: 15px;
   line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
   cursor: none;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 h1,
@@ -41,144 +50,92 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: var(--font-display), sans-serif;
+  font-family: var(--font-display, "Syne", sans-serif);
 }
 
 /* Tipografia responsiva com clamp() */
 h1 {
-  font-size: clamp(36px, 6vw, 80px);
-  line-height: 1.0;
+  font-size: clamp(32px, 5.5vw, 72px);
+  line-height: 0.93;
   letter-spacing: -0.03em;
   font-weight: 800;
 }
 h2 {
-  font-size: clamp(28px, 4vw, 56px);
+  font-size: clamp(28px, 4vw, 52px);
   line-height: 1.05;
   letter-spacing: -0.02em;
   font-weight: 700;
 }
 h3 {
-  font-size: clamp(18px, 2.5vw, 28px);
-  line-height: 1.2;
+  font-size: clamp(15px, 1.8vw, 20px);
+  line-height: 1.25;
   letter-spacing: -0.01em;
   font-weight: 600;
 }
 
 /* Âncoras: compensar header fixo */
-[id="agendar"] {
-  scroll-margin-top: 5rem;
-}
+[id="agendar"] { scroll-margin-top: 5rem; }
 [id="inicio"],
 [id="sobre"],
 [id="servicos"],
 [id="como-funciona"],
 [id="prova-social"],
-[id="contato"] {
-  scroll-margin-top: 4rem;
-}
+[id="contato"] { scroll-margin-top: 4rem; }
 
-/* CTA button (Header / Hero) */
+/* ─── CTA button ─── */
 .btn-cta-header,
 .btn-cta-hero {
-  border-radius: 8px;
-  border-top: 2px solid rgba(86, 168, 190, 0.5);
-  background: linear-gradient(90deg, #337182 0%, #56a8be 50%, #337182 100%) !important;
-  box-shadow:
-    0 10px 20px 0 rgba(59, 124, 142, 0.4),
-    0 20px 40px 0 rgba(59, 124, 142, 0.3),
-    0 40px 80px 0 rgba(59, 124, 142, 0.2);
+  border-radius: 4px;
+  background: var(--color-accent);
+  box-shadow: 0 8px 24px rgba(232, 76, 30, 0.25);
   outline: none;
   cursor: none;
   border: none;
-  transition: transform 0.5s, box-shadow 0.5s;
+  transition: transform 0.25s, background 0.25s, box-shadow 0.25s;
   position: relative;
   overflow: hidden;
   display: inline-flex;
   align-items: center;
   color: white;
   text-decoration: none;
+  font-family: var(--font-body, "DM Sans"), sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
 }
-
-.btn-cta-header:active,
-.btn-cta-hero:active {
-  opacity: 0.5;
-}
-
 .btn-cta-header:hover,
 .btn-cta-hero:hover {
-  transform: translateY(-6px);
-  box-shadow: none;
+  transform: translateY(-2px);
+  background: #ff5c2a;
+  box-shadow: 0 12px 32px rgba(232, 76, 30, 0.35);
+}
+.btn-cta-header:active,
+.btn-cta-hero:active { opacity: 0.85; }
+
+/* WhatsApp pill button */
+.btn-wa-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  border-radius: 100px;
+  border: 0.5px solid var(--color-border-hover);
+  background: transparent;
+  color: var(--color-muted);
+  font-family: var(--font-body), sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  transition: background 0.2s, color 0.2s;
+  cursor: none;
+  text-decoration: none;
+}
+.btn-wa-pill:hover {
+  background: white;
+  color: #080808;
+  border-color: white;
 }
 
-.btn-cta-header svg,
-.btn-cta-hero svg {
-  margin-right: 8px;
-  transition: transform 0.5s ease;
-}
-
-.btn-cta-header:hover svg,
-.btn-cta-hero:hover svg {
-  transform: translateX(5px) rotate(5deg);
-}
-
-/* Shine */
-.btn-cta-header::before,
-.btn-cta-hero::before {
-  content: "";
-  background: linear-gradient(10deg, #d1d2ea 12.81%, rgba(209, 210, 234, 0) 66.66%);
-  width: 70px;
-  height: 130%;
-  position: absolute;
-  transform: translateX(-50%) skew(-25deg);
-  bottom: 0%;
-  left: -10%;
-  user-select: none;
-  pointer-events: none;
-  animation: shinery 3s infinite ease-in-out;
-  filter: blur(3px);
-}
-
-@keyframes shinery {
-  0%,
-  100% {
-    left: -10%;
-    opacity: 0;
-  }
-  20% {
-    opacity: 1;
-  }
-  48% {
-    left: 110%;
-    opacity: 1;
-  }
-  51% {
-    opacity: 0;
-  }
-}
-
-/* Top glow */
-.btn-cta-header::after,
-.btn-cta-hero::after {
-  content: "";
-  position: absolute;
-  top: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 90%;
-  height: 20px;
-  background: radial-gradient(
-    ellipse at center,
-    rgba(86, 168, 190, 0.6) 20%,
-    rgba(86, 168, 190, 0.2) 70%,
-    rgba(86, 168, 190, 0) 100%
-  );
-  mix-blend-mode: screen;
-  filter: blur(12px);
-  pointer-events: none;
-  z-index: 1;
-}
-
-/* ---- Scroll reveal (CSS fallback — respeita prefers-reduced-motion) ---- */
+/* ─── Scroll reveal fallback ─── */
 .reveal {
   opacity: 0;
   transform: translate3d(0, 16px, 0);
@@ -191,57 +148,58 @@ h3 {
   opacity: 1;
   transform: translate3d(0, 0, 0);
 }
-.reveal-title { transform: translate3d(0, 10px, 0); }
-.reveal-card { transform: translate3d(0, 13px, 0); }
-.reveal-cta {
-  transform: translate3d(0, 9px, 0);
-  transition-duration: 520ms;
-}
-.reveal-block { transform: translate3d(0, 11px, 0); }
 
-/* ---- Links e botões secundários ---- */
+/* ─── Nav links ─── */
 .link-nav {
   transition: color 0.2s ease;
 }
 .link-nav:hover {
-  color: var(--color-brand);
+  color: var(--color-text);
 }
 
-.btn-secondary {
-  transition:
-    background-color 0.25s ease,
-    border-color 0.25s ease,
-    color 0.25s ease;
-}
-.btn-secondary:hover {
-  background-color: rgba(86, 168, 190, 0.1);
-}
-.btn-secondary:focus-visible {
-  outline: 2px solid rgba(86, 168, 190, 0.4);
-  outline-offset: 2px;
-}
-
-/* ---- Cards premium: hover e transição ---- */
+/* ─── Cards ─── */
 .card-premium {
-  transition:
-    box-shadow 0.3s ease,
-    transform 0.3s ease,
-    border-color 0.2s ease;
+  transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.25s ease;
 }
 .card-premium:hover {
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
   transform: translateY(-3px);
 }
 
-.card-premium-dark {
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
-}
-.card-premium-dark:hover {
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
-  transform: translateY(-3px);
+/* ─── Number tag accent ─── */
+.num-tag {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: var(--color-accent);
+  font-weight: 600;
+  font-family: var(--font-display), sans-serif;
 }
 
-/* ---- Fundo gradiente animado ---- */
+/* ─── Phone 3D mockup ─── */
+.phone-mockup { perspective: 1200px; transform-style: preserve-3d; }
+.phone-mockup-inner {
+  transform: rotateY(-12deg) rotateX(4deg);
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform-style: preserve-3d;
+}
+.phone-mockup:hover .phone-mockup-inner { transform: rotateY(0deg) rotateX(0deg); }
+
+/* ─── Portfolio item hover ─── */
+.portfolio-item { transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+.portfolio-item:hover { transform: translateY(-6px); }
+.portfolio-item-overlay { opacity: 0; transition: opacity 0.35s ease; }
+.portfolio-item:hover .portfolio-item-overlay { opacity: 1; }
+
+/* ─── Marquee infinito ─── */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.animate-marquee { animation: marquee 20s linear infinite; }
+
+/* ─── Ambient gradient ─── */
 .premium-ambient-layer {
   position: absolute;
   inset: -25%;
@@ -256,71 +214,14 @@ h3 {
   transform: translate3d(0, 0, 0);
   animation: premiumAmbientDrift 75s ease-in-out infinite;
 }
-
-.premium-ambient-layer--hero {
-  opacity: 0.4;
-  filter: blur(34px);
-}
-
-.premium-ambient-layer--dark {
-  opacity: 0.35;
-}
-
+.premium-ambient-layer--dark { opacity: 0.35; }
 @keyframes premiumAmbientDrift {
   0% { transform: translate3d(-4%, -3%, 0); }
   50% { transform: translate3d(4%, 3%, 0); }
   100% { transform: translate3d(-4%, -3%, 0); }
 }
 
-/* ---- Marquee infinito ---- */
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-.animate-marquee {
-  animation: marquee 20s linear infinite;
-}
-
-/* ---- Phone 3D mockup ---- */
-.phone-mockup {
-  perspective: 1200px;
-  transform-style: preserve-3d;
-}
-.phone-mockup-inner {
-  transform: rotateY(-12deg) rotateX(4deg);
-  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  transform-style: preserve-3d;
-}
-.phone-mockup:hover .phone-mockup-inner {
-  transform: rotateY(0deg) rotateX(0deg);
-}
-
-/* ---- Portfolio item hover ---- */
-.portfolio-item {
-  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-.portfolio-item:hover {
-  transform: translateY(-6px);
-}
-.portfolio-item-overlay {
-  opacity: 0;
-  transition: opacity 0.35s ease;
-}
-.portfolio-item:hover .portfolio-item-overlay {
-  opacity: 1;
-}
-
-/* ---- Number tag accent ---- */
-.num-tag {
-  font-variant-numeric: tabular-nums;
-  font-feature-settings: "tnum";
-  font-size: 11px;
-  letter-spacing: 0.05em;
-  color: var(--color-accent);
-  font-weight: 600;
-}
-
-/* ---- Prefers reduced motion ---- */
+/* ─── Prefers reduced motion ─── */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
