@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
-import ScrollReveal from "@/components/ScrollReveal";
 
 type VideoItem = {
   id: string;
@@ -75,10 +74,11 @@ export default function VideoTestimonials() {
       },
       {
         id: "depoimento-3",
-        title: "Depoimento | Em breve",
-        description: "Novo relato real para completar a seção de prova social.",
-        youtubeUrl: "https://youtube.com/shorts/",
-        enabled: false,
+        title: "Depoimento | Cliente",
+        description:
+          "Relato real sobre clareza, estrutura digital e impacto nos resultados do negócio.",
+        youtubeUrl: "https://youtube.com/shorts/RW2aDlfkl-U",
+        enabled: true,
       },
     ],
     []
@@ -270,25 +270,26 @@ export default function VideoTestimonials() {
   return (
     <section
       id="prova-social"
-      className="relative overflow-hidden bg-[#f8fafb] py-14 md:py-20 lg:py-24"
+      className="relative overflow-hidden py-14 md:py-20 lg:py-24"
+      style={{ background: "#0d0d0d", borderBottom: "1px solid rgba(255,255,255,0.06)" }}
     >
       <div
-        className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#56a8be]/[0.06] via-transparent to-transparent"
+        className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#56a8be]/[0.03] via-transparent to-transparent"
         aria-hidden
       />
-      <div className="container relative mx-auto max-w-[1280px] px-4 md:px-6 lg:px-8">
-        <ScrollReveal variant="title">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#23525F]">
+      <div className="container relative mx-auto max-w-[1280px] px-6 md:px-8 lg:px-12">
+        <div data-scroll-reveal>
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--color-brand)]">
             PROVA SOCIAL
           </p>
-          <h2 className="mt-2 text-xl font-bold text-[#23525F] md:text-2xl lg:text-3xl">
+          <h2 className="mt-2 font-bold text-[var(--color-text)]">
             Depoimentos reais em vídeo
           </h2>
-          <p className="mt-4 max-w-2xl text-[#23525F]/90 leading-relaxed">
+          <p className="mt-4 max-w-2xl text-[var(--color-muted)] leading-relaxed">
             Você vê na prática como a operação fica mais clara, o atendimento
             melhora e a jornada passa a conduzir para o agendamento.
           </p>
-        </ScrollReveal>
+        </div>
         <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {visibleVideos.map((video, i) => {
             const youtubeId = getYouTubeId(video.youtubeUrl);
@@ -297,11 +298,15 @@ export default function VideoTestimonials() {
               : null;
 
             return (
-              <ScrollReveal key={video.id} variant="card" staggerIndex={i}>
+              <div key={video.id} data-scroll-reveal>
                 <button
                   type="button"
                   onClick={() => openVideo(video.id)}
-                  className="card-premium group flex w-full flex-col overflow-hidden rounded-xl border border-[#23525F15] bg-white text-left shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#23525F]/35 focus-visible:ring-offset-2 focus-visible:ring-offset-[#f8fafb] hover:border-[#23525F]/30"
+                  className="card-premium group flex w-full flex-col overflow-hidden rounded-xl text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(86,168,190,0.4)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0d0d0d]"
+                  style={{
+                    background: "#111111",
+                    border: "1px solid rgba(255,255,255,0.08)",
+                  }}
                   aria-label={`Assistir: ${video.title}`}
                 >
                   <div className="relative aspect-video overflow-hidden bg-[#23525F]/10">
@@ -330,13 +335,13 @@ export default function VideoTestimonials() {
                     </div>
                   </div>
                   <div className="p-5">
-                    <p className="font-semibold text-[#23525F]">{video.title}</p>
-                    <p className="mt-1.5 text-sm leading-relaxed text-[#23525F]/80">
+                    <p className="font-semibold text-[var(--color-text)]">{video.title}</p>
+                    <p className="mt-1.5 text-sm leading-relaxed text-[var(--color-muted)]">
                       {video.description}
                     </p>
                   </div>
                 </button>
-              </ScrollReveal>
+              </div>
             );
           })}
         </div>
@@ -356,28 +361,30 @@ export default function VideoTestimonials() {
         >
           <div
             ref={modalRef}
-            className={`w-full max-w-3xl overflow-hidden rounded-2xl bg-white shadow-2xl transition-transform duration-180 ${
+            className={`w-full max-w-3xl overflow-hidden rounded-2xl shadow-2xl transition-transform duration-180 ${
               modalPhase === "entered"
                 ? "translate-y-0 scale-100"
                 : "translate-y-2 scale-[0.98]"
             }`}
+            style={{ background: "#111111", border: "1px solid rgba(255,255,255,0.08)" }}
             tabIndex={-1}
           >
-            <div className="flex items-center justify-between gap-3 border-b border-[#23525F12] px-4 py-3">
+            <div className="flex items-center justify-between gap-3 px-4 py-3"
+              style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
               <div className="min-w-0">
                 <p
                   id={`video-dialog-title-${active.id}`}
-                  className="truncate font-semibold text-[#23525F]"
+                  className="truncate font-semibold text-[var(--color-text)]"
                 >
                   {active.title}
                 </p>
-                <p className="truncate text-sm text-[#23525F]/70">{active.description}</p>
+                <p className="truncate text-sm text-[var(--color-muted)]">{active.description}</p>
               </div>
               <button
                 type="button"
                 onClick={requestClose}
                 ref={closeButtonRef}
-                className="rounded-full p-2 text-[#23525F]/70 transition hover:bg-[#23525F]/10 hover:text-[#23525F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#23525F]/35"
+                className="rounded-full p-2 text-[var(--color-muted)] transition hover:bg-[rgba(255,255,255,0.08)] hover:text-[var(--color-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(86,168,190,0.35)]"
                 aria-label="Fechar vídeo"
               >
                 <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor">

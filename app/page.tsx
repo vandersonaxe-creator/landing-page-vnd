@@ -8,10 +8,12 @@ import BookingSection from "@/components/BookingSection";
 import VideoTestimonials from "@/components/VideoTestimonials";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
+import ScrollRevealInit from "@/components/ScrollRevealInit";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-white text-[#171717]">
+    <div className="min-h-screen" style={{ background: "var(--color-bg)" }}>
+      <ScrollRevealInit />
       <Header />
       <main>
         <Hero />

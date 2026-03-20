@@ -1,32 +1,67 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-bg: #0a0a0a;
+  --color-surface: #111111;
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-text: #f0ede6;
+  --color-muted: #888888;
+  --color-accent: #e84c1e;
+  --color-brand: #56a8be;
+  --color-brand-dark: #23525f;
+
+  --background: var(--color-bg);
+  --foreground: var(--color-text);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-display: var(--font-syne);
+  --font-body: var(--font-dm-sans);
 }
 
 html {
-  scroll-behavior: smooth;
+  background: var(--color-bg);
+  color: var(--color-text);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body), sans-serif;
+  font-size: 15px;
+  line-height: 1.75;
+  cursor: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display), sans-serif;
+}
+
+/* Tipografia responsiva com clamp() */
+h1 {
+  font-size: clamp(36px, 6vw, 80px);
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  font-weight: 800;
+}
+h2 {
+  font-size: clamp(28px, 4vw, 56px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+}
+h3 {
+  font-size: clamp(18px, 2.5vw, 28px);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  font-weight: 600;
 }
 
 /* Âncoras: compensar header fixo */
@@ -42,19 +77,18 @@ body {
   scroll-margin-top: 4rem;
 }
 
-/* CTA button (Header / Hero) - replicated from Elementor custom_css */
+/* CTA button (Header / Hero) */
 .btn-cta-header,
 .btn-cta-hero {
   border-radius: 8px;
-  border-top: 2px solid #b9cefd;
+  border-top: 2px solid rgba(86, 168, 190, 0.5);
   background: linear-gradient(90deg, #337182 0%, #56a8be 50%, #337182 100%) !important;
   box-shadow:
     0 10px 20px 0 rgba(59, 124, 142, 0.4),
     0 20px 40px 0 rgba(59, 124, 142, 0.3),
-    0 40px 80px 0 rgba(59, 124, 142, 0.2),
-    0 60px 120px 0 rgba(59, 124, 142, 0.1);
+    0 40px 80px 0 rgba(59, 124, 142, 0.2);
   outline: none;
-  cursor: pointer;
+  cursor: none;
   border: none;
   transition: transform 0.5s, box-shadow 0.5s;
   position: relative;
@@ -72,9 +106,8 @@ body {
 
 .btn-cta-header:hover,
 .btn-cta-hero:hover {
-  transform: translateY(-8px);
+  transform: translateY(-6px);
   box-shadow: none;
-  transition: transform 0.5s, box-shadow 0.5s;
 }
 
 .btn-cta-header svg,
@@ -88,15 +121,11 @@ body {
   transform: translateX(5px) rotate(5deg);
 }
 
-/* Shine animation */
+/* Shine */
 .btn-cta-header::before,
 .btn-cta-hero::before {
   content: "";
-  background: linear-gradient(
-    10deg,
-    #d1d2ea 12.81%,
-    rgba(209, 210, 234, 0) 66.66%
-  );
+  background: linear-gradient(10deg, #d1d2ea 12.81%, rgba(209, 210, 234, 0) 66.66%);
   width: 70px;
   height: 130%;
   position: absolute;
@@ -139,9 +168,9 @@ body {
   height: 20px;
   background: radial-gradient(
     ellipse at center,
-    #a4d9ff 20%,
-    rgba(164, 217, 255, 0.31) 70%,
-    rgba(164, 217, 255, 0) 100%
+    rgba(86, 168, 190, 0.6) 20%,
+    rgba(86, 168, 190, 0.2) 70%,
+    rgba(86, 168, 190, 0) 100%
   );
   mix-blend-mode: screen;
   filter: blur(12px);
@@ -149,7 +178,7 @@ body {
   z-index: 1;
 }
 
-/* ---- Scroll reveal (respeita prefers-reduced-motion) ---- */
+/* ---- Scroll reveal (CSS fallback — respeita prefers-reduced-motion) ---- */
 .reveal {
   opacity: 0;
   transform: translate3d(0, 16px, 0);
@@ -170,12 +199,26 @@ body {
 }
 .reveal-block { transform: translate3d(0, 11px, 0); }
 
-@media (prefers-reduced-motion: reduce) {
-  .reveal {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
+/* ---- Links e botões secundários ---- */
+.link-nav {
+  transition: color 0.2s ease;
+}
+.link-nav:hover {
+  color: var(--color-brand);
+}
+
+.btn-secondary {
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease;
+}
+.btn-secondary:hover {
+  background-color: rgba(86, 168, 190, 0.1);
+}
+.btn-secondary:focus-visible {
+  outline: 2px solid rgba(86, 168, 190, 0.4);
+  outline-offset: 2px;
 }
 
 /* ---- Cards premium: hover e transição ---- */
@@ -186,103 +229,69 @@ body {
     border-color 0.2s ease;
 }
 .card-premium:hover {
-  box-shadow: 0 12px 28px rgba(35, 82, 95, 0.12);
-  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+  transform: translateY(-3px);
 }
 
-/* ---- Links e botões secundários ---- */
-.link-nav {
-  transition: color 0.2s ease;
-}
-.link-nav:hover {
-  color: rgb(35 82 95 / 0.85);
-}
-.btn-secondary {
-  transition:
-    background-color 0.25s ease,
-    border-color 0.25s ease,
-    color 0.25s ease;
-}
-.btn-secondary:hover {
-  background-color: rgb(35 82 95 / 0.08);
-}
-.btn-secondary:focus-visible {
-  outline: 2px solid rgb(35 82 95 / 0.4);
-  outline-offset: 2px;
-}
-
-/* Cards escuros (seção de serviços) */
 .card-premium-dark {
   transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 .card-premium-dark:hover {
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
-  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+  transform: translateY(-3px);
 }
 
-/* ---- Fundo gradiente animado (premium e sutil) ---- */
+/* ---- Fundo gradiente animado ---- */
 .premium-ambient-layer {
   position: absolute;
   inset: -25%;
   z-index: 1;
   pointer-events: none;
   background:
-    radial-gradient(
-      600px 400px at 20% 20%,
-      rgba(45, 100, 112, 0.28),
-      transparent 60%
-    ),
-    radial-gradient(
-      520px 360px at 75% 55%,
-      rgba(26, 26, 26, 0.22),
-      transparent 60%
-    ),
-    radial-gradient(
-      520px 360px at 35% 85%,
-      rgba(42, 42, 42, 0.18),
-      transparent 65%
-    );
+    radial-gradient(600px 400px at 20% 20%, rgba(86, 168, 190, 0.12), transparent 60%),
+    radial-gradient(520px 360px at 75% 55%, rgba(232, 76, 30, 0.06), transparent 60%),
+    radial-gradient(520px 360px at 35% 85%, rgba(86, 168, 190, 0.08), transparent 65%);
   filter: blur(30px);
-  opacity: 0.3;
+  opacity: 0.5;
   transform: translate3d(0, 0, 0);
   animation: premiumAmbientDrift 75s ease-in-out infinite;
 }
 
 .premium-ambient-layer--hero {
-  opacity: 0.26;
+  opacity: 0.4;
   filter: blur(34px);
 }
 
 .premium-ambient-layer--dark {
-  opacity: 0.28;
+  opacity: 0.35;
 }
 
 @keyframes premiumAmbientDrift {
-  0% {
-    transform: translate3d(-4%, -3%, 0);
-  }
-  50% {
-    transform: translate3d(4%, 3%, 0);
-  }
-  100% {
-    transform: translate3d(-4%, -3%, 0);
-  }
+  0% { transform: translate3d(-4%, -3%, 0); }
+  50% { transform: translate3d(4%, 3%, 0); }
+  100% { transform: translate3d(-4%, -3%, 0); }
 }
 
+/* ---- Marquee infinito ---- */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 20s linear infinite;
+}
+
+/* ---- Prefers reduced motion ---- */
 @media (prefers-reduced-motion: reduce) {
-  .premium-ambient-layer {
-    animation: premiumAmbientDriftReduced 200s linear infinite;
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
   }
-}
-
-@keyframes premiumAmbientDriftReduced {
-  0% {
-    transform: translate3d(-1.2%, -1%, 0);
-  }
-  50% {
-    transform: translate3d(1.2%, 1%, 0);
-  }
-  100% {
-    transform: translate3d(-1.2%, -1%, 0);
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }

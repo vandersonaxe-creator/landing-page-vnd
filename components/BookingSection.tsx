@@ -1,6 +1,5 @@
 "use client";
 
-import ScrollReveal from "@/components/ScrollReveal";
 import CalComEmbed from "@/components/CalComEmbed";
 
 export default function BookingSection() {
@@ -23,11 +22,11 @@ export default function BookingSection() {
       />
 
       <div className="container relative z-[2] mx-auto max-w-[1280px] px-4 md:px-6 lg:px-8">
-        <ScrollReveal variant="section" className="max-w-2xl">
+        <div data-scroll-reveal className="max-w-2xl">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/90">
             Agendamento
           </p>
-          <h2 className="mt-3 text-xl font-bold text-white md:text-2xl lg:text-3xl">
+          <h2 className="mt-3 font-bold text-white">
             Agende uma conversa e entenda o que sua empresa realmente precisa
           </h2>
           <p className="mt-4 text-white/90 leading-relaxed">
@@ -35,7 +34,7 @@ export default function BookingSection() {
             negócio e mostramos qual estrutura faz mais sentido para melhorar sua
             presença digital, atendimento, operação e geração de oportunidades.
           </p>
-        </ScrollReveal>
+        </div>
 
         <div className="mt-8 md:mt-10">
           <p className="mb-4 text-sm text-white/80">

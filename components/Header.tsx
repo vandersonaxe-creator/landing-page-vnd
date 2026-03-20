@@ -92,25 +92,30 @@ export default function Header() {
       ref={headerRef}
       className={`sticky top-0 z-[99] relative transition-all duration-300 ${
         scrolled
-          ? "border-b border-[#23525F]/10 bg-white/85 shadow-[0_1px_0_0_rgba(35,82,95,0.06)] backdrop-blur-md"
-          : "border-b border-[#23525F]/[0.08] bg-white/95 backdrop-blur-sm"
+          ? "backdrop-blur-md"
+          : "backdrop-blur-sm"
       }`}
+      style={{
+        background: scrolled ? "rgba(10,10,10,0.92)" : "rgba(10,10,10,0.75)",
+        borderBottom: "1px solid rgba(255,255,255,0.06)",
+      }}
     >
       <div
         ref={progressRef}
         aria-hidden
-        className="pointer-events-none absolute left-0 top-0 h-[2px] w-full origin-left scale-x-0 bg-gradient-to-r from-[#56a8be] via-[#23525F] to-[#56a8be]"
+        className="pointer-events-none absolute left-0 top-0 h-[2px] w-full origin-left scale-x-0 bg-gradient-to-r from-[var(--color-brand)] via-[var(--color-accent)] to-[var(--color-brand)]"
       />
 
       <div className="mx-auto flex max-w-[1280px] items-center justify-between gap-3 px-4 py-3 md:px-6 lg:px-8">
         <Link
           href="#inicio"
-          className="flex shrink-0 flex-col items-start gap-0 sm:flex-row sm:items-baseline sm:gap-2 [font-family:var(--font-inter-tight),sans-serif]"
+          className="flex shrink-0 flex-col items-start gap-0 sm:flex-row sm:items-baseline sm:gap-2"
+          style={{ fontFamily: "var(--font-syne), sans-serif" }}
         >
-          <span className="text-xl font-bold tracking-tight text-[#23525F] md:text-[1.35rem]">
+          <span className="text-xl font-bold tracking-tight text-[var(--color-text)] md:text-[1.35rem]">
             {BRAND.name}
           </span>
-          <span className="text-xs font-medium tracking-wide text-[#23525F]/80 sm:text-sm sm:font-normal">
+          <span className="text-xs font-medium tracking-wide text-[var(--color-muted)] sm:text-sm sm:font-normal">
             {BRAND.signature}
           </span>
         </Link>
@@ -123,11 +128,16 @@ export default function Header() {
             <Link
               key={label}
               href={href}
-              className={`link-nav text-sm font-medium ${
+              className={`link-nav text-sm font-medium rounded-full px-3 py-1.5 transition-colors ${
                 activeSection === href.replace(/^#/, "")
-                  ? "rounded-full bg-[#23525F]/10 px-3 py-1.5 text-[#23525F]"
-                  : "text-[#23525F]/80 hover:text-[#23525F] rounded-full px-3 py-1.5"
+                  ? "text-[var(--color-text)]"
+                  : "text-[var(--color-muted)] hover:text-[var(--color-text)]"
               }`}
+              style={
+                activeSection === href.replace(/^#/, "")
+                  ? { background: "rgba(255,255,255,0.06)" }
+                  : undefined
+              }
             >
               {label}
             </Link>
@@ -150,7 +160,8 @@ export default function Header() {
           <button
             type="button"
             onClick={() => setMobileOpen((o) => !o)}
-            className="flex h-10 w-10 items-center justify-center rounded-lg border border-[#23525F20] bg-transparent text-[#23525F] transition-colors hover:bg-[#23525F]/5 lg:hidden"
+            className="flex h-10 w-10 items-center justify-center rounded-lg bg-transparent text-[var(--color-text)] transition-colors hover:bg-[rgba(255,255,255,0.06)] lg:hidden"
+            style={{ border: "1px solid rgba(255,255,255,0.08)" }}
             aria-expanded={mobileOpen}
             aria-label="Abrir menu"
           >
@@ -168,17 +179,23 @@ export default function Header() {
       </div>
 
       {mobileOpen && (
-        <div className="border-t border-[#23525F15] bg-white/98 px-4 py-4 backdrop-blur-sm lg:hidden">
+        <div
+          className="px-4 py-4 backdrop-blur-md lg:hidden"
+          style={{
+            background: "rgba(10,10,10,0.96)",
+            borderTop: "1px solid rgba(255,255,255,0.06)",
+          }}
+        >
           <nav className="flex flex-col gap-0.5" aria-label="Menu mobile">
             {NAV_LINKS.map(({ label, href }) => (
               <Link
                 key={label}
                 href={href}
                 onClick={() => setMobileOpen(false)}
-                className={`link-nav rounded-lg px-3 py-3.5 text-sm font-medium ${
+                className={`link-nav rounded-lg px-3 py-3.5 text-sm font-medium text-[var(--color-text)] ${
                   activeSection === href.replace(/^#/, "")
-                    ? "bg-[#23525F]/8 text-[#23525F]"
-                    : "text-[#23525F]"
+                    ? "bg-[rgba(255,255,255,0.06)]"
+                    : ""
                 }`}
               >
                 {label}

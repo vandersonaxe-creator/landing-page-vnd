@@ -2,12 +2,16 @@
 
 import Link from "next/link";
 import { useEffect, useRef } from "react";
-import ScrollReveal from "@/components/ScrollReveal";
+import { usePageReveal } from "@/hooks/usePageReveal";
+import { useTextReveal } from "@/hooks/useTextReveal";
 
 export default function Hero() {
   const heroRef = useRef<HTMLElement | null>(null);
   const blobRightRef = useRef<HTMLDivElement | null>(null);
   const blobLeftRef = useRef<HTMLDivElement | null>(null);
+
+  usePageReveal();
+  useTextReveal("[data-text-reveal]", false);
 
   useEffect(() => {
     const heroEl = heroRef.current;
@@ -34,11 +38,9 @@ export default function Hero() {
       const maxRight = isMobile ? 10 : 16;
       const maxLeft = isMobile ? 7 : 12;
 
-      // Pequena profundidade (sem "puxar" demais).
       const rightShift = (t - 0.5) * 2 * maxRight;
       const leftShift = (t - 0.5) * 2 * maxLeft;
 
-      // GPU-friendly e arredondado para reduzir jitter.
       const r = Math.round(rightShift * 10) / 10;
       const l = Math.round(leftShift * 10) / 10;
 
@@ -69,10 +71,11 @@ export default function Hero() {
     <section
       id="inicio"
       ref={heroRef}
-      className="relative overflow-hidden bg-[#f8fafb] py-12 md:py-20 lg:py-28"
+      className="relative overflow-hidden bg-[#0a0a0a] py-12 md:py-20 lg:py-28"
+      style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}
     >
       <div
-        className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/60 via-transparent to-[#23525F]/[0.02]"
+        className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#56a8be]/[0.04] via-transparent to-transparent"
         aria-hidden
       />
       <div
@@ -81,87 +84,91 @@ export default function Hero() {
       />
       <div
         ref={blobRightRef}
-        className="pointer-events-none absolute right-0 top-1/4 h-[400px] w-[400px] rounded-full bg-[#23525F]/[0.04] blur-3xl will-change-transform"
+        className="pointer-events-none absolute right-0 top-1/4 h-[500px] w-[500px] rounded-full bg-[#56a8be]/[0.04] blur-3xl will-change-transform"
         aria-hidden
       />
       <div
         ref={blobLeftRef}
-        className="pointer-events-none absolute bottom-1/4 left-0 h-[300px] w-[300px] rounded-full bg-[#56a8be]/[0.05] blur-3xl will-change-transform"
+        className="pointer-events-none absolute bottom-1/4 left-0 h-[350px] w-[350px] rounded-full bg-[#e84c1e]/[0.04] blur-3xl will-change-transform"
         aria-hidden
       />
 
-      <div className="container relative z-[2] mx-auto max-w-[1280px] px-4 md:px-6 lg:px-8">
-        {/* Mobile: ordem 1 subtítulo → 2 título → 3 vídeo → 4 botões → 5 parágrafo → 6 apoio → 7 link → 8 card. Desktop: col1 = 1,2,5,6 | col2 = 3,4,7,8 */}
-        <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 lg:items-center lg:gap-10">
-          {/* 1. Subtítulo - mobile primeiro, desktop col1 */}
-          <ScrollReveal
-            variant="title"
+      <div className="container relative z-[2] mx-auto max-w-[1280px] px-6 md:px-8 lg:px-12">
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 lg:items-center lg:gap-14">
+          {/* Subtítulo */}
+          <div
+            data-reveal
             className="order-1 lg:col-start-1 lg:row-start-1"
           >
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#23525F] [font-family:var(--font-inter-tight),sans-serif]">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--color-brand)]"
+              style={{ fontFamily: "var(--font-dm-sans), sans-serif" }}>
               Estrutura Digital para Empresas que Querem Crescer
             </p>
-          </ScrollReveal>
+          </div>
 
-          {/* 2. Título */}
-          <ScrollReveal
-            variant="title"
-            className="order-2 lg:col-start-1 lg:row-start-2"
-          >
-            <h1 className="mt-2 text-2xl font-bold leading-tight text-[#23525F] sm:text-3xl md:text-4xl lg:mt-3 lg:text-[2.5rem] lg:leading-tight">
+          {/* Título H1 com text reveal por linha */}
+          <div className="order-2 lg:col-start-1 lg:row-start-2">
+            <h1
+              data-text-reveal
+              className="mt-2 font-bold leading-tight text-[var(--color-text)] lg:mt-3"
+              style={{ fontSize: "clamp(28px, 4.5vw, 60px)", lineHeight: "1.05", letterSpacing: "-0.03em" }}
+            >
               Organizamos, corrigimos e implantamos a estrutura digital que sua
               empresa precisa para atrair, atender e converter melhor
             </h1>
-          </ScrollReveal>
+          </div>
 
-          {/* 3. VSL – no mobile logo abaixo do título; desktop col2 destaque */}
-          <ScrollReveal
-            variant="block"
+          {/* VSL */}
+          <div
+            data-reveal
             className="order-3 lg:col-start-2 lg:row-start-1 lg:row-span-4"
           >
-            <div className="relative overflow-hidden rounded-2xl border border-[#23525F12] bg-[#23525F] shadow-[0_20px_50px_-12px_rgba(35,82,95,0.35)] ring-1 ring-black/5">
+            <div className="relative overflow-hidden rounded-2xl border border-[rgba(255,255,255,0.08)] bg-[#111] shadow-[0_20px_60px_-12px_rgba(0,0,0,0.7)]"
+              style={{ boxShadow: "0 20px 60px -12px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.06)" }}>
               <div className="aspect-video flex flex-col items-center justify-center p-6 sm:p-8">
-                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-white/20 text-white shadow-inner transition-transform duration-300 hover:scale-105 sm:h-16 sm:w-16">
+                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[rgba(255,255,255,0.08)] text-white shadow-inner transition-transform duration-300 hover:scale-105 sm:h-16 sm:w-16"
+                  style={{ border: "1px solid rgba(255,255,255,0.12)" }}>
                   <svg className="h-7 w-7 ml-1 sm:h-8 sm:w-8" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M8 5v14l11-7z" />
                   </svg>
                 </div>
-                <p className="mt-4 text-sm font-medium text-white/95 sm:mt-5">
+                <p className="mt-4 text-sm font-medium text-[var(--color-muted)] sm:mt-5">
                   VSL em breve (≈30s)
                 </p>
               </div>
-              <p className="border-t border-white/10 bg-[#23525F]/95 px-4 py-3 text-center text-xs text-white/90 sm:px-5 sm:py-3.5">
+              <p className="border-t border-[rgba(255,255,255,0.06)] bg-[#111]/95 px-4 py-3 text-center text-xs text-[var(--color-muted)] sm:px-5 sm:py-3.5">
                 Veja em poucos segundos como funciona nossa proposta
               </p>
             </div>
-          </ScrollReveal>
+          </div>
 
-          {/* 4. Botões – logo abaixo do vídeo no mobile */}
-          <ScrollReveal
-            variant="cta"
+          {/* CTA */}
+          <div
+            data-reveal
             className="order-4 flex flex-col lg:col-start-1 lg:row-start-4"
           >
             <Link
               href="#agendar"
-              className="btn-cta-hero inline-flex min-h-[48px] items-center justify-center gap-2 rounded-lg px-6 py-3.5 text-sm font-medium uppercase leading-snug text-white [font-family:var(--font-inter-tight),sans-serif]"
+              className="btn-cta-hero inline-flex min-h-[52px] items-center justify-center gap-2 rounded-lg px-7 py-4 text-sm font-semibold uppercase leading-snug text-white tracking-wide"
+              style={{ fontFamily: "var(--font-dm-sans), sans-serif" }}
             >
               Agendar análise estratégica
             </Link>
-          </ScrollReveal>
+          </div>
 
-          {/* 5. Parágrafo descritivo – depois dos botões no mobile */}
-          <ScrollReveal
-            variant="title"
+          {/* Parágrafo descritivo */}
+          <div
+            data-reveal
             className="order-5 lg:col-start-1 lg:row-start-3"
           >
-            <p className="mt-1 text-base leading-relaxed text-[#23525F]/90 md:text-lg lg:mt-0">
+            <p className="mt-1 text-base leading-relaxed text-[var(--color-muted)] md:text-lg lg:mt-0">
               Se sua empresa ainda não tem presença digital bem organizada, nós
               estruturamos do zero. Se já existe operação, corrigimos gargalos,
               melhoramos processos, implantamos automações, páginas, integrações,
               atendimento, tráfego e inteligência artificial conforme a
               necessidade real do negócio.
             </p>
-          </ScrollReveal>
+          </div>
         </div>
       </div>
     </section>

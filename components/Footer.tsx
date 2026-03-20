@@ -25,14 +25,20 @@ const NAV_LINKS = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-[#23525F12] bg-[#f8fafb] py-12 md:py-16">
+    <footer
+      className="py-12 md:py-16"
+      style={{ background: "#0a0a0a", borderTop: "1px solid rgba(255,255,255,0.06)" }}
+    >
       <div className="container mx-auto max-w-[1280px] px-4 md:px-6 lg:px-8">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-6 lg:gap-8">
           <div className="lg:col-span-2">
-            <h3 className="text-base font-bold text-[#23525F] [font-family:var(--font-inter-tight),sans-serif]">
+            <h3
+              className="text-base font-bold text-[var(--color-text)]"
+              style={{ fontFamily: "var(--font-syne), sans-serif" }}
+            >
               {BRAND.name} | {BRAND.signature}
             </h3>
-            <p className="mt-3 text-sm leading-relaxed text-[#23525F]/90">
+            <p className="mt-3 text-sm leading-relaxed text-[var(--color-muted)]">
               Estrutura digital para empresas que precisam organizar, corrigir,
               implantar e evoluir sua operação online com mais clareza,
               eficiência e resultado.
@@ -40,7 +46,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-[#23525F]">
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-[var(--color-text)]">
               Soluções
             </h3>
             <ul className="mt-4 space-y-2">
@@ -48,7 +54,7 @@ export default function Footer() {
                 <li key={label}>
                   <Link
                     href={href}
-                    className="link-nav text-sm text-[#23525F]/90"
+                    className="link-nav text-sm text-[var(--color-muted)]"
                   >
                     {label}
                   </Link>
@@ -58,13 +64,13 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-[#23525F]">
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-[var(--color-text)]">
               Navegação
             </h3>
             <ul className="mt-4 space-y-2">
               {NAV_LINKS.map(({ label, href }) => (
                 <li key={label}>
-                  <Link href={href} className="link-nav text-sm text-[#23525F]/90">
+                  <Link href={href} className="link-nav text-sm text-[var(--color-muted)]">
                     {label}
                   </Link>
                 </li>
@@ -73,10 +79,10 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-[#23525F]">
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-[var(--color-text)]">
               Contato
             </h3>
-            <ul className="mt-4 space-y-2 text-sm text-[#23525F]/90">
+            <ul className="mt-4 space-y-2 text-sm text-[var(--color-muted)]">
               <li>
                 <a
                   href={WHATSAPP_URL}
@@ -97,14 +103,14 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-[#23525F]">
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-[var(--color-text)]">
               Institucional
             </h3>
             <ul className="mt-4 space-y-2">
               <li>
                 <Link
                   href="/politica-de-privacidade"
-                  className="link-nav text-sm text-[#23525F]/90"
+                  className="link-nav text-sm text-[var(--color-muted)]"
                 >
                   Política de Privacidade
                 </Link>
@@ -112,7 +118,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/termos-de-uso"
-                  className="link-nav text-sm text-[#23525F]/90"
+                  className="link-nav text-sm text-[var(--color-muted)]"
                 >
                   Termos de Uso
                 </Link>
@@ -121,7 +127,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-[#23525F]">
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-[var(--color-text)]">
               Redes sociais
             </h3>
             <ul className="mt-4 flex flex-wrap gap-3 sm:flex-col sm:gap-2">
@@ -130,7 +136,7 @@ export default function Footer() {
                   href={INSTAGRAM_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="link-nav text-sm text-[#23525F]/90"
+                  className="link-nav text-sm text-[var(--color-muted)]"
                 >
                   Instagram
                 </a>
@@ -140,7 +146,7 @@ export default function Footer() {
                   href={WHATSAPP_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="link-nav text-sm text-[#23525F]/90"
+                  className="link-nav text-sm text-[var(--color-muted)]"
                 >
                   WhatsApp
                 </a>
@@ -149,11 +155,11 @@ export default function Footer() {
           </div>
         </div>
 
-        <p className="mt-10 text-center text-sm italic text-[#23525F]/80">
+        <p className="mt-10 text-center text-sm italic text-[var(--color-muted)]">
           Da organização da base à evolução da operação digital.
         </p>
 
-        <p className="mt-4 text-center text-xs text-[#23525F]/70">
+        <p className="mt-4 text-center text-xs text-[var(--color-muted)]">
           © 2025 {COMPANY.razaoSocial}. Todos os direitos reservados.
         </p>
       </div>

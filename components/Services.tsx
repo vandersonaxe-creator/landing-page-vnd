@@ -2,8 +2,6 @@
 
 import React from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import ScrollReveal from "@/components/ScrollReveal";
-
 const SERVICES = [
   {
     title: "Landing Pages e Sites Estratégicos",
@@ -103,62 +101,137 @@ function Icon({ name }: { name: string }) {
 
 export default function Services() {
   const prefersReducedMotion = useReducedMotion();
+  const [canHoverFine, setCanHoverFine] = React.useState(false);
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    const hoverMql = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const mobileMql = window.matchMedia("(max-width: 640px)");
+
+    const update = () => {
+      setCanHoverFine(hoverMql.matches);
+      setIsMobile(mobileMql.matches);
+    };
+
+    update();
+
+    if (typeof hoverMql.addEventListener === "function") {
+      hoverMql.addEventListener("change", update);
+      mobileMql.addEventListener("change", update);
+      return () => {
+        hoverMql.removeEventListener("change", update);
+        mobileMql.removeEventListener("change", update);
+      };
+    }
+
+    // eslint-disable-next-line deprecation/deprecation
+    hoverMql.addListener(update);
+    // eslint-disable-next-line deprecation/deprecation
+    mobileMql.addListener(update);
+    return () => {
+      // eslint-disable-next-line deprecation/deprecation
+      hoverMql.removeListener(update);
+      // eslint-disable-next-line deprecation/deprecation
+      mobileMql.removeListener(update);
+    };
+  }, []);
+
+  const shouldEnableHoverFX = canHoverFine && !prefersReducedMotion;
 
   return (
     <section
       id="servicos"
-      className="relative overflow-hidden bg-[#23525F] py-14 md:py-20 lg:py-24"
+      className="relative overflow-hidden py-14 md:py-20 lg:py-24"
+      style={{ background: "#0d0d0d", borderBottom: "1px solid rgba(255,255,255,0.06)" }}
     >
       <div
         aria-hidden
         className="premium-ambient-layer premium-ambient-layer--dark"
       />
-      <div className="container relative z-[2] mx-auto max-w-[1280px] px-4 md:px-6 lg:px-8">
-        <ScrollReveal variant="title">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/90">
+      <div className="container relative z-[2] mx-auto max-w-[1280px] px-6 md:px-8 lg:px-12">
+        <div data-scroll-reveal>
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--color-brand)]">
             O que estruturamos
           </p>
-          <h2 className="mt-2 text-xl font-bold text-white md:text-2xl lg:text-3xl">
+          <h2 className="mt-2 font-bold text-[var(--color-text)]">
             Soluções que viram operação
           </h2>
-          <p className="mt-3 max-w-2xl text-white/90">
+          <p className="mt-3 max-w-2xl text-[var(--color-muted)]">
             Ajustamos canais e fluxos para gerar clareza, resposta rápida e avanço consistente no funil.
           </p>
-        </ScrollReveal>
-        <div className="mt-9 grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+        </div>
+        <div className="mt-10 grid gap-5 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
           {SERVICES.map(({ title, description, icon }, i) => {
-            const initial = prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 };
+            const initial = prefersReducedMotion
+              ? { opacity: 1, y: 0 }
+              : { opacity: 0, y: 14 };
             const whileInView = { opacity: 1, y: 0 };
+
+            const rawDelay = i * 0.08;
+            const delay = isMobile ? Math.min(rawDelay, 0.2) : rawDelay;
 
             return (
               <motion.div
                 key={icon}
-                className="flex h-full flex-col rounded-xl p-6 text-white backdrop-blur-sm bg-[#2d6470]/50 border border-white/10 transition-colors hover:border-[#56a8be]/60"
+                data-scroll-reveal
+                className="relative flex h-full flex-col overflow-hidden rounded-xl p-6 text-white"
+                style={{
+                  background: "#111111",
+                  border: "1px solid rgba(255,255,255,0.08)",
+                }}
                 initial={initial}
                 whileInView={whileInView}
-                viewport={{ once: true }}
+                viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
                 transition={
                   prefersReducedMotion
                     ? { duration: 0 }
-                    : {
-                        delay: i * 0.1,
-                        duration: 0.6,
-                        ease: [0.22, 1, 0.36, 1],
-                      }
+                    : { delay, duration: 0.6, ease: [0.22, 1, 0.36, 1] }
                 }
                 whileHover={
-                  prefersReducedMotion
-                    ? undefined
-                    : {
-                        scale: 1.05,
+                  shouldEnableHoverFX
+                    ? {
+                        scale: 1.03,
+                        borderColor: "rgba(86,168,190,0.4)",
+                        boxShadow:
+                          "0 20px 50px rgba(0,0,0,0.5), 0 0 0 1px rgba(86,168,190,0.25)",
+                        transition: { duration: 0.2, ease: [0.22, 1, 0.36, 1] },
                       }
+                    : undefined
                 }
               >
-                <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/10 ring-1 ring-white/10 text-white/90">
+                <motion.span
+                  aria-hidden
+                  className="absolute inset-0"
+                  style={{
+                    background:
+                      "linear-gradient(110deg, transparent 0%, rgba(86,168,190,0.0) 35%, rgba(86,168,190,0.35) 50%, rgba(86,168,190,0.0) 65%, transparent 100%)",
+                    transform: "translateZ(0)",
+                  }}
+                  initial={{ x: "-130%", opacity: 0 }}
+                  whileHover={
+                    shouldEnableHoverFX
+                      ? {
+                          x: "130%",
+                          opacity: 0.75,
+                          transition: { duration: 0.35, ease: "easeOut" },
+                        }
+                      : undefined
+                  }
+                />
+
+                <span
+                  className="flex h-12 w-12 items-center justify-center rounded-xl text-[var(--color-brand)]"
+                  style={{
+                    background: "rgba(86,168,190,0.1)",
+                    border: "1px solid rgba(86,168,190,0.2)",
+                  }}
+                >
                   <Icon name={icon} />
                 </span>
-                <h3 className="mt-3 text-base font-semibold">{title}</h3>
-                <p className="mt-2 flex-1 text-sm leading-relaxed text-white/90 md:text-base">
+                <h3 className="mt-4 text-base font-semibold text-[var(--color-text)]">
+                  {title}
+                </h3>
+                <p className="mt-2 flex-1 text-sm leading-relaxed text-[var(--color-muted)] md:text-base">
                   {description}
                 </p>
               </motion.div>
