@@ -1,21 +1,35 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 
 export function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
   const dotRef = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
 
+  // Step 1 — detectar touch APENAS no cliente, após montagem
   useEffect(() => {
+    const isTouch =
+      window.matchMedia("(pointer: coarse)").matches ||
+      "ontouchstart" in window ||
+      navigator.maxTouchPoints > 0;
+    setIsTouchDevice(isTouch);
+    setMounted(true);
+  }, []);
+
+  // Step 2 — iniciar GSAP apenas após confirmação de mouse device
+  useEffect(() => {
+    if (!mounted || isTouchDevice) return;
+
     const cursor = cursorRef.current;
     const dot = dotRef.current;
     if (!cursor || !dot) return;
 
-    const prefersReduced = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-    if (prefersReduced) return;
+    // Posição inicial fora da tela (evita flash no canto 0,0)
+    gsap.set(cursor, { x: -100, y: -100 });
+    gsap.set(dot, { x: -100, y: -100 });
 
     const moveCursor = (e: MouseEvent) => {
       gsap.to(cursor, {
@@ -39,7 +53,7 @@ export function CustomCursor() {
     window.addEventListener("mousemove", moveCursor);
 
     const interactives = document.querySelectorAll(
-      "a, button, [data-cursor-expand]"
+      "a, button, [data-cursor-expand], input, textarea, select, label"
     );
     interactives.forEach((el) => {
       el.addEventListener("mouseenter", expand);
@@ -53,12 +67,17 @@ export function CustomCursor() {
         el.removeEventListener("mouseleave", shrink);
       });
     };
-  }, []);
+  }, [mounted, isTouchDevice]);
+
+  // Não renderiza NADA até montar no cliente, e nunca em touch devices
+  if (!mounted || isTouchDevice) return null;
 
   return (
     <>
       <div
         ref={cursorRef}
+        aria-hidden
+        suppressHydrationWarning
         style={{
           position: "fixed",
           top: 0,
@@ -70,11 +89,13 @@ export function CustomCursor() {
           pointerEvents: "none",
           zIndex: 9999,
           mixBlendMode: "difference",
+          willChange: "transform",
         }}
-        aria-hidden
       />
       <div
         ref={dotRef}
+        aria-hidden
+        suppressHydrationWarning
         style={{
           position: "fixed",
           top: 0,
@@ -86,8 +107,8 @@ export function CustomCursor() {
           pointerEvents: "none",
           zIndex: 9999,
           mixBlendMode: "difference",
+          willChange: "transform",
         }}
-        aria-hidden
       />
     </>
   );

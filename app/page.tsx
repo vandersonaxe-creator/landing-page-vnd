@@ -1,6 +1,5 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-import PhaseCards from "@/components/PhaseCards";
 import About from "@/components/About";
 import Services from "@/components/Services";
 import HowItWorks from "@/components/HowItWorks";
@@ -11,6 +10,7 @@ import Footer from "@/components/Footer";
 import ScrollRevealInit from "@/components/ScrollRevealInit";
 import { Marquee } from "@/components/ui/Marquee";
 import PortfolioSection from "@/components/sections/PortfolioSection";
+import MetricsStrip from "@/components/MetricsStrip";
 
 const MARQUEE_ITEMS = [
   "Landing Pages",
@@ -32,7 +32,7 @@ export default function Home() {
         <Hero />
         <Marquee items={MARQUEE_ITEMS} />
         <About />
-        <PhaseCards />
+        <MetricsStrip />
         <Services />
         <HowItWorks />
         <VideoTestimonials />
