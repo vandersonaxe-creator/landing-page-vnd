@@ -15,11 +15,11 @@ export default function MetricsStrip() {
       style={{
         borderBottom: "0.5px solid var(--color-border)",
         padding: "0 48px 80px",
-        background: "#080808",
+        background: "var(--color-bg)",
       }}
     >
       <div
-        className="mx-auto max-w-[1280px]"
+        className="metrics-grid mx-auto max-w-[1280px]"
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(3, 1fr)",

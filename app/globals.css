@@ -1,16 +1,17 @@
 @import "tailwindcss";
 
 :root {
-  --color-bg: #080808;
-  --color-surface: #0f0f0f;
-  --color-surface-2: #141414;
-  --color-border: rgba(255, 255, 255, 0.07);
-  --color-border-hover: rgba(255, 255, 255, 0.14);
-  --color-text: #f0ede6;
+  /* ── Light theme (Linea-inspired) ── */
+  --color-bg: #fafaf8;
+  --color-surface: #f2f2f0;
+  --color-surface-2: #e8e8e6;
+  --color-border: rgba(0, 0, 0, 0.08);
+  --color-border-hover: rgba(0, 0, 0, 0.18);
+  --color-text: #111111;
   --color-muted: #666666;
-  --color-muted-2: #444444;
+  --color-muted-2: #aaaaaa;
   --color-accent: #e84c1e;
-  --color-accent-dim: rgba(232, 76, 30, 0.12);
+  --color-accent-dim: rgba(232, 76, 30, 0.08);
   --color-brand: #56a8be;
   --color-brand-dark: #23525f;
 
@@ -125,14 +126,14 @@ h3 {
   font-family: var(--font-body), sans-serif;
   font-size: 12px;
   letter-spacing: 0.02em;
-  transition: background 0.2s, color 0.2s;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
   cursor: none;
   text-decoration: none;
 }
 .btn-wa-pill:hover {
-  background: white;
-  color: #080808;
-  border-color: white;
+  background: var(--color-text);
+  color: var(--color-bg);
+  border-color: var(--color-text);
 }
 
 /* ─── Scroll reveal fallback ─── */
@@ -199,6 +200,15 @@ h3 {
 }
 .animate-marquee { animation: marquee 20s linear infinite; }
 
+/* ─── VSL Section play button ─── */
+.vsl-play-btn {
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.vsl-play-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.25) !important;
+}
+
 /* ─── Ambient gradient ─── */
 .premium-ambient-layer {
   position: absolute;
@@ -227,6 +237,26 @@ h3 {
   50%       { transform: rotateY(-8deg) rotateX(3deg) translateY(-8px); }
 }
 
+/* ─── Dual Image Marquee (BLOCO A) ─── */
+@keyframes marqueeLeft {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@keyframes marqueeRight {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+
+/* ─── Sticky Services responsive (BLOCO C) ─── */
+@media (max-width: 768px) {
+  .sticky-services-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .sticky-services-image-col {
+    display: none !important;
+  }
+}
+
 /* ─── Cursor customizado: apenas em dispositivos com mouse ─── */
 @media (pointer: fine) {
   body,
@@ -249,6 +279,86 @@ h3 {
   * {
     cursor: auto !important;
   }
+}
+
+/* ─── Service row — Agencia hover marquee ─── */
+.service-row {
+  border-bottom: 0.5px solid var(--color-border);
+  overflow: hidden;
+  position: relative;
+  transition: background 0.3s;
+}
+.service-row:hover { background: var(--color-surface); }
+
+.service-num {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--color-muted-2);
+  font-family: var(--font-display), sans-serif;
+  font-weight: 600;
+  width: 44px;
+  flex-shrink: 0;
+  transition: color 0.3s;
+}
+.service-row:hover .service-num { color: var(--color-accent); }
+
+.service-arrow {
+  font-size: 18px;
+  color: var(--color-muted-2);
+  flex-shrink: 0;
+  margin-left: 24px;
+  transition: color 0.3s, transform 0.3s;
+  display: inline-block;
+}
+.service-row:hover .service-arrow {
+  color: var(--color-accent);
+  transform: rotate(-45deg);
+}
+
+.service-marquee-inner {
+  display: flex;
+  width: max-content;
+}
+.service-row:hover .service-marquee-inner {
+  animation: serviceMarquee 6s linear infinite;
+}
+
+.service-description {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.service-row:hover .service-description { max-height: 100px; }
+
+@keyframes serviceMarquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ─── Rotating circle text (Agencia CTA) ─── */
+@keyframes rotateCircle {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.rotate-circle {
+  animation: rotateCircle 12s linear infinite;
+  transform-origin: center;
+}
+
+/* ─── Section decorator number (Agencia style) ─── */
+.section-decorator {
+  font-family: var(--font-display), sans-serif;
+  font-weight: 800;
+  font-size: clamp(80px, 14vw, 180px);
+  line-height: 1;
+  letter-spacing: -0.05em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255,255,255,0.05);
+  user-select: none;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 /* ─── Prefers reduced motion ─── */

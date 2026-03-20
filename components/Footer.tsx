@@ -48,10 +48,71 @@ export default function Footer() {
   return (
     <footer
       style={{
-        background: "#080808",
+        background: "var(--color-bg)",
         borderTop: "0.5px solid var(--color-border)",
       }}
     >
+      {/* ── Linea-style stacked footer CTA ── */}
+      <div
+        style={{
+          maxWidth: "1280px",
+          margin: "0 auto",
+          padding:
+            "clamp(56px, 8vw, 100px) clamp(24px, 5vw, 80px) clamp(32px, 5vw, 56px)",
+          borderBottom: "0.5px solid var(--color-border)",
+        }}
+      >
+        {["Estrutura", "digital", "feita", "para", "crescer."].map((word) => (
+          <p
+            key={word}
+            style={{
+              fontFamily: "var(--font-display), sans-serif",
+              fontWeight: 800,
+              fontSize: "clamp(40px, 7vw, 96px)",
+              lineHeight: 0.88,
+              letterSpacing: "-0.04em",
+              color: "var(--color-text)",
+              margin: "0 0 0.05em",
+            }}
+          >
+            {word}
+          </p>
+        ))}
+        <div
+          style={{
+            marginTop: "clamp(24px, 4vw, 40px)",
+            display: "flex",
+            alignItems: "center",
+            gap: "16px",
+            flexWrap: "wrap",
+          }}
+        >
+          <a
+            href={WHATSAPP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-cta-hero"
+            style={{ padding: "14px 28px" }}
+          >
+            Agendar análise estratégica ↗
+          </a>
+          <a
+            href={WHATSAPP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="link-nav"
+            style={{
+              fontSize: "13px",
+              color: "var(--color-muted)",
+              textDecoration: "none",
+              fontFamily: "var(--font-body), sans-serif",
+            }}
+          >
+            Ou fale pelo WhatsApp →
+          </a>
+        </div>
+      </div>
+
       <div className="container mx-auto max-w-[1280px] px-6 md:px-8 lg:px-12">
         {/* Main grid */}
         <div

@@ -84,12 +84,12 @@ export function CustomCursor() {
           left: 0,
           width: "32px",
           height: "32px",
-          border: "1px solid rgba(255,255,255,0.35)",
+          border: "1.5px solid rgba(17,17,17,0.45)",
           borderRadius: "50%",
           pointerEvents: "none",
           zIndex: 9999,
-          mixBlendMode: "difference",
           willChange: "transform",
+          backdropFilter: "none",
         }}
       />
       <div
@@ -102,11 +102,10 @@ export function CustomCursor() {
           left: 0,
           width: "6px",
           height: "6px",
-          background: "white",
+          background: "var(--color-accent)",
           borderRadius: "50%",
           pointerEvents: "none",
           zIndex: 9999,
-          mixBlendMode: "difference",
           willChange: "transform",
         }}
       />

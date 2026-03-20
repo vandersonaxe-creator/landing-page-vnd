@@ -37,7 +37,7 @@ export default function HowItWorks() {
       id="como-funciona"
       className="py-14 md:py-20"
       style={{
-        background: "#0c0c0c",
+        background: "var(--color-surface)",
         borderTop: "0.5px solid var(--color-border)",
         borderBottom: "0.5px solid var(--color-border)",
       }}
@@ -45,7 +45,7 @@ export default function HowItWorks() {
       <div className="container mx-auto max-w-[1280px] px-6 md:px-8 lg:px-12">
         {/* Header */}
         <div data-scroll-reveal className="mb-14">
-          <p className="num-tag mb-3">Como funciona</p>
+          <p className="num-tag mb-3" style={{ fontSize: "10px", letterSpacing: "0.12em" }}>03 / Como funciona</p>
           <h2
             data-text-reveal
             className="font-bold text-[var(--color-text)] max-w-2xl"

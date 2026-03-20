@@ -202,14 +202,14 @@ export default function VideoTestimonials() {
       id="prova-social"
       className="py-14 md:py-20"
       style={{
-        background: "#0a0a0a",
+        background: "var(--color-surface)",
         borderBottom: "0.5px solid var(--color-border)",
       }}
     >
       <div className="container mx-auto max-w-[1280px] px-6 md:px-8 lg:px-12">
         {/* Header */}
         <div data-scroll-reveal className="mb-10">
-          <p className="num-tag mb-3">Prova Social</p>
+          <p className="num-tag mb-3" style={{ fontSize: "10px", letterSpacing: "0.12em" }}>04 / Prova Social</p>
           <h2 data-text-reveal className="font-bold text-[var(--color-text)]">
             Depoimentos reais em vídeo
           </h2>
@@ -263,7 +263,7 @@ export default function VideoTestimonials() {
                       aspectRatio: "16/9",
                       position: "relative",
                       overflow: "hidden",
-                      background: "#111",
+                      background: "var(--color-surface-2)",
                     }}
                   >
                     {thumbnail ? (

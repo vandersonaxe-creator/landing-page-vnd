@@ -82,7 +82,7 @@ export default function Header() {
       data-reveal
       className="fixed top-0 left-0 right-0 z-[100] transition-all duration-300"
       style={{
-        background: scrolled ? "rgba(8,8,8,0.92)" : "rgba(8,8,8,0.75)",
+        background: scrolled ? "rgba(250,250,248,0.96)" : "rgba(250,250,248,0.88)",
         backdropFilter: "blur(16px)",
         WebkitBackdropFilter: "blur(16px)",
         borderBottom: "0.5px solid var(--color-border)",
@@ -195,7 +195,7 @@ export default function Header() {
         <div
           className="px-4 py-3 lg:hidden"
           style={{
-            background: "rgba(8,8,8,0.98)",
+            background: "rgba(250,250,248,0.98)",
             borderTop: "0.5px solid var(--color-border)",
             backdropFilter: "blur(16px)",
           }}

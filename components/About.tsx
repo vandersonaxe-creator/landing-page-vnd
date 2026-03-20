@@ -43,7 +43,7 @@ export default function About() {
       id="sobre"
       className="py-16 md:py-24"
       style={{
-        background: "#080808",
+        background: "var(--color-bg)",
         borderBottom: "0.5px solid var(--color-border)",
       }}
     >
@@ -87,7 +87,7 @@ export default function About() {
                 padding: "12px 16px",
                 borderRadius: "10px",
                 border: "0.5px solid var(--color-border-hover)",
-                background: "rgba(8,8,8,0.85)",
+                background: "rgba(250,250,248,0.92)",
                 backdropFilter: "blur(12px)",
                 WebkitBackdropFilter: "blur(12px)",
               }}
@@ -122,7 +122,7 @@ export default function About() {
               {/* Label */}
               <p
                 style={{
-                  fontSize: "11px",
+                  fontSize: "10px",
                   letterSpacing: "0.15em",
                   textTransform: "uppercase",
                   color: "var(--color-accent)",
@@ -130,7 +130,7 @@ export default function About() {
                   marginBottom: "12px",
                 }}
               >
-                Sobre a proposta
+                01 / Sobre a proposta
               </p>
 
               {/* H2 */}

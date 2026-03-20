@@ -3,6 +3,7 @@ import { Syne, DM_Sans } from "next/font/google";
 import "./globals.css";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
 import { CustomCursor } from "@/components/ui/CustomCursor";
+import { PageCurtain } from "@/components/ui/PageCurtain";
 
 const syne = Syne({
   variable: "--font-syne",
@@ -37,8 +38,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" className={`${syne.variable} ${dmSans.variable}`}>
-      <body className="antialiased">
+    <html lang="pt-BR" className={`${syne.variable} ${dmSans.variable}`} suppressHydrationWarning>
+      <body className="antialiased" suppressHydrationWarning>
+        <PageCurtain />
         <CustomCursor />
         <SmoothScroll>
           <div style={{ paddingTop: "64px" }}>

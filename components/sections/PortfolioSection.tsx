@@ -34,14 +34,14 @@ export default function PortfolioSection() {
     <section
       className="py-16 md:py-24"
       style={{
-        background: "#080808",
+        background: "var(--color-surface)",
         borderBottom: "1px solid rgba(255,255,255,0.06)",
       }}
     >
       <div className="container mx-auto max-w-[1280px] px-6 md:px-8 lg:px-12">
         {/* Header */}
         <div data-scroll-reveal className="mb-12">
-          <p className="num-tag mb-3">Portfólio</p>
+          <p className="num-tag mb-3" style={{ fontSize: "10px", letterSpacing: "0.12em" }}>05 / Portfólio</p>
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
             <h2
               data-text-reveal
@@ -125,7 +125,7 @@ export default function PortfolioSection() {
               {/* Info */}
               <div
                 className="p-5"
-                style={{ background: "#111111" }}
+                style={{ background: "var(--color-surface-2)" }}
               >
                 <p
                   className="text-xs font-semibold uppercase tracking-wider mb-1"

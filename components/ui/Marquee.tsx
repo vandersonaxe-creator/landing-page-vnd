@@ -4,9 +4,9 @@ export function Marquee({ items }: { items: string[] }) {
     <div
       className="overflow-hidden py-4"
       style={{
-        borderTop: "1px solid rgba(255,255,255,0.06)",
-        borderBottom: "1px solid rgba(255,255,255,0.06)",
-        background: "#080808",
+        borderTop: "0.5px solid var(--color-border)",
+        borderBottom: "0.5px solid var(--color-border)",
+        background: "var(--color-surface)",
       }}
     >
       <div
