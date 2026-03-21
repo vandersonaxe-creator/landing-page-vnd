@@ -149,10 +149,13 @@ export default function Home() {
         {/* 5 — Sobre: credibilidade de quem está por trás */}
         <About />
 
-        {/* 6 — O Método: como funciona (primeiro o método, depois os serviços) */}
+        {/* 6 — O Método: como funciona */}
         <HowItWorks />
 
-        {/* 7b — CTA intermediário após o método */}
+        {/* 7 — Portfólio: projetos com contexto, solução e resultado */}
+        <PortfolioSection />
+
+        {/* 7b — CTA intermediário após o método e portfólio */}
         <section
           style={{
             background: "var(--color-bg)",
@@ -218,19 +221,16 @@ export default function Home() {
         {/* 8 — Soluções: os serviços dentro do método */}
         <StickyServices />
 
-        {/* 9 — Portfólio: projetos com contexto, solução e resultado */}
-        <PortfolioSection />
-
-        {/* 10 — Depoimentos: prova social após o portfólio */}
+        {/* 9 — Depoimentos: prova social */}
         <VideoTestimonials />
 
-        {/* 11 — CTA intermediário: oportunidade de conversão pós-prova social */}
+        {/* 10 — CTA intermediário: oportunidade de conversão pós-prova social */}
         <CTABanner />
 
-        {/* 12 — Agendamento: CTA final escalado */}
+        {/* 11 — Agendamento: CTA final escalado */}
         <BookingSection />
 
-        {/* 13 — FAQ: objeções antes de sair */}
+        {/* 12 — FAQ: objeções antes de sair */}
         <FAQ />
       </main>
       <Footer />

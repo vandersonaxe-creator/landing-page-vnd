@@ -157,7 +157,7 @@ export function StickyServices() {
                 marginBottom: "10px",
               }}
             >
-              02 / Soluções
+              04 / Soluções
             </p>
             <h2
               data-text-reveal

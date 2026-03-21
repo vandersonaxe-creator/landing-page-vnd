@@ -64,7 +64,7 @@ export default function BookingSection() {
               paddingTop: "4px",
             }}
           >
-            05 / Agendamento
+            06 / Agendamento
           </p>
 
           {/* ── Rotating circle (Agencia's signature CTA element) ── */}

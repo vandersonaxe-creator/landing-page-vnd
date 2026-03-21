@@ -45,7 +45,7 @@ export default function HowItWorks() {
       <div className="container mx-auto max-w-[1280px] px-6 md:px-8 lg:px-12">
         {/* Header */}
         <div data-scroll-reveal className="mb-14">
-          <p className="num-tag mb-3" style={{ fontSize: "10px", letterSpacing: "0.12em" }}>03 / O Método</p>
+          <p className="num-tag mb-3" style={{ fontSize: "10px", letterSpacing: "0.12em" }}>02 / O Método</p>
           <h2
             data-text-reveal
             className="font-bold text-[var(--color-text)] max-w-2xl"

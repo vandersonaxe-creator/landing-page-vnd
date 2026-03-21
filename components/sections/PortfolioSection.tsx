@@ -92,7 +92,7 @@ export default function PortfolioSection() {
             className="num-tag mb-3"
             style={{ fontSize: "10px", letterSpacing: "0.12em" }}
           >
-            05 / Portfólio
+            03 / Portfólio
           </p>
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
             <h2

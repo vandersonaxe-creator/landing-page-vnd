@@ -98,7 +98,7 @@ export default function Services() {
             className="num-tag"
             style={{ marginBottom: "10px", fontSize: "10px", letterSpacing: "0.12em" }}
           >
-            02 / Soluções
+            04 / Soluções
           </p>
           <h2
             data-text-reveal

@@ -41,7 +41,7 @@ export default function FAQ() {
       <div className="container mx-auto max-w-[1280px] px-6 md:px-8 lg:px-12">
         {/* Header */}
         <div data-scroll-reveal className="mb-10">
-          <p className="num-tag mb-3 text-center" style={{ fontSize: "10px", letterSpacing: "0.12em" }}>06 / Perguntas frequentes</p>
+          <p className="num-tag mb-3 text-center" style={{ fontSize: "10px", letterSpacing: "0.12em" }}>07 / Perguntas frequentes</p>
           <h2
             data-text-reveal
             className="mx-auto max-w-2xl text-center font-bold text-[var(--color-text)]"
