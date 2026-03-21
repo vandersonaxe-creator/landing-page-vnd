@@ -36,9 +36,9 @@ export default function TermosDeUso() {
 
         <div className="mt-8 space-y-8 text-[#23525F]/90 md:space-y-10">
           <p className="text-base leading-relaxed md:text-lg">
-            Estes Termos de Uso regulam o acesso e a utilização deste site, de
-            titularidade da {COMPANY.razaoSocial}, inscrita no CNPJ sob o nº{" "}
-            {COMPANY.cnpj}, com sede em {COMPANY.cidadeUF}.
+            Estes Termos de Uso regulam o acesso e a utilização deste site,
+            operado sob a marca <strong>{BRAND.name}</strong>, com atendimento em{" "}
+            {COMPANY.cidadeUF}.
           </p>
 
           <section className="leading-relaxed">
@@ -173,7 +173,7 @@ export default function TermosDeUso() {
               Em caso de dúvidas sobre estes Termos de Uso, entre em contato:
             </p>
             <ul className="mt-3 list-inside list-disc space-y-1.5 text-sm md:text-base">
-              <li>{COMPANY.razaoSocial}</li>
+              <li>Marca: {BRAND.name}</li>
               <li>
                 E-mail:{" "}
                 <a

@@ -36,10 +36,9 @@ export default function PoliticaDePrivacidade() {
 
         <div className="mt-8 space-y-8 text-[#23525F]/90 md:space-y-10">
           <p className="text-base leading-relaxed md:text-lg">
-            A {COMPANY.razaoSocial}, inscrita no CNPJ sob o nº {COMPANY.cnpj},
-            com sede em {COMPANY.cidadeUF}, respeita a sua privacidade e está
-            comprometida com a proteção dos dados pessoais coletados por meio
-            deste site.
+            A marca <strong>{BRAND.name}</strong>, com atendimento em{" "}
+            {COMPANY.cidadeUF}, respeita a sua privacidade e está comprometida
+            com a proteção dos dados pessoais coletados por meio deste site.
           </p>
 
           <section className="leading-relaxed">
@@ -47,9 +46,7 @@ export default function PoliticaDePrivacidade() {
               1. Quem somos
             </h2>
             <ul className="mt-3 list-inside list-disc space-y-1.5 text-sm md:text-base">
-              <li>Nome empresarial: {COMPANY.razaoSocial}</li>
-              <li>Nome fantasia: {COMPANY.nomeFantasia}</li>
-              <li>CNPJ: {COMPANY.cnpj}</li>
+              <li>Marca: {BRAND.name}</li>
               <li>E-mail para contato: {COMPANY.email}</li>
               <li>WhatsApp: {COMPANY.whatsApp}</li>
             </ul>
@@ -189,7 +186,7 @@ export default function PoliticaDePrivacidade() {
               tratamento de dados pessoais, entre em contato:
             </p>
             <ul className="mt-3 list-inside list-disc space-y-1.5 text-sm md:text-base">
-              <li>{COMPANY.razaoSocial}</li>
+              <li>Marca: {BRAND.name}</li>
               <li>
                 E-mail:{" "}
                 <a

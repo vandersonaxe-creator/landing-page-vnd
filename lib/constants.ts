@@ -7,16 +7,8 @@ export const BRAND = {
   signature: "Estrutura Digital",
 } as const;
 
-// Redes sociais — ajuste quando o perfil oficial estiver definido
-export const INSTAGRAM_URL = "https://www.instagram.com/nexupro";
-
-// Dados da empresa (razão social mantida; nome fantasia = marca no site)
+// Dados de contato (sem razão social / CNPJ no site)
 export const COMPANY = {
-  razaoSocial:
-    "CLICK AFILIADO TECNOLOGIA E DESENVOLVIMENTO DE SISTEMAS LTDA - ME",
-  nomeFantasia: "NEXU",
-  cnpj: "57.727.545/0001-11",
-  dataFundacao: "17/10/2024",
   cidadeUF: "Rio das Ostras/RJ",
   whatsApp: "(21) 97919-7180",
   whatsAppNumber: "5521979197180", // sem formatação para link

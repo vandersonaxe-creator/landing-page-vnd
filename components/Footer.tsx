@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { Instagram, MessageCircle } from "lucide-react";
-import { COMPANY, WHATSAPP_URL, BRAND, INSTAGRAM_URL } from "@/lib/constants";
+import { MessageCircle } from "lucide-react";
+import { COMPANY, WHATSAPP_URL, BRAND } from "@/lib/constants";
 
 const SOLUCOES_LINKS = [
   { label: "Presença Digital", href: "#servicos" },
@@ -231,29 +231,8 @@ export default function Footer() {
               implantar e evoluir sua operação online.
             </p>
 
-            {/* Social icons */}
+            {/* Contato rápido */}
             <div style={{ display: "flex", gap: "10px" }}>
-              <a
-                href={INSTAGRAM_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="link-nav"
-                style={{
-                  width: "36px",
-                  height: "36px",
-                  borderRadius: "8px",
-                  border: "0.5px solid var(--color-border)",
-                  background: "var(--color-surface)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  color: "var(--color-muted)",
-                  transition: "border-color 0.2s, color 0.2s",
-                }}
-                aria-label="Instagram"
-              >
-                <Instagram size={15} strokeWidth={1.5} />
-              </a>
               <a
                 href={WHATSAPP_URL}
                 target="_blank"
@@ -374,7 +353,7 @@ export default function Footer() {
               fontFamily: "var(--font-body), sans-serif",
             }}
           >
-            © 2025 {COMPANY.razaoSocial}. Todos os direitos reservados.
+            © {new Date().getFullYear()} {BRAND.name} Todos os direitos reservados.
           </p>
           <p
             style={{
