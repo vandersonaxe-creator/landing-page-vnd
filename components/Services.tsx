@@ -7,8 +7,6 @@ import {
   Share2,
   TrendingUp,
   Cpu,
-  ListOrdered,
-  Route,
 } from "lucide-react";
 import { type LucideIcon } from "lucide-react";
 
@@ -68,22 +66,6 @@ const SERVICES: Service[] = [
       "Automações com IA para reduzir atrito e acelerar o caminho até o cliente.",
     features: ["Chatbots com IA", "Zapier / Make", "CRM integrado", "N8N workflows"],
     Icon: Cpu,
-  },
-  {
-    num: "07",
-    title: "Prioridade de Entregas",
-    description:
-      "O que entra primeiro e o que vem depois, para manter continuidade e evitar retrabalho.",
-    features: ["Diagnóstico inicial", "Roadmap digital", "Sprints quinzenais", "Ajustes contínuos"],
-    Icon: ListOrdered,
-  },
-  {
-    num: "08",
-    title: "Jornada do Cliente",
-    description:
-      "Organização dos pontos de contato para respostas mais rápidas e condução clara ao agendamento.",
-    features: ["Mapeamento de funil", "Automação de etapas", "Follow-up estruturado", "Conversão monitorada"],
-    Icon: Route,
   },
 ];
 

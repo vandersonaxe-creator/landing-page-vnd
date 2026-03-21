@@ -88,7 +88,7 @@ export default function About() {
                   lineHeight: 1.2,
                 }}
               >
-                47+ empresas atendidas
+                Diagnóstico antes da execução
               </p>
               <p
                 style={{
@@ -98,7 +98,7 @@ export default function About() {
                   fontFamily: "var(--font-body), sans-serif",
                 }}
               >
-                desde 2022
+                Prioridade no que destrava resultado
               </p>
             </div>
           </div>

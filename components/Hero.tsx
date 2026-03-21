@@ -435,7 +435,7 @@ export default function Hero() {
           <div style={{ position: "relative" }}>
             <PhoneFrame width={296} />
 
-            {/* Card 1 — reforço de posicionamento (método / clareza), não métrica */}
+            {/* Card 1 — posicionamento: execução com método (+ destaque laranja) */}
             <div
               style={{
                 position: "absolute",
@@ -449,7 +449,7 @@ export default function Hero() {
                 boxShadow: "0 8px 28px rgba(0,0,0,0.09)",
                 animation: "heroFloat1 4.5s ease-in-out infinite",
                 minWidth: "158px",
-                maxWidth: "200px",
+                maxWidth: "210px",
               }}
             >
               <div
@@ -463,7 +463,7 @@ export default function Hero() {
                   fontWeight: 500,
                 }}
               >
-                Estrutura
+                Execução
               </div>
               <div
                 style={{
@@ -475,7 +475,7 @@ export default function Hero() {
                   letterSpacing: "-0.02em",
                 }}
               >
-                Com clareza
+                com método
                 <span style={{ color: "var(--color-accent)" }}>+</span>
               </div>
             </div>

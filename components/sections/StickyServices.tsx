@@ -67,28 +67,6 @@ function IconAI() {
     </svg>
   );
 }
-function IconRoadmap() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-      <rect x="3" y="4" width="18" height="3" rx="1.5" fill="#e84c1e" />
-      <rect x="3" y="10.5" width="13" height="3" rx="1.5" fill="#e84c1e" opacity="0.6" />
-      <rect x="3" y="17" width="8" height="3" rx="1.5" fill="#e84c1e" opacity="0.35" />
-    </svg>
-  );
-}
-function IconJourney() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-      <circle cx="4" cy="12" r="2.5" stroke="#10b981" strokeWidth="1.5" fill="none" />
-      <circle cx="12" cy="6" r="2.5" stroke="#10b981" strokeWidth="1.5" fill="none" />
-      <circle cx="20" cy="12" r="2.5" stroke="#10b981" strokeWidth="1.5" fill="none" />
-      <circle cx="12" cy="18" r="2.5" stroke="#10b981" strokeWidth="1.5" fill="none" />
-      <path d="M6.5 12h3M14.5 12h3M12 8.5v3" stroke="#10b981" strokeWidth="1.4" strokeLinecap="round" />
-      <path d="M5.8 10.2l4.4-2.6M13.8 7.6l4.4 2.6M18.2 13.8l-4.4 2.6M10.2 16.4L5.8 13.8" stroke="#10b981" strokeWidth="1.2" strokeLinecap="round" />
-    </svg>
-  );
-}
-
 // ── Service data ──────────────────────────────────────────────
 
 const SERVICES = [
@@ -133,20 +111,6 @@ const SERVICES = [
     title: "IA, Integrações e Fluxos",
     description: "Integrações e automações com IA para reduzir atrito e acelerar o caminho até o cliente.",
     tags: ["ChatGPT", "Make", "Zapier", "Automação"],
-  },
-  {
-    number: "07",
-    icon: <IconRoadmap />,
-    title: "Prioridade de Entregas",
-    description: "O que entra primeiro e o que vem depois, para manter continuidade e evitar retrabalho.",
-    tags: ["Diagnóstico", "Roadmap", "Sprints", "Ajustes"],
-  },
-  {
-    number: "08",
-    icon: <IconJourney />,
-    title: "Jornada do Cliente",
-    description: "Organização dos pontos de contato para respostas rápidas e condução clara ao agendamento.",
-    tags: ["Mapeamento", "Funil", "Follow-up", "Conversão"],
   },
 ];
 

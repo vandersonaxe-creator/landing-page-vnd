@@ -3,8 +3,8 @@
 import { AnimatedCounter } from "@/components/ui/AnimatedCounter";
 
 const METRICS = [
-  { value: 47, suffix: "+", label: "Empresas atendidas" },
   { value: 6, suffix: "", label: "Soluções integradas" },
+  { value: 4, suffix: "", label: "Fases do método" },
   { value: 3, suffix: "+", label: "Anos de operação" },
 ] as const;
 

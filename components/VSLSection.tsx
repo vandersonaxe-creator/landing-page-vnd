@@ -309,8 +309,8 @@ export default function VSLSection() {
           }}
         >
           {[
-            { icon: "✓", text: "47+ empresas atendidas" },
-            { icon: "✓", text: "Desde 2022" },
+            { icon: "✓", text: "Execução com método" },
+            { icon: "✓", text: "Processo estruturado" },
             { icon: "✓", text: "Atendimento direto" },
           ].map((item) => (
             <span
