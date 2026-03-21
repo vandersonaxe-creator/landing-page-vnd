@@ -152,22 +152,85 @@ export default function Home() {
         {/* 6 — O Método: como funciona (primeiro o método, depois os serviços) */}
         <HowItWorks />
 
-        {/* 7 — Soluções: os serviços dentro do método */}
+        {/* 7b — CTA intermediário após o método */}
+        <section
+          style={{
+            background: "var(--color-bg)",
+            borderTop: "0.5px solid var(--color-border)",
+            borderBottom: "0.5px solid var(--color-border)",
+            padding: "clamp(48px, 6vw, 72px) clamp(24px, 5vw, 80px)",
+            textAlign: "center",
+          }}
+        >
+          <div style={{ maxWidth: "640px", margin: "0 auto" }}>
+            <p
+              data-scroll-reveal
+              style={{
+                fontFamily: "var(--font-display), sans-serif",
+                fontSize: "clamp(20px, 2.8vw, 32px)",
+                fontWeight: 800,
+                color: "var(--color-text)",
+                lineHeight: 1.2,
+                letterSpacing: "-0.02em",
+                marginBottom: "12px",
+              }}
+            >
+              Pronto para organizar sua operação digital?
+            </p>
+            <p
+              data-scroll-reveal
+              style={{
+                fontFamily: "var(--font-body), sans-serif",
+                fontSize: "15px",
+                color: "var(--color-muted)",
+                lineHeight: 1.65,
+                marginBottom: "28px",
+              }}
+            >
+              A análise é gratuita e leva menos de 20 minutos.
+            </p>
+            <a
+              href="#agendar"
+              data-scroll-reveal
+              className="btn-cta-hero"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "8px",
+                padding: "14px 36px",
+                background: "var(--color-accent)",
+                color: "white",
+                borderRadius: "4px",
+                textDecoration: "none",
+                fontFamily: "var(--font-body), sans-serif",
+                fontSize: "14px",
+                fontWeight: 700,
+                letterSpacing: "0.01em",
+                boxShadow: "0 8px 28px rgba(232,76,30,0.28)",
+                transition: "transform 0.25s, background 0.25s, box-shadow 0.25s",
+              }}
+            >
+              Agendar análise gratuita ↗
+            </a>
+          </div>
+        </section>
+
+        {/* 8 — Soluções: os serviços dentro do método */}
         <StickyServices />
 
-        {/* 8 — CTA intermediário: primeira oportunidade de conversão pós-serviços */}
-        <CTABanner />
-
-        {/* 9 — Depoimentos: prova social imediata após os serviços */}
-        <VideoTestimonials />
-
-        {/* 10 — Portfólio: mais prova, com contexto e resultado */}
+        {/* 9 — Portfólio: projetos com contexto, solução e resultado */}
         <PortfolioSection />
 
-        {/* 11 — Agendamento: CTA final escalado */}
+        {/* 10 — Depoimentos: prova social após o portfólio */}
+        <VideoTestimonials />
+
+        {/* 11 — CTA intermediário: oportunidade de conversão pós-prova social */}
+        <CTABanner />
+
+        {/* 12 — Agendamento: CTA final escalado */}
         <BookingSection />
 
-        {/* 12 — FAQ: objeções antes de sair */}
+        {/* 13 — FAQ: objeções antes de sair */}
         <FAQ />
       </main>
       <Footer />

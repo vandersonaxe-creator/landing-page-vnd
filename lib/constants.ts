@@ -15,11 +15,11 @@ export const COMPANY = {
   nomeFantasia: "CLICK AFILIADO",
   cnpj: "57.727.545/0001-11",
   dataFundacao: "17/10/2024",
-  cidadeUF: "Natal/RN",
+  cidadeUF: "Rio das Ostras/RJ",
   whatsApp: "(21) 97919-7180",
   whatsAppNumber: "5521979197180", // sem formatação para link
   email: "contato@clickafiliado.com.br",
-  atendimento: "Natal/RN e online para todo o Brasil",
+  atendimento: "Rio das Ostras/RJ e online para todo o Brasil",
 } as const;
 
 export const WHATSAPP_URL = `https://wa.me/${COMPANY.whatsAppNumber}`;

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import CalComEmbed from "@/components/CalComEmbed";
+import BookingQuiz from "@/components/BookingQuiz";
 
 export default function BookingSection() {
   return (
@@ -228,7 +228,7 @@ export default function BookingSection() {
         </div>
       </div>
 
-      {/* ── Calendar embed ── */}
+      {/* ── Quiz de qualificação + Calendário ── */}
       <div
         style={{
           maxWidth: "1440px",
@@ -236,15 +236,7 @@ export default function BookingSection() {
           padding: "clamp(32px, 5vw, 64px) clamp(24px, 5vw, 80px)",
         }}
       >
-        <div
-          style={{
-            border: "0.5px solid var(--color-border)",
-            borderRadius: "12px",
-            overflow: "hidden",
-          }}
-        >
-          <CalComEmbed />
-        </div>
+        <BookingQuiz />
       </div>
     </section>
   );
