@@ -1,6 +1,7 @@
 "use client";
 
 import { usePageReveal } from "@/hooks/usePageReveal";
+import { useHeroIntroReveal } from "@/hooks/useHeroIntroReveal";
 import { BRAND } from "@/lib/constants";
 
 function PhoneFrame({ width = 260 }: { width?: number }) {
@@ -119,6 +120,7 @@ function Badge() {
 
 export default function Hero() {
   usePageReveal();
+  useHeroIntroReveal();
 
   return (
     <>
@@ -162,7 +164,7 @@ export default function Hero() {
 
           {/* H1 */}
           <h1
-            data-text-reveal
+            data-hero-intro
             className="text-hero"
             style={{
               color: "var(--color-text)",
@@ -179,7 +181,7 @@ export default function Hero() {
 
           {/* Phone frame — imediatamente após o título */}
           <div
-            data-reveal
+            data-hero-intro
             style={{ display: "flex", justifyContent: "center", marginBottom: "20px" }}
           >
             <PhoneFrame width={210} />
@@ -290,7 +292,7 @@ export default function Hero() {
           </div>
 
           <h1
-            data-text-reveal
+            data-hero-intro
             className="text-hero"
             style={{ color: "var(--color-text)", marginBottom: "18px" }}
           >
@@ -313,7 +315,7 @@ export default function Hero() {
           />
 
           <p
-            data-reveal
+            data-hero-intro
             className="text-body"
             style={{
               color: "var(--color-muted)",
@@ -423,7 +425,7 @@ export default function Hero() {
 
         {/* Right column — phone mockup, anchored, with 2 floating cards */}
         <div
-          data-reveal
+          data-hero-intro
           style={{
             flex: "0 0 auto",
             position: "relative",
