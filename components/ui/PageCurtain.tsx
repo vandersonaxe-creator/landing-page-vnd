@@ -1,16 +1,19 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useCallback, useRef } from "react";
 import gsap from "gsap";
 
 export function PageCurtain() {
   const curtainRef = useRef<HTMLDivElement>(null);
+  const exitStartedRef = useRef(false);
 
-  useEffect(() => {
+  const playExitAnimation = useCallback(() => {
+    if (exitStartedRef.current) return;
+    exitStartedRef.current = true;
+
     const curtain = curtainRef.current;
     if (!curtain) return;
 
-    // Slight delay to ensure font/layout has settled
     gsap.to(curtain, {
       scaleY: 0,
       transformOrigin: "top",
@@ -34,7 +37,27 @@ export function PageCurtain() {
         zIndex: 9998,
         transformOrigin: "top",
         pointerEvents: "none",
+        overflow: "hidden",
       }}
-    />
+    >
+      <video
+        autoPlay
+        muted
+        playsInline
+        onEnded={playExitAnimation}
+        onError={playExitAnimation}
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          zIndex: 9998,
+        }}
+      >
+        <source src="/intro.webm" type="video/webm" />
+      </video>
+    </div>
   );
 }
