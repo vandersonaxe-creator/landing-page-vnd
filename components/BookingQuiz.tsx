@@ -599,7 +599,6 @@ export default function BookingQuiz() {
               setAnswers((a) => ({ ...a, step1: e.target.value }))
             }
             placeholder="Digite o segmento do seu negócio"
-            autoFocus
             style={INPUT_STYLE}
             onFocus={(e) => (e.currentTarget.style.borderColor = ACCENT)}
             onBlur={(e) =>

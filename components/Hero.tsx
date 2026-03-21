@@ -63,9 +63,9 @@ function PhoneFrame({ width = 260 }: { width?: number }) {
 }
 
 const TRUST = [
-  "47+ empresas atendidas",
-  "Sem contrato fixo",
-  "Entrega por etapas",
+  "Diagnóstico estratégico",
+  "Implantação por prioridade",
+  "Foco em resultado real",
 ];
 
 function CheckIcon() {

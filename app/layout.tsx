@@ -5,6 +5,7 @@ import { SmoothScroll } from "@/components/providers/SmoothScroll";
 import { CustomCursor } from "@/components/ui/CustomCursor";
 import { PageCurtain } from "@/components/ui/PageCurtain";
 import { AmbientBackground } from "@/components/ui/AmbientBackground";
+import { ScrollResetOnLoad } from "@/components/ScrollResetOnLoad";
 
 // Plus Jakarta Sans: clean geometric grotesque — strong, legible at all sizes,
 // instantly professional. No experimental character quirks like Syne.
@@ -47,6 +48,7 @@ export default function RootLayout({
         <CustomCursor />
         <AmbientBackground />
         <SmoothScroll>
+          <ScrollResetOnLoad />
           <div style={{ paddingTop: "64px" }}>
             {children}
           </div>
