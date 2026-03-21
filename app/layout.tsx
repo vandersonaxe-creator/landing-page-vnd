@@ -6,7 +6,7 @@ import { CustomCursor } from "@/components/ui/CustomCursor";
 import { PageCurtain } from "@/components/ui/PageCurtain";
 import { AmbientBackground } from "@/components/ui/AmbientBackground";
 import { ScrollResetOnLoad } from "@/components/ScrollResetOnLoad";
-import { SITE_URL } from "@/lib/constants";
+import { BRAND, SITE_URL } from "@/lib/constants";
 
 // Plus Jakarta Sans: clean geometric grotesque — strong, legible at all sizes,
 // instantly professional. No experimental character quirks like Syne.
@@ -26,11 +26,11 @@ const dmSans = DM_Sans({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "NEXU | Estrutura Digital para Empresas",
+  title: `${BRAND.name} | Estrutura Digital para Empresas`,
   description:
     "Organizamos, corrigimos e implantamos a estrutura digital que sua empresa precisa para atrair, atender e converter melhor.",
   openGraph: {
-    title: "NEXU | Estrutura Digital para Empresas",
+    title: `${BRAND.name} | Estrutura Digital para Empresas`,
     description:
       "Organizamos, corrigimos e implantamos a estrutura digital que sua empresa precisa para atrair, atender e converter melhor.",
     type: "website",

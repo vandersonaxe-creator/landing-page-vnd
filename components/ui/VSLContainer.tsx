@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { BRAND } from "@/lib/constants";
 
 interface VSLContainerProps {
   videoUrl?: string;
@@ -159,7 +160,7 @@ export function VSLContainer({
                     letterSpacing: "-0.02em",
                   }}
                 >
-                  NEXU
+                  {BRAND.name}
                 </span>
                 <span
                   style={{

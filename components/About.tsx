@@ -1,5 +1,7 @@
 "use client";
 
+import { BRAND } from "@/lib/constants";
+
 const ABOUT_VIDEO_SRC = "/videos/secao.webm";
 
 const FEATURES = [
@@ -56,7 +58,7 @@ export default function About() {
                 loop
                 playsInline
                 preload="auto"
-                aria-label="Apresentação sobre a proposta NEXU"
+                aria-label={`Apresentação sobre a proposta ${BRAND.name}`}
               />
               <div
                 className="pointer-events-none absolute inset-0"

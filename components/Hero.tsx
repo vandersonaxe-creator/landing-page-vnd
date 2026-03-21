@@ -1,6 +1,7 @@
 "use client";
 
 import { usePageReveal } from "@/hooks/usePageReveal";
+import { BRAND } from "@/lib/constants";
 
 function PhoneFrame({ width = 260 }: { width?: number }) {
   return (
@@ -46,7 +47,7 @@ function PhoneFrame({ width = 260 }: { width?: number }) {
           allow="autoplay; fullscreen; picture-in-picture"
           allowFullScreen
           loading="lazy"
-          title="NEXU"
+          title={BRAND.name}
         />
       </div>
       <div

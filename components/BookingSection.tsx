@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import BookingQuiz from "@/components/BookingQuiz";
+import { BRAND } from "@/lib/constants";
 
 export default function BookingSection() {
   return (
@@ -109,7 +110,7 @@ export default function BookingSection() {
                 }}
               >
                 <textPath href="#bookingCirclePath" startOffset="0%">
-                  AGENDAR · NEXU · AGENDAR · NEXU ·
+                  {`AGENDAR · ${BRAND.name} · AGENDAR · ${BRAND.name} ·`}
                 </textPath>
               </text>
             </svg>

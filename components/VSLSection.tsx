@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { BRAND } from "@/lib/constants";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // TODO: Substitua esta URL pela URL do seu vídeo VSL real (YouTube ou outro)
@@ -116,7 +117,7 @@ export default function VSLSection() {
               {thumbnail && (
                 <Image
                   src={thumbnail}
-                  alt="Assistir vídeo — NEXU"
+                  alt={`Assistir vídeo — ${BRAND.name}`}
                   fill
                   className="object-cover"
                   sizes="860px"
@@ -216,7 +217,7 @@ export default function VSLSection() {
               {embedUrl && (
                 <iframe
                   src={embedUrl}
-                  title="VSL — NEXU: Estrutura Digital"
+                  title={`VSL — ${BRAND.name}: Estrutura Digital`}
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
                   loading="eager"

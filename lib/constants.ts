@@ -3,7 +3,7 @@ export const SITE_URL = "https://nexupro.com.br" as const;
 
 // Marca exibida no site
 export const BRAND = {
-  name: "NEXU",
+  name: "NEXU.",
   signature: "Estrutura Digital",
 } as const;
 
