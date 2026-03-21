@@ -159,7 +159,7 @@ export function VSLContainer({
                     letterSpacing: "-0.02em",
                   }}
                 >
-                  Vander Pro
+                  NEXU
                 </span>
                 <span
                   style={{

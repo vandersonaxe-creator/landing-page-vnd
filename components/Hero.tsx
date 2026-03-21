@@ -46,7 +46,7 @@ function PhoneFrame({ width = 260 }: { width?: number }) {
           allow="autoplay; fullscreen; picture-in-picture"
           allowFullScreen
           loading="lazy"
-          title="Vander Pro"
+          title="NEXU"
         />
       </div>
       <div
@@ -435,7 +435,7 @@ export default function Hero() {
           <div style={{ position: "relative" }}>
             <PhoneFrame width={296} />
 
-            {/* Card 1 — top right */}
+            {/* Card 1 — reforço de posicionamento (método / clareza), não métrica */}
             <div
               style={{
                 position: "absolute",
@@ -448,31 +448,35 @@ export default function Hero() {
                 padding: "12px 18px",
                 boxShadow: "0 8px 28px rgba(0,0,0,0.09)",
                 animation: "heroFloat1 4.5s ease-in-out infinite",
-                minWidth: "136px",
+                minWidth: "158px",
+                maxWidth: "200px",
               }}
             >
               <div
                 style={{
                   fontSize: "9px",
                   color: "#999",
-                  marginBottom: "4px",
-                  letterSpacing: "0.1em",
+                  marginBottom: "6px",
+                  letterSpacing: "0.12em",
                   textTransform: "uppercase",
                   fontFamily: "var(--font-body), sans-serif",
+                  fontWeight: 500,
                 }}
               >
-                Empresas atendidas
+                Estrutura
               </div>
               <div
                 style={{
                   fontFamily: "var(--font-display)",
-                  fontSize: "26px",
+                  fontSize: "21px",
                   fontWeight: 800,
                   color: "#111",
-                  lineHeight: 1,
+                  lineHeight: 1.15,
+                  letterSpacing: "-0.02em",
                 }}
               >
-                47<span style={{ color: "var(--color-accent)" }}>+</span>
+                Com clareza
+                <span style={{ color: "var(--color-accent)" }}>+</span>
               </div>
             </div>
 

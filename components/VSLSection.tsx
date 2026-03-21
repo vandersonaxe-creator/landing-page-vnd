@@ -116,7 +116,7 @@ export default function VSLSection() {
               {thumbnail && (
                 <Image
                   src={thumbnail}
-                  alt="Assistir vídeo — Vander Pro"
+                  alt="Assistir vídeo — NEXU"
                   fill
                   className="object-cover"
                   sizes="860px"
@@ -216,7 +216,7 @@ export default function VSLSection() {
               {embedUrl && (
                 <iframe
                   src={embedUrl}
-                  title="VSL — Vander Pro: Estrutura Digital"
+                  title="VSL — NEXU: Estrutura Digital"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
                   loading="eager"

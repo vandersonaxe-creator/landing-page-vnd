@@ -109,7 +109,7 @@ export default function BookingSection() {
                 }}
               >
                 <textPath href="#bookingCirclePath" startOffset="0%">
-                  AGENDAR · VANDER PRO · AGENDAR · VANDER PRO ·
+                  AGENDAR · NEXU · AGENDAR · NEXU ·
                 </textPath>
               </text>
             </svg>

@@ -131,9 +131,114 @@ const LABEL_STYLE: React.CSSProperties = {
   marginBottom: "8px",
 };
 
+/** Card da 1ª etapa — visual mais refinado (borda, sombra, faixa superior) */
+const FIRST_STEP_CARD_OUTER: React.CSSProperties = {
+  position: "relative",
+  borderRadius: "24px",
+  padding: "1px",
+  background:
+    "linear-gradient(135deg, rgba(232,76,30,0.35) 0%, rgba(0,0,0,0.06) 45%, rgba(232,76,30,0.15) 100%)",
+  boxShadow:
+    "0 1px 0 rgba(255,255,255,0.9) inset, 0 12px 48px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.04)",
+};
+
+const FIRST_STEP_CARD_INNER: React.CSSProperties = {
+  position: "relative",
+  background: "linear-gradient(180deg, #ffffff 0%, #fafafa 100%)",
+  borderRadius: "23px",
+  padding: "clamp(28px, 5vw, 44px)",
+  overflow: "hidden",
+};
+
+const INPUT_FIRST_STEP: React.CSSProperties = {
+  width: "100%",
+  padding: "16px 18px",
+  background: "rgba(0,0,0,0.03)",
+  border: "1.5px solid rgba(0,0,0,0.1)",
+  borderRadius: "14px",
+  fontSize: "16px",
+  color: "#111111",
+  fontFamily: FB,
+  outline: "none",
+  boxSizing: "border-box",
+  transition: "border-color 0.2s, box-shadow 0.2s, background 0.2s",
+};
+
 // ── Sub-components ────────────────────────────────────────────────────────────
-function ProgressBar({ current, total }: { current: number; total: number }) {
+function ProgressBar({
+  current,
+  total,
+  elegant,
+}: {
+  current: number;
+  total: number;
+  elegant?: boolean;
+}) {
   const pct = Math.round((current / total) * 100);
+  if (elegant) {
+    return (
+      <div style={{ marginBottom: "clamp(28px, 5vw, 36px)" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginBottom: "12px",
+          }}
+        >
+          <span
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "8px",
+              fontSize: "11px",
+              letterSpacing: "0.14em",
+              textTransform: "uppercase",
+              color: ACCENT,
+              fontFamily: FB,
+              fontWeight: 600,
+              padding: "6px 12px",
+              borderRadius: "999px",
+              background: "rgba(232, 76, 30, 0.08)",
+              border: "1px solid rgba(232, 76, 30, 0.12)",
+            }}
+          >
+            Etapa {current} de {total}
+          </span>
+          <span
+            style={{
+              fontSize: "12px",
+              fontWeight: 600,
+              color: "rgba(0,0,0,0.45)",
+              fontFamily: FB,
+              letterSpacing: "-0.02em",
+            }}
+          >
+            {pct}%
+          </span>
+        </div>
+        <div
+          style={{
+            height: "5px",
+            background: "rgba(0,0,0,0.06)",
+            borderRadius: "999px",
+            overflow: "hidden",
+          }}
+        >
+          <div
+            style={{
+              height: "100%",
+              width: `${pct}%`,
+              borderRadius: "999px",
+              transition: "width 0.55s cubic-bezier(0.22, 1, 0.36, 1)",
+              background: `linear-gradient(90deg, ${ACCENT} 0%, #ff7a4d 100%)`,
+              boxShadow: "0 0 12px rgba(232, 76, 30, 0.35)",
+            }}
+          />
+        </div>
+      </div>
+    );
+  }
   return (
     <div style={{ marginBottom: "24px" }}>
       <div
@@ -181,7 +286,51 @@ function ProgressBar({ current, total }: { current: number; total: number }) {
   );
 }
 
-function QuestionHeading({ title, hint }: { title: string; hint: string }) {
+function QuestionHeading({
+  title,
+  hint,
+  variant = "default",
+}: {
+  title: string;
+  hint: string;
+  variant?: "default" | "lead";
+}) {
+  if (variant === "lead") {
+    return (
+      <>
+        <h3
+          style={{
+            fontFamily: FD,
+            fontSize: "clamp(24px, 4.5vw, 30px)",
+            fontWeight: 800,
+            color: "#0a0a0a",
+            letterSpacing: "-0.03em",
+            lineHeight: 1.2,
+            marginBottom: "14px",
+            maxWidth: "520px",
+          }}
+        >
+          {title}
+        </h3>
+        <p
+          style={{
+            fontSize: "14px",
+            color: "rgba(0,0,0,0.5)",
+            fontFamily: FB,
+            marginBottom: "24px",
+            lineHeight: 1.65,
+            maxWidth: "480px",
+            padding: "14px 16px",
+            borderRadius: "12px",
+            background: "rgba(0,0,0,0.03)",
+            border: "1px solid rgba(0,0,0,0.05)",
+          }}
+        >
+          {hint}
+        </p>
+      </>
+    );
+  }
   return (
     <>
       <h3
@@ -585,33 +734,71 @@ export default function BookingQuiz() {
   // ── STEP 0: SEGMENTO (texto livre) ────────────────────────────────────────
   if (step === 0) {
     return (
-      <div ref={topRef} style={CARD_STYLE}>
-        <ProgressBar current={1} total={5} />
-        <QuestionHeading
-          title="Qual é o segmento da sua empresa?"
-          hint="Ex: clínica odontológica, loja de roupas, oficina mecânica..."
-        />
-        <div style={{ maxWidth: "480px", marginBottom: "32px" }}>
-          <input
-            type="text"
-            value={answers.step1 ?? ""}
-            onChange={(e) =>
-              setAnswers((a) => ({ ...a, step1: e.target.value }))
-            }
-            placeholder="Digite o segmento do seu negócio"
-            style={INPUT_STYLE}
-            onFocus={(e) => (e.currentTarget.style.borderColor = ACCENT)}
-            onBlur={(e) =>
-              (e.currentTarget.style.borderColor = "rgba(0,0,0,0.12)")
-            }
+      <div ref={topRef} style={FIRST_STEP_CARD_OUTER}>
+        <div style={FIRST_STEP_CARD_INNER}>
+          <div
+            aria-hidden
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              height: "4px",
+              background: `linear-gradient(90deg, transparent 0%, ${ACCENT} 50%, transparent 100%)`,
+              opacity: 0.5,
+            }}
           />
+          <div style={{ position: "relative" }}>
+            <ProgressBar current={1} total={5} elegant />
+            <QuestionHeading
+              title="Qual é o segmento da sua empresa?"
+              hint="Ex: clínica odontológica, loja de roupas, oficina mecânica..."
+              variant="lead"
+            />
+            <div style={{ maxWidth: "520px", marginBottom: "28px" }}>
+              <label
+                htmlFor="quiz-segmento"
+                style={{
+                  ...LABEL_STYLE,
+                  color: "rgba(0,0,0,0.55)",
+                  marginBottom: "10px",
+                  letterSpacing: "0.12em",
+                }}
+              >
+                Segmento do negócio
+              </label>
+              <input
+                id="quiz-segmento"
+                type="text"
+                value={answers.step1 ?? ""}
+                onChange={(e) =>
+                  setAnswers((a) => ({ ...a, step1: e.target.value }))
+                }
+                placeholder="Digite o segmento do seu negócio"
+                autoComplete="organization"
+                style={INPUT_FIRST_STEP}
+                onFocus={(e) => {
+                  const el = e.currentTarget;
+                  el.style.borderColor = ACCENT;
+                  el.style.background = "#ffffff";
+                  el.style.boxShadow = "0 0 0 3px rgba(232, 76, 30, 0.12)";
+                }}
+                onBlur={(e) => {
+                  const el = e.currentTarget;
+                  el.style.borderColor = "rgba(0,0,0,0.1)";
+                  el.style.background = "rgba(0,0,0,0.03)";
+                  el.style.boxShadow = "none";
+                }}
+              />
+            </div>
+            <NavButtons
+              showBack={false}
+              canContinue={canContinue()}
+              onBack={goBack}
+              onNext={goNext}
+            />
+          </div>
         </div>
-        <NavButtons
-          showBack={false}
-          canContinue={canContinue()}
-          onBack={goBack}
-          onNext={goNext}
-        />
       </div>
     );
   }

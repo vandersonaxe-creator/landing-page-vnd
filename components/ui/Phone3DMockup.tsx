@@ -10,7 +10,7 @@ interface Phone3DMockupProps {
 
 export function Phone3DMockup({
   duration = "0:28",
-  brandName = "Vander Pro",
+  brandName = "NEXU",
 }: Phone3DMockupProps) {
   const phoneRef = useRef<HTMLDivElement>(null);
 
@@ -123,7 +123,7 @@ export function Phone3DMockup({
 
 export function Phone3DMockupMobile({
   duration = "0:28",
-  brandName = "Vander Pro",
+  brandName = "NEXU",
 }: Phone3DMockupProps) {
   return (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "12px" }}>

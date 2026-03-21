@@ -6,6 +6,7 @@ import { CustomCursor } from "@/components/ui/CustomCursor";
 import { PageCurtain } from "@/components/ui/PageCurtain";
 import { AmbientBackground } from "@/components/ui/AmbientBackground";
 import { ScrollResetOnLoad } from "@/components/ScrollResetOnLoad";
+import { SITE_URL } from "@/lib/constants";
 
 // Plus Jakarta Sans: clean geometric grotesque — strong, legible at all sizes,
 // instantly professional. No experimental character quirks like Syne.
@@ -24,15 +25,17 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Vander Pro | Estrutura Digital para Empresas",
+  metadataBase: new URL(SITE_URL),
+  title: "NEXU | Estrutura Digital para Empresas",
   description:
     "Organizamos, corrigimos e implantamos a estrutura digital que sua empresa precisa para atrair, atender e converter melhor.",
   openGraph: {
-    title: "Vander Pro | Estrutura Digital para Empresas",
+    title: "NEXU | Estrutura Digital para Empresas",
     description:
       "Organizamos, corrigimos e implantamos a estrutura digital que sua empresa precisa para atrair, atender e converter melhor.",
     type: "website",
     locale: "pt_BR",
+    url: SITE_URL,
   },
 };
 

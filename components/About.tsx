@@ -1,9 +1,6 @@
 "use client";
 
-import Image from "next/image";
-
-const ABOUT_IMAGE =
-  "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=900&q=80";
+const ABOUT_VIDEO_SRC = "/videos/secao.webm";
 
 const FEATURES = [
   "Clareza do que fazer primeiro na operação digital",
@@ -41,42 +38,39 @@ export default function About() {
       }}
     >
       <div className="container mx-auto max-w-[1280px] px-6 md:px-8 lg:px-12">
-        <div
-          className="grid lg:grid-cols-2"
-          style={{ gap: "80px", alignItems: "start" }}
-        >
-          {/* ─── IMAGEM ─── */}
-          <div data-scroll-reveal className="relative">
+        <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-2 lg:gap-12 xl:gap-16">
+          {/* ─── VÍDEO 1:1 (alinhado ao topo do texto; sticky no desktop) ─── */}
+          <div
+            data-scroll-reveal
+            className="relative mx-auto w-full max-w-[min(100%,440px)] shrink-0 lg:sticky lg:top-24 lg:mx-0 lg:max-w-none lg:self-start"
+          >
             <div
-              style={{
-                borderRadius: "12px",
-                overflow: "hidden",
-                aspectRatio: "3/4",
-                position: "relative",
-              }}
+              className="relative w-full overflow-hidden rounded-xl"
+              style={{ aspectRatio: "1 / 1" }}
             >
-              <Image
-                src={ABOUT_IMAGE}
-                alt="Profissional em reunião de estratégia digital"
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 45vw"
+              <video
+                className="absolute inset-0 h-full w-full object-cover"
+                src={ABOUT_VIDEO_SRC}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="auto"
+                aria-label="Apresentação sobre a proposta NEXU"
               />
               <div
-                className="absolute inset-0"
+                className="pointer-events-none absolute inset-0"
                 style={{
                   background:
-                    "linear-gradient(to top, rgba(8,8,8,0.5) 0%, transparent 50%)",
+                    "linear-gradient(to top, rgba(8,8,8,0.45) 0%, transparent 55%)",
                 }}
               />
             </div>
 
             {/* Badge flutuante */}
             <div
+              className="absolute bottom-5 left-5 md:bottom-6 md:left-6"
               style={{
-                position: "absolute",
-                bottom: "24px",
-                left: "24px",
                 padding: "12px 16px",
                 borderRadius: "10px",
                 border: "0.5px solid var(--color-border-hover)",
@@ -109,8 +103,8 @@ export default function About() {
             </div>
           </div>
 
-          {/* ─── TEXTO ─── */}
-          <div>
+          {/* ─── TEXTO: mesma linha de base superior que o vídeo ─── */}
+          <div className="min-w-0 lg:max-w-[min(100%,36rem)] xl:max-w-[min(100%,38rem)]">
             <div data-scroll-reveal>
               {/* Label */}
               <p
@@ -129,7 +123,7 @@ export default function About() {
               {/* H2 */}
               <h2
                 data-text-reveal
-                className="font-bold text-[var(--color-text)]"
+                className="font-bold text-[var(--color-text)] text-[clamp(1.5rem,3.5vw,2.25rem)] leading-tight tracking-tight"
               >
                 Não entregamos peças soltas. Montamos uma operação digital que
                 faz sentido no seu momento.
@@ -139,10 +133,10 @@ export default function About() {
               <p
                 style={{
                   marginTop: "16px",
-                  fontSize: "15px",
+                  fontSize: "clamp(14px, 1.6vw, 15px)",
                   color: "var(--color-muted)",
                   lineHeight: 1.8,
-                  maxWidth: "480px",
+                  maxWidth: "min(100%, 34rem)",
                   fontFamily: "var(--font-body), sans-serif",
                 }}
               >
