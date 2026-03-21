@@ -25,8 +25,7 @@ const PORTFOLIO_ITEMS = [
     tag: "01",
     category: "SITES & LANDING PAGES · CONVERSÃO",
     title: "Modelos prontos para o seu negócio",
-    image:
-      "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=800&q=80",
+    image: "/images/portfolio-modelos-landing.png",
     scenario:
       "Empresas que precisam de presença digital profissional rápida, sem pagar do zero por um site personalizado.",
     result: "» Escolha um modelo, personalize e publique em dias.",
@@ -113,16 +112,24 @@ export default function PortfolioSection() {
 
         {/* Grid */}
         <div className="grid gap-6 md:grid-cols-3">
-          {PORTFOLIO_ITEMS.map((item) => (
+          {PORTFOLIO_ITEMS.map((item) => {
+            const isPortfolioHighlight = item.id === "sites-landing";
+            return (
             <div
               key={item.id}
               data-scroll-reveal
               className="portfolio-item group relative overflow-hidden rounded-xl"
               style={{
-                border: "0.5px solid var(--color-border)",
+                border: isPortfolioHighlight
+                  ? "2px solid rgba(232, 76, 30, 0.45)"
+                  : "0.5px solid var(--color-border)",
                 background: "var(--color-bg)",
                 display: "flex",
                 flexDirection: "column",
+                boxShadow: isPortfolioHighlight
+                  ? "0 12px 40px rgba(232, 76, 30, 0.2), 0 0 0 1px rgba(232, 76, 30, 0.12)"
+                  : undefined,
+                transform: isPortfolioHighlight ? "translateY(-4px)" : undefined,
               }}
             >
               {/* Image — card 01: área superior clicável (abre modal de modelos) */}
@@ -181,6 +188,26 @@ export default function PortfolioSection() {
                     {item.tag}
                   </span>
                 </div>
+
+                {isPortfolioHighlight ? (
+                  <div
+                    className="absolute top-3 right-3 z-[6] pointer-events-none"
+                    style={{
+                      background: "var(--color-accent)",
+                      color: "white",
+                      fontSize: "9px",
+                      fontWeight: 700,
+                      letterSpacing: "0.12em",
+                      textTransform: "uppercase",
+                      padding: "6px 10px",
+                      borderRadius: "6px",
+                      fontFamily: "var(--font-body), sans-serif",
+                      boxShadow: "0 4px 16px rgba(232, 76, 30, 0.45)",
+                    }}
+                  >
+                    Portfólio em destaque
+                  </div>
+                ) : null}
 
                 {/* Category on image */}
                 <div className="absolute bottom-0 left-0 right-0 p-4">
@@ -360,7 +387,8 @@ export default function PortfolioSection() {
                 ) : null}
               </div>
             </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Note */}
