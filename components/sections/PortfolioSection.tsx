@@ -4,19 +4,68 @@ import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 import type { KeyboardEvent as ReactKeyboardEvent } from "react";
 
+/** Imagens Unsplash (tons neutros / profissionais) — lembrete “Em breve” permanece sobre a miniatura */
 const MODEL_NICHES = [
-  "Eletricista",
-  "Ar-condicionado",
-  "Clínica Odontológica",
-  "Barbearia",
-  "Advocacia",
-  "Consultório Médico",
-  "Restaurante",
-  "Academia / Personal",
-  "Imobiliária",
-  "Contabilidade",
-  "Pet Shop",
-  "Loja de Roupas",
+  {
+    name: "Eletricista",
+    image:
+      "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=600&q=80",
+  },
+  {
+    name: "Ar-condicionado",
+    image:
+      "https://images.unsplash.com/photo-1585338447937-7082f8fc2d55?w=600&q=80",
+  },
+  {
+    name: "Clínica Odontológica",
+    image:
+      "https://images.unsplash.com/photo-1606811971618-4486b558f7ad?w=600&q=80",
+  },
+  {
+    name: "Barbearia",
+    image:
+      "https://images.unsplash.com/photo-1503951914875-452162b0f3f4?w=600&q=80",
+  },
+  {
+    name: "Advocacia",
+    image:
+      "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=600&q=80",
+  },
+  {
+    name: "Consultório Médico",
+    image:
+      "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&q=80",
+  },
+  {
+    name: "Restaurante",
+    image:
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&q=80",
+  },
+  {
+    name: "Academia / Personal",
+    image:
+      "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&q=80",
+  },
+  {
+    name: "Imobiliária",
+    image:
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=80",
+  },
+  {
+    name: "Contabilidade",
+    image:
+      "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&q=80",
+  },
+  {
+    name: "Pet Shop",
+    image:
+      "https://images.unsplash.com/photo-1548199973-03cce0bbcdbf?w=600&q=80",
+  },
+  {
+    name: "Loja de Roupas",
+    image:
+      "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&q=80",
+  },
 ] as const;
 
 const PORTFOLIO_ITEMS = [
@@ -470,9 +519,9 @@ export default function PortfolioSection() {
               </p>
 
               <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 md:gap-4">
-                {MODEL_NICHES.map((name) => (
+                {MODEL_NICHES.map((item) => (
                   <a
-                    key={name}
+                    key={item.name}
                     href="#"
                     onClick={(e) => e.preventDefault()}
                     className="group relative block rounded-lg transition-transform duration-200 hover:-translate-y-0.5"
@@ -485,42 +534,45 @@ export default function PortfolioSection() {
                     <div
                       className="relative overflow-hidden rounded-lg"
                       style={{
-                        background: "#F5F5F5",
+                        background: "#eaeae8",
                         border: "0.5px solid var(--color-border)",
+                        aspectRatio: "16/9",
                       }}
                     >
+                      <Image
+                        src={item.image}
+                        alt={`Modelo ${item.name} — em breve`}
+                        fill
+                        className="object-cover transition-transform duration-300 group-hover:scale-105"
+                        sizes="(max-width: 640px) 45vw, 22vw"
+                      />
+                      {/* Leitura do texto + contraste com o estilo da landing */}
                       <div
-                        className="flex items-center justify-center"
-                        style={{ aspectRatio: "16/9" }}
+                        className="pointer-events-none absolute inset-0"
+                        style={{
+                          background:
+                            "linear-gradient(to top, rgba(8,8,8,0.55) 0%, rgba(8,8,8,0.15) 45%, transparent 100%)",
+                        }}
+                      />
+                      {/* Lembrete sempre visível */}
+                      <div
+                        className="pointer-events-none absolute inset-0 flex items-center justify-center"
+                        style={{ zIndex: 1 }}
                       >
                         <span
                           style={{
-                            fontSize: "11px",
-                            letterSpacing: "0.06em",
-                            color: "var(--color-muted-2)",
-                            fontFamily: "var(--font-body), sans-serif",
-                          }}
-                        >
-                          Em breve
-                        </span>
-                      </div>
-                      {/* Hover badge */}
-                      <div
-                        className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-200 group-hover:opacity-100"
-                        style={{ background: "rgba(0,0,0,0.45)" }}
-                      >
-                        <span
-                          style={{
-                            fontSize: "11px",
+                            fontSize: "10px",
                             fontWeight: 700,
-                            letterSpacing: "0.08em",
+                            letterSpacing: "0.1em",
                             textTransform: "uppercase",
-                            color: "white",
+                            color: "#f0ede6",
                             fontFamily: "var(--font-body), sans-serif",
-                            padding: "6px 10px",
+                            padding: "7px 12px",
                             borderRadius: "6px",
-                            background: "rgba(0,0,0,0.55)",
-                            border: "0.5px solid rgba(255,255,255,0.2)",
+                            background: "rgba(17,17,17,0.62)",
+                            backdropFilter: "blur(8px)",
+                            border: "0.5px solid rgba(255,255,255,0.18)",
+                            boxShadow: "0 4px 16px rgba(0,0,0,0.25)",
                           }}
                         >
                           Em breve
@@ -537,7 +589,7 @@ export default function PortfolioSection() {
                         lineHeight: 1.35,
                       }}
                     >
-                      {name}
+                      {item.name}
                     </p>
                   </a>
                 ))}
