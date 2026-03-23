@@ -9,6 +9,7 @@ type VideoItem = {
   description: string;
   youtubeUrl: string;
   enabled: boolean;
+  thumbnail?: string;
 };
 
 function getYouTubeId(inputUrl: string) {
@@ -62,6 +63,7 @@ export default function VideoTestimonials() {
         youtubeUrl:
           "https://customer-trj1pq1f1bco13hq.cloudflarestream.com/21c5785c8993001f905df4fef76eab8f/watch",
         enabled: true,
+        thumbnail: "/images/depoimento-rafael.png",
       },
       {
         id: "nutricionista",
@@ -71,6 +73,7 @@ export default function VideoTestimonials() {
         youtubeUrl:
           "https://customer-trj1pq1f1bco13hq.cloudflarestream.com/7c2247e7cd3c5da2b5671e4cbd52e6c6/watch",
         enabled: true,
+        thumbnail: "/images/depoimento-amanda.png",
       },
       {
         id: "depoimento-3",
@@ -80,6 +83,7 @@ export default function VideoTestimonials() {
         youtubeUrl:
           "https://customer-trj1pq1f1bco13hq.cloudflarestream.com/ed2960981f93ea74ad588abc8b22320b/watch",
         enabled: true,
+        thumbnail: "/images/depoimento-wilton.png",
       },
     ],
     []
@@ -244,7 +248,11 @@ export default function VideoTestimonials() {
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {visibleVideos.map((video, i) => {
             const youtubeId = getYouTubeId(video.youtubeUrl);
-            const thumbnail = youtubeId ? `https://i.ytimg.com/vi/${youtubeId}/hqdefault.jpg` : null;
+            const thumbnail = video.thumbnail
+              ? video.thumbnail
+              : youtubeId
+                ? `https://i.ytimg.com/vi/${youtubeId}/hqdefault.jpg`
+                : null;
 
             return (
               <div key={video.id} data-scroll-reveal>
