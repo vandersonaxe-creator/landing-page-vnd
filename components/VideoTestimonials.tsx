@@ -44,6 +44,13 @@ function getEmbedUrl(youtubeId: string) {
   return `https://www.youtube-nocookie.com/embed/${youtubeId}?${params.toString()}`;
 }
 
+function getVideoSrc(inputUrl: string) {
+  const youtubeId = getYouTubeId(inputUrl);
+  if (youtubeId) return getEmbedUrl(youtubeId);
+  // Para URLs que não são YouTube (ex: Cloudflare Stream), usa a própria URL no iframe.
+  return inputUrl;
+}
+
 export default function VideoTestimonials() {
   const videos: VideoItem[] = useMemo(
     () => [
@@ -52,23 +59,26 @@ export default function VideoTestimonials() {
         title: "Depoimento | Rafael",
         description:
           "Relato real sobre confiança, atendimento e percepção de valor no serviço prestado.",
-        youtubeUrl: "https://youtube.com/shorts/mMmLXTaz_jc",
+        youtubeUrl:
+          "https://customer-trj1pq1f1bco13hq.cloudflarestream.com/21c5785c8993001f905df4fef76eab8f/watch",
         enabled: true,
       },
       {
         id: "nutricionista",
-        title: "Depoimento | Anne",
+        title: "Depoimento | Amanda",
         description:
           "Relato real sobre experiência, profissionalismo e resultado percebido na estrutura digital.",
-        youtubeUrl: "https://youtube.com/shorts/rUkzBbWWbGU",
+        youtubeUrl:
+          "https://customer-trj1pq1f1bco13hq.cloudflarestream.com/7c2247e7cd3c5da2b5671e4cbd52e6c6/watch",
         enabled: true,
       },
       {
         id: "depoimento-3",
-        title: "Depoimento | Cliente",
+        title: "Depoimento | Wilton",
         description:
           "Relato real sobre clareza, estrutura digital e impacto nos resultados do negócio.",
-        youtubeUrl: "https://youtube.com/shorts/RW2aDlfkl-U",
+        youtubeUrl:
+          "https://customer-trj1pq1f1bco13hq.cloudflarestream.com/ed2960981f93ea74ad588abc8b22320b/watch",
         enabled: true,
       },
     ],
@@ -83,8 +93,11 @@ export default function VideoTestimonials() {
     const video = videos.find((v) => v.id === activeVideoId);
     if (!video) return null;
     const youtubeId = getYouTubeId(video.youtubeUrl);
-    if (!youtubeId) return null;
-    return { ...video, youtubeId };
+    return {
+      ...video,
+      youtubeId,
+      videoSrc: getVideoSrc(video.youtubeUrl),
+    };
   }, [activeVideoId, videos]);
 
   const modalRef = useRef<HTMLDivElement | null>(null);
@@ -443,7 +456,7 @@ export default function VideoTestimonials() {
               <div aria-hidden className={`absolute inset-0 bg-gradient-to-br from-white/10 via-white/5 to-transparent transition-opacity duration-200 ${playerLoaded ? "opacity-0" : "opacity-100"}`} />
               <iframe
                 className="absolute inset-0 h-full w-full"
-                src={getEmbedUrl(active.youtubeId)}
+                src={(active as any).videoSrc}
                 title={active.title}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
